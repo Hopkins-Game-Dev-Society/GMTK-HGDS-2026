@@ -78,8 +78,8 @@ namespace BirthdayJobJam.Editor
             CreateViewIfMissing(viewsRoot, GameViewId.Computer, "View - Computer");
             CreateViewIfMissing(viewsRoot, GameViewId.Keyboard, "View - Keyboard");
             CreateViewIfMissing(viewsRoot, GameViewId.DeskDrawer, "View - Desk Drawer");
-            CreateViewIfMissing(viewsRoot, GameViewId.StickyNotes, "View - Sticky Notes");
-            CreateViewIfMissing(viewsRoot, GameViewId.Application, "View - Application");
+            CreateViewIfMissing(viewsRoot, GameViewId.LeftDesk, "View - Left Desk");
+            CreateViewIfMissing(viewsRoot, GameViewId.RightDesk, "View - Right Desk");
         }
 
         private static void CreateViewIfMissing(Transform parent, GameViewId viewId, string objectName)

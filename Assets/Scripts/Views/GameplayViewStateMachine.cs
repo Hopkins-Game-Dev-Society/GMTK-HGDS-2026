@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using BirthdayJobJam.Events;
 using UnityEngine;
 
+//So here the plan is to make it so that the currently active view determines the camera that's active, that can also then
+//impact what elements of the UI are currently active as well as what each of them does.
+
+//States openly visible for use in other contexts such as UI (so you can ask for current state and be sent it)
+
 namespace BirthdayJobJam.Views
 {
     public sealed class GameplayViewStateMachine : MonoBehaviour
@@ -43,8 +48,8 @@ namespace BirthdayJobJam.Views
         public void SwitchToComputer() => SwitchTo(GameViewId.Computer);
         public void SwitchToKeyboard() => SwitchTo(GameViewId.Keyboard);
         public void SwitchToDeskDrawer() => SwitchTo(GameViewId.DeskDrawer);
-        public void SwitchToStickyNotes() => SwitchTo(GameViewId.StickyNotes);
-        public void SwitchToDoor() => SwitchTo(GameViewId.Door);
+        public void SwitchToStickyNotes() => SwitchTo(GameViewId.LeftDesk);
+        public void SwitchToDoor() => SwitchTo(GameViewId.RightDesk);
         public void SwitchToApplication() => SwitchTo(GameViewId.Application);
 
         public void SwitchTo(GameViewId targetView)
