@@ -48,8 +48,8 @@ MonoBehaviour:
   usernameChallengeId: username
   passwordChallengeId: password
   twoFactorChallengeId: two_factor_code
-  correctUsername: applicant22
-  correctPassword: birthday123
+  correctUsername: shuan143@jh.edu
+  correctPassword: iloveultrakill
   correctTwoFactorCode: 0422
   initialStatus: Log in to begin becoming professionally acceptable.
   credentialsAcceptedStatus: Credentials accepted. Two-factor authentication required.
