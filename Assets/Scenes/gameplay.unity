@@ -2466,19 +2466,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSignInPageView
   applicationState: {fileID: 2087953873}
+  content: {fileID: 11400000, guid: 96d77acf14dac457d87171bd92b8d493, type: 2}
+  portalTitleText: {fileID: 234501933}
+  portalSubtitleText: {fileID: 1599627630}
+  progressStepLabelTexts:
+  - {fileID: 1766576206}
+  - {fileID: 1814217957}
+  - {fileID: 1868749270}
+  - {fileID: 667707435}
+  - {fileID: 1167984568}
+  - {fileID: 1060130650}
+  - {fileID: 1740878840}
   pageTitleText: {fileID: 2075604602}
   progressText: {fileID: 1615410022}
   statusText: {fileID: 1686131731}
+  errorPanel: {fileID: 2105782420}
   errorText: {fileID: 2079304625}
+  usernameLabelText: {fileID: 270492849}
   usernameInput: {fileID: 239252714}
+  passwordLabelText: {fileID: 1886944550}
   passwordInput: {fileID: 45022936}
   loginButton: {fileID: 1553175917}
+  loginButtonText: {fileID: 693401695}
   twoFactorGroup: {fileID: 334569268}
+  twoFactorTitleText: {fileID: 842957286}
+  twoFactorBodyText: {fileID: 457530356}
   twoFactorInput: {fileID: 243258332}
   twoFactorButton: {fileID: 623554185}
+  twoFactorButtonText: {fileID: 1013198592}
   refreshButton: {fileID: 552050154}
   refreshButtonText: {fileID: 1730624267}
   nextButton: {fileID: 1129010050}
+  nextButtonText: {fileID: 45154068}
 --- !u!114 &760635856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4919,9 +4938,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a8717b1264f46eb848cf8af165bd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationStateModel
+  flowDefinition: {fileID: 11400000, guid: 8d8c574a3b74d40909068da52a2ba2a8, type: 2}
   sections:
   - sectionId: 10
     displayName: Create Account/Sign In
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -4939,6 +4960,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 20
     displayName: My Information
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -4956,6 +4978,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 30
     displayName: My Experience
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -4973,6 +4996,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 40
     displayName: Application Questions 1 of 2
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -4990,6 +5014,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 50
     displayName: Application Questions 2 of 2
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -5007,6 +5032,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 60
     displayName: Voluntary Disclosures
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -5024,6 +5050,7 @@ MonoBehaviour:
       maxPoints: 1
   - sectionId: 70
     displayName: Review
+    progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:

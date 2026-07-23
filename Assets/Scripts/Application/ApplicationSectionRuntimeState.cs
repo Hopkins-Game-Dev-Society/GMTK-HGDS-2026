@@ -12,6 +12,7 @@ namespace BirthdayJobJam.Application
             Definition = definition;
             SectionId = definition.SectionId;
             DisplayName = definition.DisplayName;
+            ProgressLabel = definition.ProgressLabel;
             RefreshCooldownSeconds = definition.RefreshCooldownSeconds;
             ResetChallengesOnRefresh = definition.ResetChallengesOnRefresh;
 
@@ -33,6 +34,7 @@ namespace BirthdayJobJam.Application
         public ApplicationSectionDefinition Definition { get; }
         public ApplicationSectionId SectionId { get; }
         public string DisplayName { get; }
+        public string ProgressLabel { get; }
         public float RefreshCooldownSeconds { get; }
         public bool ResetChallengesOnRefresh { get; }
         public IReadOnlyList<ApplicationChallengeRuntimeState> Challenges => challenges;

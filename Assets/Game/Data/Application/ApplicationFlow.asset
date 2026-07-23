@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6f36d6a3cc14a3ca82e89f66805ddf, type: 3}
+  m_Name: ApplicationFlow
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationFlowDefinition
+  initialSection: 10
+  sections:
+  - sectionId: 10
+    displayName: Create Account/Sign In
+    progressLabel: 'Create Account
+
+      / Sign In'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: username
+      displayName: Username
+      required: 1
+      maxPoints: 1
+    - challengeId: password
+      displayName: Password
+      required: 1
+      maxPoints: 1
+    - challengeId: two_factor_code
+      displayName: Two-Factor Authentication Code
+      required: 1
+      maxPoints: 1
+  - sectionId: 20
+    displayName: My Information
+    progressLabel: 'My
+
+      Information'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: legal_name
+      displayName: Legal Name
+      required: 1
+      maxPoints: 1
+    - challengeId: date_of_birth
+      displayName: Date of Birth
+      required: 1
+      maxPoints: 1
+    - challengeId: government_id
+      displayName: Government ID
+      required: 1
+      maxPoints: 1
+  - sectionId: 30
+    displayName: My Experience
+    progressLabel: 'My
+
+      Experience'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: previous_job
+      displayName: Previous Job Experience
+      required: 1
+      maxPoints: 1
+    - challengeId: employment_gap
+      displayName: Explain Employment Gap
+      required: 1
+      maxPoints: 1
+    - challengeId: why_not_working_at_12
+      displayName: Why Weren't You Working At 12?
+      required: 1
+      maxPoints: 1
+  - sectionId: 40
+    displayName: Application Questions 1 of 2
+    progressLabel: 'Questions
+
+      1 of 2'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: question_1
+      displayName: Question 1
+      required: 1
+      maxPoints: 1
+    - challengeId: question_2
+      displayName: Question 2
+      required: 1
+      maxPoints: 1
+    - challengeId: question_3
+      displayName: Question 3
+      required: 1
+      maxPoints: 1
+  - sectionId: 50
+    displayName: Application Questions 2 of 2
+    progressLabel: 'Questions
+
+      2 of 2'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: madlibs_personal_statement
+      displayName: Mad-Libs Personal Statement
+      required: 1
+      maxPoints: 1
+    - challengeId: question_4
+      displayName: Question 4
+      required: 1
+      maxPoints: 1
+    - challengeId: question_5
+      displayName: Question 5
+      required: 1
+      maxPoints: 1
+  - sectionId: 60
+    displayName: Voluntary Disclosures
+    progressLabel: 'Voluntary
+
+      Disclosures'
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: visa_sponsorship
+      displayName: Visa Sponsorship Disclosure
+      required: 1
+      maxPoints: 1
+    - challengeId: future_sponsorship
+      displayName: Future Sponsorship Disclosure
+      required: 1
+      maxPoints: 1
+    - challengeId: voluntary_certification
+      displayName: Voluntary Disclosure Certification
+      required: 1
+      maxPoints: 1
+  - sectionId: 70
+    displayName: Review
+    progressLabel: Review
+    refreshCooldownSeconds: 5
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: review_all_fields
+      displayName: Review All Fields
+      required: 1
+      maxPoints: 1
+    - challengeId: final_certification
+      displayName: Final Certification
+      required: 1
+      maxPoints: 1
+  defaultErrorMessage: An error occurred. Please refresh the page to continue.
+  fallbackRefreshCooldownSeconds: 5

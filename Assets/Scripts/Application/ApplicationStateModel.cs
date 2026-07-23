@@ -8,6 +8,7 @@ namespace BirthdayJobJam.Application
     public sealed class ApplicationStateModel : MonoBehaviour
     {
         [Header("Application Structure")]
+        [SerializeField] private ApplicationFlowDefinition flowDefinition;
         [SerializeField] private List<ApplicationSectionDefinition> sections = new List<ApplicationSectionDefinition>();
         [SerializeField] private ApplicationSectionId initialSection = ApplicationSectionId.CreateAccountSignIn;
 
@@ -47,6 +48,7 @@ namespace BirthdayJobJam.Application
         public bool IsOnFinalSection => currentSectionIndex >= runtimeSections.Count - 1;
         public bool CanAdvanceCurrentSection => CurrentSection != null && !CurrentSection.IsBlocked && CurrentSection.IsComplete && !IsOnFinalSection;
         public bool CanRefreshCurrentSection => CurrentSection != null && CurrentSection.IsBlocked && RefreshCooldownRemaining <= 0f;
+        public ApplicationFlowDefinition FlowDefinition => flowDefinition;
 
         public float RefreshCooldownRemaining
         {
@@ -84,19 +86,24 @@ namespace BirthdayJobJam.Application
         {
             runtimeSections.Clear();
 
-            if (sections.Count == 0)
-                UseDefaultJamSections();
+            IReadOnlyList<ApplicationSectionDefinition> activeSections = GetActiveSections();
 
-            for (int i = 0; i < sections.Count; i++)
+            if (activeSections.Count == 0)
             {
-                ApplicationSectionDefinition section = sections[i];
+                UseDefaultJamSections();
+                activeSections = sections;
+            }
+
+            for (int i = 0; i < activeSections.Count; i++)
+            {
+                ApplicationSectionDefinition section = activeSections[i];
                 if (section == null || section.SectionId == ApplicationSectionId.None)
                     continue;
 
                 runtimeSections.Add(new ApplicationSectionRuntimeState(section));
             }
 
-            currentSectionIndex = Mathf.Max(0, FindSectionIndex(initialSection));
+            currentSectionIndex = Mathf.Max(0, FindSectionIndex(GetInitialSection()));
             if (runtimeSections.Count == 0)
                 currentSectionIndex = -1;
 
@@ -178,7 +185,7 @@ namespace BirthdayJobJam.Application
                 return false;
 
             string resolvedErrorMessage = string.IsNullOrWhiteSpace(errorMessage)
-                ? defaultErrorMessage
+                ? GetDefaultErrorMessage()
                 : errorMessage;
 
             ApplicationChallengeRuntimeState challenge = section.FindChallenge(challengeId);
@@ -203,7 +210,7 @@ namespace BirthdayJobJam.Application
                 case ApplicationWrongAnswerConsequence.RequireRefresh:
                     float cooldown = refreshCooldownOverrideSeconds >= 0f
                         ? refreshCooldownOverrideSeconds
-                        : Mathf.Max(fallbackRefreshCooldownSeconds, section.RefreshCooldownSeconds);
+                        : Mathf.Max(GetFallbackRefreshCooldownSeconds(), section.RefreshCooldownSeconds);
 
                     section.Block(resolvedErrorMessage, Time.time + cooldown);
                     PageBlocked?.Invoke(section);
@@ -241,7 +248,7 @@ namespace BirthdayJobJam.Application
             for (int i = 0; i < runtimeSections.Count; i++)
                 runtimeSections[i].ResetAll();
 
-            currentSectionIndex = Mathf.Max(0, FindSectionIndex(initialSection));
+            currentSectionIndex = Mathf.Max(0, FindSectionIndex(GetInitialSection()));
             lastReportedRefreshCooldown = -1f;
 
             RaiseSectionChanged();
@@ -251,8 +258,49 @@ namespace BirthdayJobJam.Application
         [ContextMenu("Use Default Jam Sections")]
         public void UseDefaultJamSections()
         {
+            flowDefinition = null;
             sections = DefaultApplicationSections.Create();
             initialSection = ApplicationSectionId.CreateAccountSignIn;
+        }
+
+        public void SetFlowDefinition(ApplicationFlowDefinition definition, bool reinitialize = true)
+        {
+            flowDefinition = definition;
+
+            if (reinitialize)
+                Initialize();
+        }
+
+        private IReadOnlyList<ApplicationSectionDefinition> GetActiveSections()
+        {
+            if (flowDefinition != null && flowDefinition.Sections != null && flowDefinition.Sections.Count > 0)
+                return flowDefinition.Sections;
+
+            return sections;
+        }
+
+        private ApplicationSectionId GetInitialSection()
+        {
+            if (flowDefinition != null && flowDefinition.InitialSection != ApplicationSectionId.None)
+                return flowDefinition.InitialSection;
+
+            return initialSection;
+        }
+
+        private string GetDefaultErrorMessage()
+        {
+            if (flowDefinition != null && !string.IsNullOrWhiteSpace(flowDefinition.DefaultErrorMessage))
+                return flowDefinition.DefaultErrorMessage;
+
+            return defaultErrorMessage;
+        }
+
+        private float GetFallbackRefreshCooldownSeconds()
+        {
+            if (flowDefinition != null)
+                return flowDefinition.FallbackRefreshCooldownSeconds;
+
+            return fallbackRefreshCooldownSeconds;
         }
 
         private int FindSectionIndex(ApplicationSectionId sectionId)
@@ -263,9 +311,10 @@ namespace BirthdayJobJam.Application
                     return i;
             }
 
-            for (int i = 0; i < sections.Count; i++)
+            IReadOnlyList<ApplicationSectionDefinition> activeSections = GetActiveSections();
+            for (int i = 0; i < activeSections.Count; i++)
             {
-                if (sections[i] != null && sections[i].SectionId == sectionId)
+                if (activeSections[i] != null && activeSections[i].SectionId == sectionId)
                     return i;
             }
 

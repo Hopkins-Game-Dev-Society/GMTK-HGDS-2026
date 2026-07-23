@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da862f04af404014b89ddca2f3e43c9, type: 3}
+  m_Name: SignInPageContent
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSignInPageContent
+  portalTitle: TINY CORP CAREERS PORTAL
+  portalSubtitle: 'Application deadline: your 22nd birthday. Please complete all
+    fields before government agents complete you.'
+  fallbackPageTitle: Applicant Portal
+  usernameLabel: Username
+  passwordLabel: Password
+  loginButtonLabel: Log In
+  twoFactorTitle: Two-factor authentication
+  twoFactorBody: Your phone buzzes somewhere under the disaster drawer. For now,
+    enter the temp code.
+  twoFactorButtonLabel: Verify
+  refreshButtonLabel: Refresh
+  nextButtonLabel: Next >
+  usernamePlaceholder: try applicant22
+  passwordPlaceholder: try birthday123
+  twoFactorPlaceholder: try 0422
+  usernameChallengeId: username
+  passwordChallengeId: password
+  twoFactorChallengeId: two_factor_code
+  correctUsername: applicant22
+  correctPassword: birthday123
+  correctTwoFactorCode: 0422
+  initialStatus: Log in to begin becoming professionally acceptable.
+  credentialsAcceptedStatus: Credentials accepted. Two-factor authentication required,
+    because of course it is.
+  signInCompleteStatus: Sign-in complete. You may proceed to My Information.
+  pageRefreshedStatus: Page refreshed. Try to behave more employably this time.
+  sectionAdvancedStatus: Advanced to the next application section.
+  pageBlockedStatus: Page error. Refresh required.
+  delicatePortalStatus: The portal has entered a delicate emotional state.
+  sectionLoadedStatusFormat: Loaded {0}.
+  unavailableStatus: Applicant portal unavailable.
+  wrongUsernameError: Username not recognized. Please refresh the page to continue.
+  wrongPasswordError: Password rejected. Please refresh the page before trying again.
+  wrongTwoFactorError: Authentication code invalid. Please refresh the page to request
+    a new code.
+  progressFormat: '{0}/{1} required items complete'
+  noActiveSectionProgress: No active application section.
+  refreshCooldownFormat: Refresh ({0:0.0}s)
