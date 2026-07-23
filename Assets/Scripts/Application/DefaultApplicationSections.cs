@@ -14,9 +14,9 @@ namespace BirthdayJobJam.Application
                     Challenge("two_factor_code", "Two-Factor Authentication Code")),
 
                 Section(ApplicationSectionId.MyInformation, "My Information", "My\nInformation",
-                    Challenge("legal_name", "Legal Name"),
-                    Challenge("date_of_birth", "Date of Birth"),
-                    Challenge("government_id", "Government ID")),
+                    Challenge("first_name", "First Name"),
+                    Challenge("last_name", "Last Name"),
+                    Challenge("date_of_birth", "Date of Birth")),
 
                 Section(ApplicationSectionId.MyExperience, "My Experience", "My\nExperience",
                     Challenge("previous_job", "Previous Job Experience"),

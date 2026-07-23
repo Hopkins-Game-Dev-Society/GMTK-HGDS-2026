@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BirthdayJobJam.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +17,15 @@ namespace BirthdayJobJam.Application
         [Header("Model")]
         [SerializeField] private ApplicationStateModel applicationState;
         [SerializeField] private ApplicationSignInPageContent content;
+        [SerializeField] private ApplicationMyInformationPageContent myInformationContent;
 
         [Header("Portal Chrome")]
         [SerializeField] private Text portalTitleText;
         [SerializeField] private Text portalSubtitleText;
         [SerializeField] private Text[] progressStepLabelTexts;
+        [SerializeField] private Image[] progressStepDotImages;
+        [SerializeField] private Color activeProgressStepColor = new Color(0.13f, 0.42f, 0.86f, 1f);
+        [SerializeField] private Color inactiveProgressStepColor = new Color(0.68f, 0.68f, 0.68f, 1f);
 
         [Header("Page Text")]
         [SerializeField] private Text pageTitleText;
@@ -30,6 +35,7 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Text errorText;
 
         [Header("Login Controls")]
+        [SerializeField] private GameObject signInFormPanel;
         [SerializeField] private Text usernameLabelText;
         [SerializeField] private InputField usernameInput;
         [SerializeField] private Text passwordLabelText;
@@ -44,6 +50,22 @@ namespace BirthdayJobJam.Application
         [SerializeField] private InputField twoFactorInput;
         [SerializeField] private Button twoFactorButton;
         [SerializeField] private Text twoFactorButtonText;
+
+        [Header("My Information Controls")]
+        [SerializeField] private GameObject myInformationPanel;
+        [SerializeField] private Text myInformationIntroText;
+        [SerializeField] private Text firstNameLabelText;
+        [SerializeField] private InputField firstNameInput;
+        [SerializeField] private Text lastNameLabelText;
+        [SerializeField] private InputField lastNameInput;
+        [SerializeField] private Button confirmNameButton;
+        [SerializeField] private Text confirmNameButtonText;
+        [SerializeField] private GameObject dateOfBirthGroup;
+        [SerializeField] private Text dateOfBirthLabelText;
+        [SerializeField] private InputField dateOfBirthInput;
+        [SerializeField] private Text dateOfBirthHintText;
+        [SerializeField] private Button confirmDateOfBirthButton;
+        [SerializeField] private Text confirmDateOfBirthButtonText;
 
         [Header("Navigation")]
         [SerializeField] private Button refreshButton;
@@ -120,6 +142,45 @@ namespace BirthdayJobJam.Application
             Render();
         }
 
+        public void SubmitNameInformation()
+        {
+            if (!IsOnMyInformationPageAndInteractive())
+                return;
+
+            string firstName = firstNameInput != null ? firstNameInput.text.Trim() : string.Empty;
+            string lastName = lastNameInput != null ? lastNameInput.text.Trim() : string.Empty;
+
+            if (!EqualsAuthoringAnswer(firstName, CorrectFirstName) || !EqualsAuthoringAnswer(lastName, CorrectLastName))
+            {
+                Fail(FirstNameChallengeId, IdentityMismatchError);
+                return;
+            }
+
+            applicationState.MarkChallengeComplete(FirstNameChallengeId);
+            applicationState.MarkChallengeComplete(LastNameChallengeId);
+            SetStatus(NamesAcceptedStatus);
+            Render();
+        }
+
+        public void SubmitDateOfBirth()
+        {
+            if (!IsOnMyInformationPageAndInteractive())
+                return;
+
+            string dateOfBirth = dateOfBirthInput != null ? dateOfBirthInput.text.Trim() : string.Empty;
+            string expectedDateOfBirth = BuildExpectedDateOfBirth(CurrentDateOfBirthFormat);
+
+            if (!string.Equals(dateOfBirth, expectedDateOfBirth, System.StringComparison.Ordinal))
+            {
+                Fail(DateOfBirthChallengeId, DateOfBirthMismatchError);
+                return;
+            }
+
+            applicationState.MarkChallengeComplete(DateOfBirthChallengeId);
+            SetStatus(MyInformationCompleteStatus);
+            Render();
+        }
+
         public void RefreshPage()
         {
             if (applicationState == null)
@@ -141,6 +202,10 @@ namespace BirthdayJobJam.Application
             if (applicationState.TryAdvanceSection())
                 SetStatus(SectionAdvancedStatus);
 
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            if (section != null && section.SectionId == ApplicationSectionId.MyInformation)
+                SetStatus(MyInformationInitialStatus);
+
             Render();
         }
 
@@ -151,22 +216,34 @@ namespace BirthdayJobJam.Application
 
             ApplicationSectionRuntimeState section = applicationState.CurrentSection;
             bool isSignIn = section != null && section.SectionId == ApplicationSectionId.CreateAccountSignIn;
+            bool isMyInformation = section != null && section.SectionId == ApplicationSectionId.MyInformation;
             bool blocked = section != null && section.IsBlocked;
             bool credentialsComplete = IsChallengeComplete(section, UsernameChallengeId) && IsChallengeComplete(section, PasswordChallengeId);
             bool signInComplete = section != null && section.IsComplete;
+            bool namesComplete = IsChallengeComplete(section, FirstNameChallengeId) && IsChallengeComplete(section, LastNameChallengeId);
+            bool myInformationComplete = section != null && section.IsComplete;
 
             SetText(pageTitleText, section != null ? section.DisplayName : FallbackPageTitle);
             SetText(progressText, BuildProgressText(section));
             RenderProgressStepper();
+            RenderDateOfBirthLabel();
 
             if (errorPanel != null)
+            {
                 errorPanel.SetActive(blocked);
+
+                if (blocked)
+                    errorPanel.transform.SetAsLastSibling();
+            }
 
             if (errorText != null)
             {
                 errorText.gameObject.SetActive(blocked);
                 errorText.text = blocked ? section.ErrorMessage : string.Empty;
             }
+
+            if (signInFormPanel != null)
+                signInFormPanel.SetActive(isSignIn);
 
             if (usernameInput != null)
                 usernameInput.interactable = isSignIn && !blocked && !credentialsComplete;
@@ -185,6 +262,27 @@ namespace BirthdayJobJam.Application
 
             if (twoFactorButton != null)
                 twoFactorButton.interactable = isSignIn && !blocked && credentialsComplete && !signInComplete;
+
+            if (myInformationPanel != null)
+                myInformationPanel.SetActive(isMyInformation);
+
+            if (firstNameInput != null)
+                firstNameInput.interactable = isMyInformation && !blocked && !namesComplete;
+
+            if (lastNameInput != null)
+                lastNameInput.interactable = isMyInformation && !blocked && !namesComplete;
+
+            if (confirmNameButton != null)
+                confirmNameButton.interactable = isMyInformation && !blocked && !namesComplete;
+
+            if (dateOfBirthGroup != null)
+                dateOfBirthGroup.SetActive(isMyInformation && namesComplete);
+
+            if (dateOfBirthInput != null)
+                dateOfBirthInput.interactable = isMyInformation && !blocked && namesComplete && !myInformationComplete;
+
+            if (confirmDateOfBirthButton != null)
+                confirmDateOfBirthButton.interactable = isMyInformation && !blocked && namesComplete && !myInformationComplete;
 
             if (nextButton != null)
                 nextButton.interactable = applicationState.CanAdvanceCurrentSection;
@@ -224,6 +322,17 @@ namespace BirthdayJobJam.Application
                 && !section.IsBlocked;
         }
 
+        private bool IsOnMyInformationPageAndInteractive()
+        {
+            if (applicationState == null)
+                return false;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            return section != null
+                && section.SectionId == ApplicationSectionId.MyInformation
+                && !section.IsBlocked;
+        }
+
         private void Fail(string challengeId, string message)
         {
             applicationState.ReportWrongAnswer(
@@ -245,11 +354,21 @@ namespace BirthdayJobJam.Application
             SetText(twoFactorTitleText, TwoFactorTitle);
             SetText(twoFactorBodyText, TwoFactorBody);
             SetText(twoFactorButtonText, TwoFactorButtonLabel);
+            SetText(myInformationIntroText, MyInformationIntroText);
+            SetText(firstNameLabelText, FirstNameLabel);
+            SetText(lastNameLabelText, LastNameLabel);
+            SetText(confirmNameButtonText, ConfirmNameButtonLabel);
+            SetText(confirmDateOfBirthButtonText, ConfirmDateOfBirthButtonLabel);
+            SetText(dateOfBirthHintText, DateOfBirthHintText);
             SetText(refreshButtonText, RefreshButtonLabel);
             SetText(nextButtonText, NextButtonLabel);
             SetInputPlaceholder(usernameInput, UsernamePlaceholder);
             SetInputPlaceholder(passwordInput, PasswordPlaceholder);
             SetInputPlaceholder(twoFactorInput, TwoFactorPlaceholder);
+            SetInputPlaceholder(firstNameInput, FirstNamePlaceholder);
+            SetInputPlaceholder(lastNameInput, LastNamePlaceholder);
+            SetInputPlaceholder(dateOfBirthInput, DateOfBirthPlaceholder);
+            RenderDateOfBirthLabel();
 
             if (statusText != null && string.IsNullOrWhiteSpace(statusText.text))
                 SetStatus(InitialStatus);
@@ -257,12 +376,35 @@ namespace BirthdayJobJam.Application
 
         private void RenderProgressStepper()
         {
-            if (applicationState == null || progressStepLabelTexts == null)
+            if (applicationState == null)
                 return;
 
-            int count = Mathf.Min(progressStepLabelTexts.Length, applicationState.Sections.Count);
-            for (int i = 0; i < count; i++)
-                SetText(progressStepLabelTexts[i], applicationState.Sections[i].ProgressLabel);
+            if (progressStepLabelTexts != null)
+            {
+                int count = Mathf.Min(progressStepLabelTexts.Length, applicationState.Sections.Count);
+                for (int i = 0; i < count; i++)
+                    SetText(progressStepLabelTexts[i], applicationState.Sections[i].ProgressLabel);
+            }
+
+            if (progressStepDotImages == null)
+                return;
+
+            int dotCount = Mathf.Min(progressStepDotImages.Length, applicationState.Sections.Count);
+            int activeIndex = applicationState.CurrentSectionIndex;
+            for (int i = 0; i < dotCount; i++)
+            {
+                if (progressStepDotImages[i] == null)
+                    continue;
+
+                progressStepDotImages[i].color = i == activeIndex
+                    ? activeProgressStepColor
+                    : inactiveProgressStepColor;
+            }
+        }
+
+        private void RenderDateOfBirthLabel()
+        {
+            SetText(dateOfBirthLabelText, Format(DateOfBirthLabelFormat, CurrentDateOfBirthFormat));
         }
 
         private void ClearInputs()
@@ -275,6 +417,15 @@ namespace BirthdayJobJam.Application
 
             if (twoFactorInput != null)
                 twoFactorInput.text = string.Empty;
+
+            if (firstNameInput != null)
+                firstNameInput.text = string.Empty;
+
+            if (lastNameInput != null)
+                lastNameInput.text = string.Empty;
+
+            if (dateOfBirthInput != null)
+                dateOfBirthInput.text = string.Empty;
         }
 
         private void ResolveApplicationState()
@@ -319,6 +470,12 @@ namespace BirthdayJobJam.Application
             if (twoFactorButton != null)
                 twoFactorButton.onClick.AddListener(SubmitTwoFactorCode);
 
+            if (confirmNameButton != null)
+                confirmNameButton.onClick.AddListener(SubmitNameInformation);
+
+            if (confirmDateOfBirthButton != null)
+                confirmDateOfBirthButton.onClick.AddListener(SubmitDateOfBirth);
+
             if (refreshButton != null)
                 refreshButton.onClick.AddListener(RefreshPage);
 
@@ -334,6 +491,12 @@ namespace BirthdayJobJam.Application
             if (twoFactorButton != null)
                 twoFactorButton.onClick.RemoveListener(SubmitTwoFactorCode);
 
+            if (confirmNameButton != null)
+                confirmNameButton.onClick.RemoveListener(SubmitNameInformation);
+
+            if (confirmDateOfBirthButton != null)
+                confirmDateOfBirthButton.onClick.RemoveListener(SubmitDateOfBirth);
+
             if (refreshButton != null)
                 refreshButton.onClick.RemoveListener(RefreshPage);
 
@@ -346,6 +509,9 @@ namespace BirthdayJobJam.Application
             SetStatus(section != null
                 ? Format(SectionLoadedStatusFormat, section.DisplayName)
                 : UnavailableStatus);
+
+            if (section != null && section.SectionId == ApplicationSectionId.MyInformation)
+                SetStatus(MyInformationInitialStatus);
 
             Render();
         }
@@ -451,5 +617,78 @@ namespace BirthdayJobJam.Application
         {
             return string.IsNullOrWhiteSpace(value) ? fallback : value;
         }
+
+        private string CurrentDateOfBirthFormat
+        {
+            get
+            {
+                ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+                int refreshCount = section != null ? section.RefreshCount : 0;
+                IReadOnlyList<string> formats = myInformationContent?.DateOfBirthFormats;
+
+                if (formats == null || formats.Count == 0)
+                    return "MM/YYYY/DD";
+
+                return GetContentText(formats[Mathf.Abs(refreshCount) % formats.Count], "MM/YYYY/DD");
+            }
+        }
+
+        private string BuildExpectedDateOfBirth(string format)
+        {
+            string month = CorrectBirthMonth.ToString("00");
+            string day = CorrectBirthDay.ToString("00");
+            string year = CorrectBirthYear.ToString("0000");
+            string shortYear = Mathf.Abs(CorrectBirthYear % 100).ToString("00");
+
+            switch (format)
+            {
+                case "MM/YYYY/DD":
+                    return $"{month}/{year}/{day}";
+                case "YYYY/DD/MM":
+                    return $"{year}/{day}/{month}";
+                case "DD/YYYY/MM":
+                    return $"{day}/{year}/{month}";
+                case "MM/YY/DD":
+                    return $"{month}/{shortYear}/{day}";
+                case "YY/DD/MM":
+                    return $"{shortYear}/{day}/{month}";
+                case "DD/YY/MM":
+                    return $"{day}/{shortYear}/{month}";
+                default:
+                    return $"{month}/{year}/{day}";
+            }
+        }
+
+        private static bool EqualsAuthoringAnswer(string actual, string expected)
+        {
+            return string.Equals(
+                actual?.Trim(),
+                expected?.Trim(),
+                System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string MyInformationIntroText => GetContentText(myInformationContent?.IntroText, "Confirm your legal identity exactly as it appears in The File.");
+        private string FirstNameLabel => GetContentText(myInformationContent?.FirstNameLabel, "First name");
+        private string LastNameLabel => GetContentText(myInformationContent?.LastNameLabel, "Last name");
+        private string ConfirmNameButtonLabel => GetContentText(myInformationContent?.ConfirmNameButtonLabel, "Confirm Name");
+        private string DateOfBirthLabelFormat => GetContentText(myInformationContent?.DateOfBirthLabelFormat, "Date of birth ({0})");
+        private string DateOfBirthHintText => GetContentText(myInformationContent?.DateOfBirthHintText, "The required date format changes after every refresh.");
+        private string ConfirmDateOfBirthButtonLabel => GetContentText(myInformationContent?.ConfirmDateOfBirthButtonLabel, "Confirm Birth Date");
+        private string FirstNamePlaceholder => GetContentText(myInformationContent?.FirstNamePlaceholder, "...");
+        private string LastNamePlaceholder => GetContentText(myInformationContent?.LastNamePlaceholder, "...");
+        private string DateOfBirthPlaceholder => GetContentText(myInformationContent?.DateOfBirthPlaceholder, "...");
+        private string FirstNameChallengeId => GetContentText(myInformationContent?.FirstNameChallengeId, "first_name");
+        private string LastNameChallengeId => GetContentText(myInformationContent?.LastNameChallengeId, "last_name");
+        private string DateOfBirthChallengeId => GetContentText(myInformationContent?.DateOfBirthChallengeId, "date_of_birth");
+        private string CorrectFirstName => GetContentText(myInformationContent?.CorrectFirstName, "Jamie");
+        private string CorrectLastName => GetContentText(myInformationContent?.CorrectLastName, "Applicant");
+        private int CorrectBirthMonth => myInformationContent != null ? myInformationContent.CorrectBirthMonth : 4;
+        private int CorrectBirthDay => myInformationContent != null ? myInformationContent.CorrectBirthDay : 22;
+        private int CorrectBirthYear => myInformationContent != null ? myInformationContent.CorrectBirthYear : 2004;
+        private string MyInformationInitialStatus => GetContentText(myInformationContent?.InitialStatus, "Enter your personal information. It already knows, but it wants to watch.");
+        private string NamesAcceptedStatus => GetContentText(myInformationContent?.NamesAcceptedStatus, "Name confirmed. The File reluctantly agrees you exist.");
+        private string MyInformationCompleteStatus => GetContentText(myInformationContent?.CompleteStatus, "Personal information confirmed. Proceed before the format changes again somehow.");
+        private string IdentityMismatchError => GetContentText(myInformationContent?.IdentityMismatchError, "These details do not match what we have on file. Please refresh the page to continue.");
+        private string DateOfBirthMismatchError => GetContentText(myInformationContent?.DateOfBirthMismatchError, "This birth date does not match what we have on file. Please refresh the page to continue.");
     }
 }

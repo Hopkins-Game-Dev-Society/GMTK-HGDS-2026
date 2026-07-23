@@ -39,7 +39,7 @@ MonoBehaviour:
   pageRefreshedStatus: Page refreshed. Try to behave more employably this time.
   sectionAdvancedStatus: Advanced to the next application section.
   pageBlockedStatus: Page error. Refresh required.
-  delicatePortalStatus: The portal has entered a delicate emotional state.
+  delicatePortalStatus: Page stuck.
   sectionLoadedStatusFormat: Loaded {0}.
   unavailableStatus: Applicant portal unavailable.
   wrongUsernameError: 'Username or Password incorrect. We won''t tell you which one,

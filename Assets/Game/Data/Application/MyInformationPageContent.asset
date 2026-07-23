@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc1c8239e61f4fe986ac0caeae28f93, type: 3}
+  m_Name: MyInformationPageContent
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationMyInformationPageContent
+  introText: Confirm your legal identity exactly as it appears in the File.
+  firstNameLabel: First name
+  lastNameLabel: Last name
+  confirmNameButtonLabel: Confirm Name
+  dateOfBirthLabelFormat: Date of birth ({0})
+  dateOfBirthHintText: Make sure it's correct.
+  confirmDateOfBirthButtonLabel: Confirm Birth Date
+  firstNamePlaceholder: ...
+  lastNamePlaceholder: ...
+  dateOfBirthPlaceholder: ...
+  firstNameChallengeId: first_name
+  lastNameChallengeId: last_name
+  dateOfBirthChallengeId: date_of_birth
+  correctFirstName: Jamie
+  correctLastName: Applicant
+  correctBirthMonth: 4
+  correctBirthDay: 22
+  correctBirthYear: 2004
+  dateOfBirthFormats:
+  - MM/YYYY/DD
+  - YYYY/DD/MM
+  - DD/YYYY/MM
+  - MM/YY/DD
+  - YY/DD/MM
+  - DD/YY/MM
+  initialStatus: Enter your personal information. We already know, but just making
+    sure you know.
+  namesAcceptedStatus: Name confirmed. You do exist.
+  completeStatus: Personal information confirmed. Proceed.
+  identityMismatchError: These details do not match what we have on file. Please
+    refresh the page to continue.
+  dateOfBirthMismatchError: This birth date does not match what we have on file.
+    Please refresh the page to continue.

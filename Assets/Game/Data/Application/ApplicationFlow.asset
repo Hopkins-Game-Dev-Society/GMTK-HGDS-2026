@@ -42,16 +42,16 @@ MonoBehaviour:
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
-    - challengeId: legal_name
-      displayName: Legal Name
+    - challengeId: first_name
+      displayName: First Name
+      required: 1
+      maxPoints: 1
+    - challengeId: last_name
+      displayName: Last Name
       required: 1
       maxPoints: 1
     - challengeId: date_of_birth
       displayName: Date of Birth
-      required: 1
-      maxPoints: 1
-    - challengeId: government_id
-      displayName: Government ID
       required: 1
       maxPoints: 1
   - sectionId: 30
