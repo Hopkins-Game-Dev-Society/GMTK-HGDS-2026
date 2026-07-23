@@ -46,6 +46,10 @@ namespace BirthdayJobJam.Application
         [SerializeField] private TMP_Text jobListingMinimumQualificationsBodyText;
         [SerializeField] private TMP_Text jobListingBenefitsHeadingText;
         [SerializeField] private TMP_Text jobListingBenefitsBodyText;
+        [SerializeField] private Button jobListingOtherRolesButton;
+        [SerializeField] private TMP_Text jobListingOtherRolesButtonText;
+        [SerializeField] private Color jobListingApplyButtonColor = new Color(0.13f, 0.42f, 0.86f, 1f);
+        [SerializeField] private Color applicationNextButtonColor = new Color(0.62f, 0.65f, 0.72f, 1f);
 
         [Header("Login Controls")]
         [SerializeField] private GameObject signInFormPanel;
@@ -213,6 +217,10 @@ namespace BirthdayJobJam.Application
         {
             if (!hasStartedApplication)
             {
+                ApplicationSectionRuntimeState listingSection = applicationState != null ? applicationState.CurrentSection : null;
+                if (listingSection != null && listingSection.IsBlocked)
+                    return;
+
                 hasStartedApplication = true;
                 SetStatus(InitialStatus);
                 Render();
@@ -229,6 +237,24 @@ namespace BirthdayJobJam.Application
             if (section != null && section.SectionId == ApplicationSectionId.MyInformation)
                 SetStatus(MyInformationInitialStatus);
 
+            Render();
+        }
+
+        public void SelectOtherRole()
+        {
+            if (hasStartedApplication || applicationState == null)
+                return;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            if (section != null && section.IsBlocked)
+                return;
+
+            applicationState.ReportWrongAnswer(
+                JobListingChallengeId,
+                JobListingOtherRolesError,
+                ApplicationWrongAnswerConsequence.RequireRefresh);
+
+            SetStatus(DelicatePortalStatus);
             Render();
         }
 
@@ -269,14 +295,6 @@ namespace BirthdayJobJam.Application
             if (applicationState == null || refreshButton == null)
                 return;
 
-            if (!hasStartedApplication)
-            {
-                refreshButton.interactable = false;
-                if (refreshButtonText != null)
-                    refreshButtonText.text = RefreshButtonLabel;
-                return;
-            }
-
             float cooldown = applicationState.RefreshCooldownRemaining;
             bool canRefresh = applicationState.CanRefreshCurrentSection;
 
@@ -302,6 +320,8 @@ namespace BirthdayJobJam.Application
             SetActive(statusText, true);
             SetActive(refreshButton, true);
             SetActive(jobListingPanel, false);
+            SetActive(jobListingOtherRolesButton, false);
+            SetButtonGraphicColor(nextButton, applicationNextButtonColor);
         }
 
         private void RenderError(ApplicationSectionRuntimeState section, bool blocked)
@@ -394,9 +414,10 @@ namespace BirthdayJobJam.Application
             SetText(jobListingTitleText, JobListingTitle);
             SetText(jobListingDescriptionText, JobListingDescription);
             SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
-            SetText(jobListingMinimumQualificationsBodyText, JobListingMinimumQualificationsBody);
+            SetText(jobListingMinimumQualificationsBodyText, GetJobListingMinimumQualificationsBody(refreshed: false));
             SetText(jobListingBenefitsHeadingText, JobListingBenefitsHeading);
-            SetText(jobListingBenefitsBodyText, JobListingBenefitsBody);
+            SetText(jobListingBenefitsBodyText, GetJobListingBenefitsBody(refreshed: false));
+            SetText(jobListingOtherRolesButtonText, JobListingOtherRolesButtonLabel);
             SetText(refreshButtonText, RefreshButtonLabel);
             SetText(nextButtonText, NextButtonLabel);
             SetInputPlaceholder(usernameInput, UsernamePlaceholder);
@@ -446,27 +467,31 @@ namespace BirthdayJobJam.Application
 
         private void RenderJobListing()
         {
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            bool blocked = section != null && section.IsBlocked;
+            bool refreshed = section != null && section.RefreshCount > 0;
+
             SetText(pageTitleText, JobListingTitle);
+            SetText(jobListingMinimumQualificationsBodyText, GetJobListingMinimumQualificationsBody(refreshed));
+            SetText(jobListingBenefitsBodyText, GetJobListingBenefitsBody(refreshed));
             SetActive(progressText, false);
             SetActive(progressStepper, false);
-            SetActive(errorPanel, false);
             SetActive(signInFormPanel, false);
             SetActive(twoFactorGroup, false);
             SetActive(myInformationPanel, false);
             SetActive(jobListingPanel, true);
             SetActive(statusText, false);
-            SetActive(refreshButton, false);
+            SetActive(refreshButton, true);
+            SetActive(jobListingOtherRolesButton, true);
+            RenderError(section, blocked);
 
-            if (refreshButton != null)
-                refreshButton.interactable = false;
-
-            if (nextButton != null)
-                nextButton.interactable = true;
-
-            if (nextButtonText != null)
-                nextButtonText.text = JobListingContinueButtonLabel;
+            SetInteractable(nextButton, !blocked);
+            SetInteractable(jobListingOtherRolesButton, !blocked);
+            SetText(nextButtonText, JobListingApplyButtonLabel);
+            SetButtonGraphicColor(nextButton, jobListingApplyButtonColor);
 
             SetStatus(string.Empty);
+            RenderRefreshButton();
         }
 
         private void RenderDateOfBirthLabel()
@@ -548,6 +573,9 @@ namespace BirthdayJobJam.Application
 
             if (nextButton != null)
                 nextButton.onClick.AddListener(NextPage);
+
+            if (jobListingOtherRolesButton != null)
+                jobListingOtherRolesButton.onClick.AddListener(SelectOtherRole);
         }
 
         private void RemoveButtonListeners()
@@ -569,6 +597,9 @@ namespace BirthdayJobJam.Application
 
             if (nextButton != null)
                 nextButton.onClick.RemoveListener(NextPage);
+
+            if (jobListingOtherRolesButton != null)
+                jobListingOtherRolesButton.onClick.RemoveListener(SelectOtherRole);
         }
 
         private void HandleSectionChanged(ApplicationSectionRuntimeState section)
@@ -637,6 +668,12 @@ namespace BirthdayJobJam.Application
                 target.interactable = interactable;
         }
 
+        private static void SetButtonGraphicColor(Button button, Color color)
+        {
+            if (button != null && button.targetGraphic != null)
+                button.targetGraphic.color = color;
+        }
+
         private static void SetInputPlaceholder(TMP_InputField input, string value)
         {
             if (input == null || input.placeholder == null)
@@ -679,7 +716,14 @@ namespace BirthdayJobJam.Application
         private string JobListingMinimumQualificationsBody => GetContentText(content?.JobListingMinimumQualificationsBody, "7+ years of industry design experience.\nAbility to design things really, REALLY, well.");
         private string JobListingBenefitsHeading => GetContentText(content?.JobListingBenefitsHeading, "Our Benefits");
         private string JobListingBenefitsBody => GetContentText(content?.JobListingBenefitsBody, "A weekly banana.");
-        private string JobListingContinueButtonLabel => GetContentText(content?.JobListingContinueButtonLabel, "Continue");
+        private string JobListingApplyButtonLabel => GetContentText(content?.JobListingApplyButtonLabel, "Apply");
+        private string JobListingOtherRolesButtonLabel => GetContentText(content?.JobListingOtherRolesButtonLabel, "Other Roles");
+        private string JobListingChallengeId => GetContentText(content?.JobListingChallengeId, "job_listing");
+        private string JobListingOtherRolesError => GetContentText(content?.JobListingOtherRolesError, "This is our only role.");
+        private string JobListingRefreshQualificationSearchText => GetContentText(content?.JobListingRefreshQualificationSearchText, "7+");
+        private string JobListingRefreshQualificationReplacementText => GetContentText(content?.JobListingRefreshQualificationReplacementText, "8+");
+        private string JobListingRefreshBenefitSearchText => GetContentText(content?.JobListingRefreshBenefitSearchText, "weekly");
+        private string JobListingRefreshBenefitReplacementText => GetContentText(content?.JobListingRefreshBenefitReplacementText, "monthly");
         private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try applicant22");
         private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try birthday123");
         private string TwoFactorPlaceholder => GetContentText(content?.TwoFactorPlaceholder, "try 0422");
@@ -708,6 +752,40 @@ namespace BirthdayJobJam.Application
         private static string GetContentText(string value, string fallback)
         {
             return string.IsNullOrWhiteSpace(value) ? fallback : value;
+        }
+
+        private string GetJobListingMinimumQualificationsBody(bool refreshed)
+        {
+            if (!refreshed)
+                return JobListingMinimumQualificationsBody;
+
+            return ReplaceFirst(
+                JobListingMinimumQualificationsBody,
+                JobListingRefreshQualificationSearchText,
+                JobListingRefreshQualificationReplacementText);
+        }
+
+        private string GetJobListingBenefitsBody(bool refreshed)
+        {
+            if (!refreshed)
+                return JobListingBenefitsBody;
+
+            return ReplaceFirst(
+                JobListingBenefitsBody,
+                JobListingRefreshBenefitSearchText,
+                JobListingRefreshBenefitReplacementText);
+        }
+
+        private static string ReplaceFirst(string text, string search, string replacement)
+        {
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(search))
+                return text;
+
+            int index = text.IndexOf(search, System.StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+                return text;
+
+            return text.Remove(index, search.Length).Insert(index, replacement ?? string.Empty);
         }
 
         private string CurrentDateOfBirthFormat

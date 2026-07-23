@@ -27,7 +27,14 @@ namespace BirthdayJobJam.Application
         [TextArea] [SerializeField] private string jobListingMinimumQualificationsBody = "7+ years of industry design experience.\nAbility to design things really, REALLY, well.";
         [SerializeField] private string jobListingBenefitsHeading = "Our Benefits";
         [TextArea] [SerializeField] private string jobListingBenefitsBody = "A weekly banana.";
-        [SerializeField] private string jobListingContinueButtonLabel = "Continue";
+        [SerializeField] private string jobListingApplyButtonLabel = "Apply";
+        [SerializeField] private string jobListingOtherRolesButtonLabel = "Other Roles";
+        [SerializeField] private string jobListingChallengeId = "job_listing";
+        [TextArea] [SerializeField] private string jobListingOtherRolesError = "This is our only role.";
+        [SerializeField] private string jobListingRefreshQualificationSearchText = "7+";
+        [SerializeField] private string jobListingRefreshQualificationReplacementText = "8+";
+        [SerializeField] private string jobListingRefreshBenefitSearchText = "weekly";
+        [SerializeField] private string jobListingRefreshBenefitReplacementText = "monthly";
 
         [Header("Placeholders")]
         [SerializeField] private string usernamePlaceholder = "try applicant22";
@@ -82,7 +89,14 @@ namespace BirthdayJobJam.Application
         public string JobListingMinimumQualificationsBody => jobListingMinimumQualificationsBody;
         public string JobListingBenefitsHeading => jobListingBenefitsHeading;
         public string JobListingBenefitsBody => jobListingBenefitsBody;
-        public string JobListingContinueButtonLabel => jobListingContinueButtonLabel;
+        public string JobListingApplyButtonLabel => jobListingApplyButtonLabel;
+        public string JobListingOtherRolesButtonLabel => jobListingOtherRolesButtonLabel;
+        public string JobListingChallengeId => jobListingChallengeId;
+        public string JobListingOtherRolesError => jobListingOtherRolesError;
+        public string JobListingRefreshQualificationSearchText => jobListingRefreshQualificationSearchText;
+        public string JobListingRefreshQualificationReplacementText => jobListingRefreshQualificationReplacementText;
+        public string JobListingRefreshBenefitSearchText => jobListingRefreshBenefitSearchText;
+        public string JobListingRefreshBenefitReplacementText => jobListingRefreshBenefitReplacementText;
         public string UsernamePlaceholder => usernamePlaceholder;
         public string PasswordPlaceholder => passwordPlaceholder;
         public string TwoFactorPlaceholder => twoFactorPlaceholder;

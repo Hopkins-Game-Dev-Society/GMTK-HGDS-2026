@@ -33,7 +33,15 @@ MonoBehaviour:
     Ability to design things really, REALLY, well.'
   jobListingBenefitsHeading: Our Benefits
   jobListingBenefitsBody: '- A weekly banana.'
-  jobListingContinueButtonLabel: Continue
+  jobListingApplyButtonLabel: Apply
+  jobListingOtherRolesButtonLabel: Other Roles
+  jobListingChallengeId: job_listing
+  jobListingOtherRolesError: There's no other roles at the moment, sorry! Please
+    refresh the page for newest info.
+  jobListingRefreshQualificationSearchText: 7+
+  jobListingRefreshQualificationReplacementText: 8+
+  jobListingRefreshBenefitSearchText: weekly
+  jobListingRefreshBenefitReplacementText: monthly
   usernamePlaceholder: ...
   passwordPlaceholder: ...
   twoFactorPlaceholder: ...
@@ -44,8 +52,7 @@ MonoBehaviour:
   correctPassword: birthday123
   correctTwoFactorCode: 0422
   initialStatus: Log in to begin becoming professionally acceptable.
-  credentialsAcceptedStatus: Credentials accepted. Two-factor authentication required,
-    because of course it is.
+  credentialsAcceptedStatus: Credentials accepted. Two-factor authentication required.
   signInCompleteStatus: Sign-in complete. You may proceed to My Information.
   pageRefreshedStatus: Page refreshed. Try to behave more employably this time.
   sectionAdvancedStatus: Advanced to the next application section.
