@@ -44,8 +44,7 @@ MonoBehaviour:
   unavailableStatus: Applicant portal unavailable.
   wrongUsernameError: 'Username or Password incorrect. We won''t tell you which one,
     or if it''s both. '
-  wrongPasswordError: 'Username or Password incorrect. We won''t tell you which one,
-    or if it''s both. '
+  wrongPasswordError: 'Username or Password incorrect. '
   wrongTwoFactorError: Authentication code invalid.
   progressFormat: '{0}/{1} required items complete'
   noActiveSectionProgress: No active application section.
