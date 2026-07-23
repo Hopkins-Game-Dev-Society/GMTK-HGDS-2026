@@ -38,8 +38,8 @@ MonoBehaviour:
   jobListingChallengeId: job_listing
   jobListingOtherRolesError: There's no other roles at the moment, sorry! Please
     refresh the page for newest info.
-  jobListingRefreshQualificationSearchText: 7+
-  jobListingRefreshQualificationReplacementText: 8+
+  jobListingRefreshQualificationSearchText: 3+
+  jobListingRefreshQualificationReplacementText: 5+
   jobListingRefreshBenefitSearchText: weekly
   jobListingRefreshBenefitReplacementText: monthly
   usernamePlaceholder: ...
