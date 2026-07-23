@@ -489,6 +489,7 @@ namespace BirthdayJobJam.Application
             SetInteractable(jobListingOtherRolesButton, !blocked);
             SetText(nextButtonText, JobListingApplyButtonLabel);
             SetButtonGraphicColor(nextButton, jobListingApplyButtonColor);
+            SetButtonGraphicColor(jobListingOtherRolesButton, jobListingApplyButtonColor);
 
             SetStatus(string.Empty);
             RenderRefreshButton();
