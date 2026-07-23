@@ -20,6 +20,15 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string refreshButtonLabel = "Refresh";
         [SerializeField] private string nextButtonLabel = "Next >";
 
+        [Header("Job Listing")]
+        [SerializeField] private string jobListingTitle = "Entry-Level Designer at Workbay Careers";
+        [TextArea] [SerializeField] private string jobListingDescription = "Workbay Careers is seeking an entry-level designer to design clear, delightful, compliant things under fast-moving, birthday-adjacent deadlines.";
+        [SerializeField] private string jobListingMinimumQualificationsHeading = "Minimum Qualifications";
+        [TextArea] [SerializeField] private string jobListingMinimumQualificationsBody = "7+ years of industry design experience.\nAbility to design things really, REALLY, well.";
+        [SerializeField] private string jobListingBenefitsHeading = "Our Benefits";
+        [TextArea] [SerializeField] private string jobListingBenefitsBody = "A weekly banana.";
+        [SerializeField] private string jobListingContinueButtonLabel = "Continue";
+
         [Header("Placeholders")]
         [SerializeField] private string usernamePlaceholder = "try applicant22";
         [SerializeField] private string passwordPlaceholder = "try birthday123";
@@ -67,6 +76,13 @@ namespace BirthdayJobJam.Application
         public string TwoFactorButtonLabel => twoFactorButtonLabel;
         public string RefreshButtonLabel => refreshButtonLabel;
         public string NextButtonLabel => nextButtonLabel;
+        public string JobListingTitle => jobListingTitle;
+        public string JobListingDescription => jobListingDescription;
+        public string JobListingMinimumQualificationsHeading => jobListingMinimumQualificationsHeading;
+        public string JobListingMinimumQualificationsBody => jobListingMinimumQualificationsBody;
+        public string JobListingBenefitsHeading => jobListingBenefitsHeading;
+        public string JobListingBenefitsBody => jobListingBenefitsBody;
+        public string JobListingContinueButtonLabel => jobListingContinueButtonLabel;
         public string UsernamePlaceholder => usernamePlaceholder;
         public string PasswordPlaceholder => passwordPlaceholder;
         public string TwoFactorPlaceholder => twoFactorPlaceholder;

@@ -15,10 +15,8 @@ MonoBehaviour:
   initialSection: 10
   sections:
   - sectionId: 10
-    displayName: Create Account/Sign In
-    progressLabel: 'Create Account
-
-      / Sign In'
+    displayName: Sign In
+    progressLabel: Sign In
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:

@@ -8,7 +8,7 @@ namespace BirthdayJobJam.Application
         {
             return new List<ApplicationSectionDefinition>
             {
-                Section(ApplicationSectionId.CreateAccountSignIn, "Create Account/Sign In", "Create Account\n/ Sign In",
+                Section(ApplicationSectionId.CreateAccountSignIn, "Sign In", "Sign In",
                     Challenge("username", "Username"),
                     Challenge("password", "Password"),
                     Challenge("two_factor_code", "Two-Factor Authentication Code")),

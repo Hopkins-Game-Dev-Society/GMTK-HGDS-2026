@@ -27,6 +27,8 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Image[] progressStepDotImages;
         [SerializeField] private Color activeProgressStepColor = new Color(0.13f, 0.42f, 0.86f, 1f);
         [SerializeField] private Color inactiveProgressStepColor = new Color(0.68f, 0.68f, 0.68f, 1f);
+        [SerializeField] private Vector2 activeProgressStepSize = new Vector2(28f, 28f);
+        [SerializeField] private Vector2 inactiveProgressStepSize = new Vector2(18f, 18f);
 
         [Header("Page Text")]
         [SerializeField] private TMP_Text pageTitleText;
@@ -34,6 +36,16 @@ namespace BirthdayJobJam.Application
         [SerializeField] private TMP_Text statusText;
         [SerializeField] private GameObject errorPanel;
         [SerializeField] private TMP_Text errorText;
+
+        [Header("Job Listing")]
+        [SerializeField] private GameObject progressStepper;
+        [SerializeField] private GameObject jobListingPanel;
+        [SerializeField] private TMP_Text jobListingTitleText;
+        [SerializeField] private TMP_Text jobListingDescriptionText;
+        [SerializeField] private TMP_Text jobListingMinimumQualificationsHeadingText;
+        [SerializeField] private TMP_Text jobListingMinimumQualificationsBodyText;
+        [SerializeField] private TMP_Text jobListingBenefitsHeadingText;
+        [SerializeField] private TMP_Text jobListingBenefitsBodyText;
 
         [Header("Login Controls")]
         [SerializeField] private GameObject signInFormPanel;
@@ -73,6 +85,8 @@ namespace BirthdayJobJam.Application
         [SerializeField] private TMP_Text refreshButtonText;
         [SerializeField] private Button nextButton;
         [SerializeField] private TMP_Text nextButtonText;
+
+        private bool hasStartedApplication;
 
         private void Awake()
         {
@@ -197,6 +211,14 @@ namespace BirthdayJobJam.Application
 
         public void NextPage()
         {
+            if (!hasStartedApplication)
+            {
+                hasStartedApplication = true;
+                SetStatus(InitialStatus);
+                Render();
+                return;
+            }
+
             if (applicationState == null)
                 return;
 
@@ -224,70 +246,21 @@ namespace BirthdayJobJam.Application
             bool namesComplete = IsChallengeComplete(section, FirstNameChallengeId) && IsChallengeComplete(section, LastNameChallengeId);
             bool myInformationComplete = section != null && section.IsComplete;
 
-            SetText(pageTitleText, section != null ? section.DisplayName : FallbackPageTitle);
-            SetText(progressText, BuildProgressText(section));
+            if (!hasStartedApplication)
+            {
+                RenderJobListing();
+                return;
+            }
+
+            RenderApplicationChrome(section);
             RenderProgressStepper();
             RenderDateOfBirthLabel();
+            RenderError(section, blocked);
+            RenderSignInSection(isSignIn, blocked, credentialsComplete, signInComplete);
+            RenderMyInformationSection(isMyInformation, blocked, namesComplete, myInformationComplete);
 
-            if (errorPanel != null)
-            {
-                errorPanel.SetActive(blocked);
-
-                if (blocked)
-                    errorPanel.transform.SetAsLastSibling();
-            }
-
-            if (errorText != null)
-            {
-                errorText.gameObject.SetActive(blocked);
-                errorText.text = blocked ? section.ErrorMessage : string.Empty;
-            }
-
-            if (signInFormPanel != null)
-                signInFormPanel.SetActive(isSignIn);
-
-            if (usernameInput != null)
-                usernameInput.interactable = isSignIn && !blocked && !credentialsComplete;
-
-            if (passwordInput != null)
-                passwordInput.interactable = isSignIn && !blocked && !credentialsComplete;
-
-            if (loginButton != null)
-                loginButton.interactable = isSignIn && !blocked && !credentialsComplete;
-
-            if (twoFactorGroup != null)
-                twoFactorGroup.SetActive(isSignIn && credentialsComplete);
-
-            if (twoFactorInput != null)
-                twoFactorInput.interactable = isSignIn && !blocked && credentialsComplete && !signInComplete;
-
-            if (twoFactorButton != null)
-                twoFactorButton.interactable = isSignIn && !blocked && credentialsComplete && !signInComplete;
-
-            if (myInformationPanel != null)
-                myInformationPanel.SetActive(isMyInformation);
-
-            if (firstNameInput != null)
-                firstNameInput.interactable = isMyInformation && !blocked && !namesComplete;
-
-            if (lastNameInput != null)
-                lastNameInput.interactable = isMyInformation && !blocked && !namesComplete;
-
-            if (confirmNameButton != null)
-                confirmNameButton.interactable = isMyInformation && !blocked && !namesComplete;
-
-            if (dateOfBirthGroup != null)
-                dateOfBirthGroup.SetActive(isMyInformation && namesComplete);
-
-            if (dateOfBirthInput != null)
-                dateOfBirthInput.interactable = isMyInformation && !blocked && namesComplete && !myInformationComplete;
-
-            if (confirmDateOfBirthButton != null)
-                confirmDateOfBirthButton.interactable = isMyInformation && !blocked && namesComplete && !myInformationComplete;
-
-            if (nextButton != null)
-                nextButton.interactable = applicationState.CanAdvanceCurrentSection;
-
+            SetInteractable(nextButton, applicationState.CanAdvanceCurrentSection);
+            SetText(nextButtonText, NextButtonLabel);
             RenderRefreshButton();
         }
 
@@ -295,6 +268,14 @@ namespace BirthdayJobJam.Application
         {
             if (applicationState == null || refreshButton == null)
                 return;
+
+            if (!hasStartedApplication)
+            {
+                refreshButton.interactable = false;
+                if (refreshButtonText != null)
+                    refreshButtonText.text = RefreshButtonLabel;
+                return;
+            }
 
             float cooldown = applicationState.RefreshCooldownRemaining;
             bool canRefresh = applicationState.CanRefreshCurrentSection;
@@ -310,6 +291,55 @@ namespace BirthdayJobJam.Application
                 else
                     refreshButtonText.text = RefreshButtonLabel;
             }
+        }
+
+        private void RenderApplicationChrome(ApplicationSectionRuntimeState section)
+        {
+            SetText(pageTitleText, section != null ? section.DisplayName : FallbackPageTitle);
+            SetText(progressText, BuildProgressText(section));
+            SetActive(progressText, true);
+            SetActive(progressStepper, true);
+            SetActive(statusText, true);
+            SetActive(refreshButton, true);
+            SetActive(jobListingPanel, false);
+        }
+
+        private void RenderError(ApplicationSectionRuntimeState section, bool blocked)
+        {
+            SetActive(errorPanel, blocked);
+            SetActive(errorText, blocked);
+            SetText(errorText, blocked && section != null ? section.ErrorMessage : string.Empty);
+
+            if (blocked && errorPanel != null)
+                errorPanel.transform.SetAsLastSibling();
+        }
+
+        private void RenderSignInSection(bool isSignIn, bool blocked, bool credentialsComplete, bool signInComplete)
+        {
+            bool canEditCredentials = isSignIn && !blocked && !credentialsComplete;
+            bool canEditTwoFactor = isSignIn && !blocked && credentialsComplete && !signInComplete;
+
+            SetActive(signInFormPanel, isSignIn);
+            SetActive(twoFactorGroup, isSignIn && credentialsComplete);
+            SetInteractable(usernameInput, canEditCredentials);
+            SetInteractable(passwordInput, canEditCredentials);
+            SetInteractable(loginButton, canEditCredentials);
+            SetInteractable(twoFactorInput, canEditTwoFactor);
+            SetInteractable(twoFactorButton, canEditTwoFactor);
+        }
+
+        private void RenderMyInformationSection(bool isMyInformation, bool blocked, bool namesComplete, bool myInformationComplete)
+        {
+            bool canEditName = isMyInformation && !blocked && !namesComplete;
+            bool canEditDateOfBirth = isMyInformation && !blocked && namesComplete && !myInformationComplete;
+
+            SetActive(myInformationPanel, isMyInformation);
+            SetActive(dateOfBirthGroup, isMyInformation && namesComplete);
+            SetInteractable(firstNameInput, canEditName);
+            SetInteractable(lastNameInput, canEditName);
+            SetInteractable(confirmNameButton, canEditName);
+            SetInteractable(dateOfBirthInput, canEditDateOfBirth);
+            SetInteractable(confirmDateOfBirthButton, canEditDateOfBirth);
         }
 
         private bool IsOnSignInPageAndInteractive()
@@ -361,6 +391,12 @@ namespace BirthdayJobJam.Application
             SetText(confirmNameButtonText, ConfirmNameButtonLabel);
             SetText(confirmDateOfBirthButtonText, ConfirmDateOfBirthButtonLabel);
             SetText(dateOfBirthHintText, DateOfBirthHintText);
+            SetText(jobListingTitleText, JobListingTitle);
+            SetText(jobListingDescriptionText, JobListingDescription);
+            SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
+            SetText(jobListingMinimumQualificationsBodyText, JobListingMinimumQualificationsBody);
+            SetText(jobListingBenefitsHeadingText, JobListingBenefitsHeading);
+            SetText(jobListingBenefitsBodyText, JobListingBenefitsBody);
             SetText(refreshButtonText, RefreshButtonLabel);
             SetText(nextButtonText, NextButtonLabel);
             SetInputPlaceholder(usernameInput, UsernamePlaceholder);
@@ -400,7 +436,37 @@ namespace BirthdayJobJam.Application
                 progressStepDotImages[i].color = i == activeIndex
                     ? activeProgressStepColor
                     : inactiveProgressStepColor;
+
+                RectTransform dotRectTransform = progressStepDotImages[i].rectTransform;
+                dotRectTransform.sizeDelta = i == activeIndex
+                    ? activeProgressStepSize
+                    : inactiveProgressStepSize;
             }
+        }
+
+        private void RenderJobListing()
+        {
+            SetText(pageTitleText, JobListingTitle);
+            SetActive(progressText, false);
+            SetActive(progressStepper, false);
+            SetActive(errorPanel, false);
+            SetActive(signInFormPanel, false);
+            SetActive(twoFactorGroup, false);
+            SetActive(myInformationPanel, false);
+            SetActive(jobListingPanel, true);
+            SetActive(statusText, false);
+            SetActive(refreshButton, false);
+
+            if (refreshButton != null)
+                refreshButton.interactable = false;
+
+            if (nextButton != null)
+                nextButton.interactable = true;
+
+            if (nextButtonText != null)
+                nextButtonText.text = JobListingContinueButtonLabel;
+
+            SetStatus(string.Empty);
         }
 
         private void RenderDateOfBirthLabel()
@@ -553,6 +619,24 @@ namespace BirthdayJobJam.Application
                 target.text = value;
         }
 
+        private static void SetActive(Component target, bool active)
+        {
+            if (target != null)
+                target.gameObject.SetActive(active);
+        }
+
+        private static void SetActive(GameObject target, bool active)
+        {
+            if (target != null)
+                target.SetActive(active);
+        }
+
+        private static void SetInteractable(Selectable target, bool interactable)
+        {
+            if (target != null)
+                target.interactable = interactable;
+        }
+
         private static void SetInputPlaceholder(TMP_InputField input, string value)
         {
             if (input == null || input.placeholder == null)
@@ -589,6 +673,13 @@ namespace BirthdayJobJam.Application
         private string TwoFactorButtonLabel => GetContentText(content?.TwoFactorButtonLabel, "Verify");
         private string RefreshButtonLabel => GetContentText(content?.RefreshButtonLabel, "Refresh");
         private string NextButtonLabel => GetContentText(content?.NextButtonLabel, "Next >");
+        private string JobListingTitle => GetContentText(content?.JobListingTitle, "Entry-Level Designer at Workbay Careers");
+        private string JobListingDescription => GetContentText(content?.JobListingDescription, "Workbay Careers is seeking an entry-level designer to design clear, delightful, compliant things under fast-moving, birthday-adjacent deadlines.");
+        private string JobListingMinimumQualificationsHeading => GetContentText(content?.JobListingMinimumQualificationsHeading, "Minimum Qualifications");
+        private string JobListingMinimumQualificationsBody => GetContentText(content?.JobListingMinimumQualificationsBody, "7+ years of industry design experience.\nAbility to design things really, REALLY, well.");
+        private string JobListingBenefitsHeading => GetContentText(content?.JobListingBenefitsHeading, "Our Benefits");
+        private string JobListingBenefitsBody => GetContentText(content?.JobListingBenefitsBody, "A weekly banana.");
+        private string JobListingContinueButtonLabel => GetContentText(content?.JobListingContinueButtonLabel, "Continue");
         private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try applicant22");
         private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try birthday123");
         private string TwoFactorPlaceholder => GetContentText(content?.TwoFactorPlaceholder, "try 0422");

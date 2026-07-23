@@ -183,7 +183,12 @@ namespace BirthdayJobJam.Core
         {
             float clamped = Mathf.Clamp(value, 0f, durationSeconds);
             if (Mathf.Approximately(secondsRemaining, clamped))
+            {
+                if (clamped <= 0f && !hasExpired)
+                    Expire();
+
                 return;
+            }
 
             secondsRemaining = clamped;
             CacheValidatedTime();
@@ -220,7 +225,7 @@ namespace BirthdayJobJam.Core
 
             hasExpired = true;
             isRunning = false;
-            SetSecondsRemaining(0f);
+            SetSecondsRemainingWithoutExpiring(0f);
             Expired?.Invoke();
             timerExpired?.Raise();
         }
@@ -237,6 +242,17 @@ namespace BirthdayJobJam.Core
         {
             lastValidatedDurationSeconds = durationSeconds;
             lastValidatedSecondsRemaining = secondsRemaining;
+        }
+
+        private void SetSecondsRemainingWithoutExpiring(float value)
+        {
+            float clamped = Mathf.Clamp(value, 0f, durationSeconds);
+            if (Mathf.Approximately(secondsRemaining, clamped))
+                return;
+
+            secondsRemaining = clamped;
+            CacheValidatedTime();
+            RaiseTimeChanged();
         }
     }
 }

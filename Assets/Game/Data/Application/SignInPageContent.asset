@@ -23,6 +23,17 @@ MonoBehaviour:
   twoFactorButtonLabel: Verify
   refreshButtonLabel: Refresh
   nextButtonLabel: Next >
+  jobListingTitle: Entry-Level Designer at Workbay Careers
+  jobListingDescription: Workbay Careers is seeking an entry-level designer to design
+    compliant things under fast-moving deadlines.
+  jobListingMinimumQualificationsHeading: Minimum Qualifications
+  jobListingMinimumQualificationsBody: '- 7+ years of industry design experience.
+
+    -
+    Ability to design things really, REALLY, well.'
+  jobListingBenefitsHeading: Our Benefits
+  jobListingBenefitsBody: '- A weekly banana.'
+  jobListingContinueButtonLabel: Continue
   usernamePlaceholder: ...
   passwordPlaceholder: ...
   twoFactorPlaceholder: ...
@@ -42,8 +53,7 @@ MonoBehaviour:
   delicatePortalStatus: Page stuck.
   sectionLoadedStatusFormat: Loaded {0}.
   unavailableStatus: Applicant portal unavailable.
-  wrongUsernameError: 'Username or Password incorrect. We won''t tell you which one,
-    or if it''s both. '
+  wrongUsernameError: 'Username or Password incorrect. '
   wrongPasswordError: 'Username or Password incorrect. '
   wrongTwoFactorError: Authentication code invalid.
   progressFormat: '{0}/{1} required items complete'
