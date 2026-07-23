@@ -36,6 +36,7 @@ namespace BirthdayJobJam.Core
         public float NormalizedRemaining => durationSeconds <= 0f ? 0f : Mathf.Clamp01(secondsRemaining / durationSeconds);
         public bool IsRunning => isRunning;
         public bool HasExpired => hasExpired;
+        public bool StartOnStart => startOnStart;
 
         private void Awake()
         {
@@ -62,11 +63,30 @@ namespace BirthdayJobJam.Core
 
         public void StartTimer()
         {
+            StartTimer(resetToFullDuration: false);
+        }
+
+        public void StartTimer(bool resetToFullDuration)
+        {
             hasExpired = false;
+
+            if (resetToFullDuration || secondsRemaining <= 0f)
+                SetSecondsRemaining(durationSeconds);
+
             isRunning = true;
             Started?.Invoke();
             timerStarted?.Raise();
             RaiseTimeChanged();
+        }
+
+        public void StopTimer()
+        {
+            if (!isRunning)
+                return;
+
+            isRunning = false;
+            Paused?.Invoke();
+            timerPaused?.Raise();
         }
 
         public void Pause()
@@ -94,6 +114,16 @@ namespace BirthdayJobJam.Core
             hasExpired = false;
             isRunning = false;
             SetSecondsRemaining(durationSeconds);
+        }
+
+        public void SetDurationSeconds(float value, bool resetRemaining = true)
+        {
+            durationSeconds = Mathf.Max(1f, value);
+
+            if (resetRemaining)
+                SetSecondsRemaining(durationSeconds);
+            else
+                SetSecondsRemaining(Mathf.Min(secondsRemaining, durationSeconds));
         }
 
         public void AddSeconds(float seconds)

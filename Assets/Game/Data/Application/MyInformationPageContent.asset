@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc1c8239e61f4fe986ac0caeae28f93, type: 3}
   m_Name: MyInformationPageContent
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationMyInformationPageContent
-  introText: Confirm your legal identity exactly as it appears in the File.
+  introText: Confirm your legal identity exactly as it appears in the file.
   firstNameLabel: First name
   lastNameLabel: Last name
   confirmNameButtonLabel: Confirm Name
