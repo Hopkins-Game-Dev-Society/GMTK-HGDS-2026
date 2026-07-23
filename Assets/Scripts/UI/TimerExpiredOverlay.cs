@@ -1,5 +1,6 @@
 using System.Collections;
 using BirthdayJobJam.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ namespace BirthdayJobJam.UI
         [Header("End Screen")]
         [SerializeField] private CanvasGroup endScreenCanvasGroup;
         [TextArea] [SerializeField] private string endingMessage = "You were executed on your birthday.\nHappy birthday by the way!";
-        [SerializeField] private Text endingMessageText;
+        [SerializeField] private TMP_Text endingMessageText;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button returnToMenuButton;
 

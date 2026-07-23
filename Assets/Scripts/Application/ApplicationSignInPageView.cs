@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BirthdayJobJam.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,58 +21,58 @@ namespace BirthdayJobJam.Application
         [SerializeField] private ApplicationMyInformationPageContent myInformationContent;
 
         [Header("Portal Chrome")]
-        [SerializeField] private Text portalTitleText;
-        [SerializeField] private Text portalSubtitleText;
-        [SerializeField] private Text[] progressStepLabelTexts;
+        [SerializeField] private TMP_Text portalTitleText;
+        [SerializeField] private TMP_Text portalSubtitleText;
+        [SerializeField] private TMP_Text[] progressStepLabelTexts;
         [SerializeField] private Image[] progressStepDotImages;
         [SerializeField] private Color activeProgressStepColor = new Color(0.13f, 0.42f, 0.86f, 1f);
         [SerializeField] private Color inactiveProgressStepColor = new Color(0.68f, 0.68f, 0.68f, 1f);
 
         [Header("Page Text")]
-        [SerializeField] private Text pageTitleText;
-        [SerializeField] private Text progressText;
-        [SerializeField] private Text statusText;
+        [SerializeField] private TMP_Text pageTitleText;
+        [SerializeField] private TMP_Text progressText;
+        [SerializeField] private TMP_Text statusText;
         [SerializeField] private GameObject errorPanel;
-        [SerializeField] private Text errorText;
+        [SerializeField] private TMP_Text errorText;
 
         [Header("Login Controls")]
         [SerializeField] private GameObject signInFormPanel;
-        [SerializeField] private Text usernameLabelText;
-        [SerializeField] private InputField usernameInput;
-        [SerializeField] private Text passwordLabelText;
-        [SerializeField] private InputField passwordInput;
+        [SerializeField] private TMP_Text usernameLabelText;
+        [SerializeField] private TMP_InputField usernameInput;
+        [SerializeField] private TMP_Text passwordLabelText;
+        [SerializeField] private TMP_InputField passwordInput;
         [SerializeField] private Button loginButton;
-        [SerializeField] private Text loginButtonText;
+        [SerializeField] private TMP_Text loginButtonText;
 
         [Header("Two-Factor Controls")]
         [SerializeField] private GameObject twoFactorGroup;
-        [SerializeField] private Text twoFactorTitleText;
-        [SerializeField] private Text twoFactorBodyText;
-        [SerializeField] private InputField twoFactorInput;
+        [SerializeField] private TMP_Text twoFactorTitleText;
+        [SerializeField] private TMP_Text twoFactorBodyText;
+        [SerializeField] private TMP_InputField twoFactorInput;
         [SerializeField] private Button twoFactorButton;
-        [SerializeField] private Text twoFactorButtonText;
+        [SerializeField] private TMP_Text twoFactorButtonText;
 
         [Header("My Information Controls")]
         [SerializeField] private GameObject myInformationPanel;
-        [SerializeField] private Text myInformationIntroText;
-        [SerializeField] private Text firstNameLabelText;
-        [SerializeField] private InputField firstNameInput;
-        [SerializeField] private Text lastNameLabelText;
-        [SerializeField] private InputField lastNameInput;
+        [SerializeField] private TMP_Text myInformationIntroText;
+        [SerializeField] private TMP_Text firstNameLabelText;
+        [SerializeField] private TMP_InputField firstNameInput;
+        [SerializeField] private TMP_Text lastNameLabelText;
+        [SerializeField] private TMP_InputField lastNameInput;
         [SerializeField] private Button confirmNameButton;
-        [SerializeField] private Text confirmNameButtonText;
+        [SerializeField] private TMP_Text confirmNameButtonText;
         [SerializeField] private GameObject dateOfBirthGroup;
-        [SerializeField] private Text dateOfBirthLabelText;
-        [SerializeField] private InputField dateOfBirthInput;
-        [SerializeField] private Text dateOfBirthHintText;
+        [SerializeField] private TMP_Text dateOfBirthLabelText;
+        [SerializeField] private TMP_InputField dateOfBirthInput;
+        [SerializeField] private TMP_Text dateOfBirthHintText;
         [SerializeField] private Button confirmDateOfBirthButton;
-        [SerializeField] private Text confirmDateOfBirthButtonText;
+        [SerializeField] private TMP_Text confirmDateOfBirthButtonText;
 
         [Header("Navigation")]
         [SerializeField] private Button refreshButton;
-        [SerializeField] private Text refreshButtonText;
+        [SerializeField] private TMP_Text refreshButtonText;
         [SerializeField] private Button nextButton;
-        [SerializeField] private Text nextButtonText;
+        [SerializeField] private TMP_Text nextButtonText;
 
         private void Awake()
         {
@@ -546,18 +547,18 @@ namespace BirthdayJobJam.Application
             return Format(ProgressFormat, section.CompletedRequiredChallengeCount, section.RequiredChallengeCount);
         }
 
-        private static void SetText(Text target, string value)
+        private static void SetText(TMP_Text target, string value)
         {
             if (target != null)
                 target.text = value;
         }
 
-        private static void SetInputPlaceholder(InputField input, string value)
+        private static void SetInputPlaceholder(TMP_InputField input, string value)
         {
             if (input == null || input.placeholder == null)
                 return;
 
-            Text placeholder = input.placeholder.GetComponent<Text>();
+            TMP_Text placeholder = input.placeholder.GetComponent<TMP_Text>();
             if (placeholder != null)
                 placeholder.text = value;
         }

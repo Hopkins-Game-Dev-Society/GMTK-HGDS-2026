@@ -1,19 +1,19 @@
 using BirthdayJobJam.Core;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BirthdayJobJam.UI
 {
     public sealed class CountdownTimerDisplay : MonoBehaviour
     {
         [SerializeField] private GameplayTimer timer;
-        [SerializeField] private Text legacyText;
+        [SerializeField] private TMP_Text text;
         [SerializeField] private string prefix = "TIME UNTIL 22: ";
         [SerializeField] private bool showCentiseconds = true;
 
         private void Reset()
         {
-            legacyText = GetComponent<Text>();
+            text = GetComponent<TMP_Text>();
         }
 
         private void Awake()
@@ -41,8 +41,8 @@ namespace BirthdayJobJam.UI
             string formatted = FormatTime(secondsRemaining);
             string text = $"{prefix}{formatted}";
 
-            if (legacyText != null)
-                legacyText.text = text;
+            if (this.text != null)
+                this.text.text = text;
         }
 
         private string FormatTime(float totalSeconds)

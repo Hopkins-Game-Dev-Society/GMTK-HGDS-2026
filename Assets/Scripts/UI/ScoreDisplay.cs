@@ -1,18 +1,18 @@
 using BirthdayJobJam.Application;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BirthdayJobJam.UI
 {
     public sealed class ScoreDisplay : MonoBehaviour
     {
         [SerializeField] private ApplicationScoreManager scoreManager;
-        [SerializeField] private Text legacyText;
+        [SerializeField] private TMP_Text text;
         [SerializeField] private string prefix = "APPLICATION SCORE: ";
 
         private void Reset()
         {
-            legacyText = GetComponent<Text>();
+            text = GetComponent<TMP_Text>();
         }
 
         private void Awake()
@@ -40,8 +40,8 @@ namespace BirthdayJobJam.UI
             int maximum = scoreManager != null ? scoreManager.MaximumScore : 0;
             string text = maximum > 0 ? $"{prefix}{score}/{maximum}" : $"{prefix}{score}";
 
-            if (legacyText != null)
-                legacyText.text = text;
+            if (this.text != null)
+                this.text.text = text;
         }
     }
 }

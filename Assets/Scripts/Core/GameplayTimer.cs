@@ -11,6 +11,10 @@ namespace BirthdayJobJam.Core
         [SerializeField] private bool startOnStart = true;
         [SerializeField] private bool useUnscaledTime;
 
+        [Header("Runtime Debug")]
+        [SerializeField, Min(0f)] private float secondsRemaining;
+        [SerializeField] private bool allowInspectorTimeEditsInPlayMode = true;
+
         [Header("Events")]
         [SerializeField] private GameEvent timerStarted;
         [SerializeField] private GameEvent timerPaused;
@@ -21,7 +25,8 @@ namespace BirthdayJobJam.Core
 
         private bool isRunning;
         private bool hasExpired;
-        private float secondsRemaining;
+        private float lastValidatedDurationSeconds;
+        private float lastValidatedSecondsRemaining;
 
         public event Action Started;
         public event Action Paused;
@@ -30,8 +35,18 @@ namespace BirthdayJobJam.Core
         public event Action<float> SecondsRemainingChanged;
         public event Action<float> NormalizedRemainingChanged;
 
-        public float DurationSeconds => durationSeconds;
-        public float SecondsRemaining => secondsRemaining;
+        public float DurationSeconds
+        {
+            get => durationSeconds;
+            set => SetDurationSeconds(value, resetRemaining: false);
+        }
+
+        public float SecondsRemaining
+        {
+            get => secondsRemaining;
+            set => SetSecondsRemaining(value);
+        }
+
         public float SecondsElapsed => Mathf.Max(0f, durationSeconds - secondsRemaining);
         public float NormalizedRemaining => durationSeconds <= 0f ? 0f : Mathf.Clamp01(secondsRemaining / durationSeconds);
         public bool IsRunning => isRunning;
@@ -41,6 +56,37 @@ namespace BirthdayJobJam.Core
         private void Awake()
         {
             ResetTimer();
+        }
+
+        private void OnValidate()
+        {
+            durationSeconds = Mathf.Max(1f, durationSeconds);
+            secondsRemaining = Mathf.Clamp(secondsRemaining, 0f, durationSeconds);
+
+            if (!global::UnityEngine.Application.isPlaying || !allowInspectorTimeEditsInPlayMode)
+            {
+                CacheValidatedTime();
+                return;
+            }
+
+            bool durationChanged = !Mathf.Approximately(durationSeconds, lastValidatedDurationSeconds);
+            bool remainingChanged = !Mathf.Approximately(secondsRemaining, lastValidatedSecondsRemaining);
+
+            if (!durationChanged && !remainingChanged)
+                return;
+
+            if (secondsRemaining > 0f && hasExpired)
+                hasExpired = false;
+
+            if (secondsRemaining <= 0f && !hasExpired)
+            {
+                CacheValidatedTime();
+                Expire();
+                return;
+            }
+
+            CacheValidatedTime();
+            RaiseTimeChanged();
         }
 
         private void Start()
@@ -124,6 +170,8 @@ namespace BirthdayJobJam.Core
                 SetSecondsRemaining(durationSeconds);
             else
                 SetSecondsRemaining(Mathf.Min(secondsRemaining, durationSeconds));
+
+            CacheValidatedTime();
         }
 
         public void AddSeconds(float seconds)
@@ -138,7 +186,31 @@ namespace BirthdayJobJam.Core
                 return;
 
             secondsRemaining = clamped;
+            CacheValidatedTime();
             RaiseTimeChanged();
+
+            if (secondsRemaining <= 0f && !hasExpired)
+                Expire();
+        }
+
+        [ContextMenu("Timer/Set Remaining To 10 Seconds")]
+        public void SetRemainingToTenSeconds()
+        {
+            SetSecondsRemaining(10f);
+        }
+
+        [ContextMenu("Timer/Expire Now")]
+        public void ExpireNow()
+        {
+            SetSecondsRemaining(0f);
+            Expire();
+        }
+
+        [ContextMenu("Timer/Reset And Start")]
+        public void ResetAndStart()
+        {
+            ResetTimer();
+            StartTimer();
         }
 
         private void Expire()
@@ -159,6 +231,12 @@ namespace BirthdayJobJam.Core
             NormalizedRemainingChanged?.Invoke(NormalizedRemaining);
             secondsRemainingChanged?.Raise(secondsRemaining);
             normalizedRemainingChanged?.Raise(NormalizedRemaining);
+        }
+
+        private void CacheValidatedTime()
+        {
+            lastValidatedDurationSeconds = durationSeconds;
+            lastValidatedSecondsRemaining = secondsRemaining;
         }
     }
 }
