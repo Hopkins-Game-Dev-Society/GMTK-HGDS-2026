@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationExperiencePageContent
   introText: Please upload your resume. Any resume. Ideally the correct one.
   uploadResumeButtonLabel: Upload Resume
-  completeStatus: Resume uploaded. Your experience has been accepted, pending inevitable
-    disappointment.
+  completeStatus: Resume uploaded.
   pickerTitle: Choose Resume
-  pickerPath: Macintosh HD > Users > Applicant > Desktop > resume graveyard
+  pickerPath: Macintosh HD > Users > me > Desktop > my-best-resumes
   openButtonLabel: Open
   selectButtonLabel: Select
   cancelButtonLabel: Cancel
