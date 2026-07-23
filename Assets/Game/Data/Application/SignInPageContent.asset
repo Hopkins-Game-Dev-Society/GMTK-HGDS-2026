@@ -12,22 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da862f04af404014b89ddca2f3e43c9, type: 3}
   m_Name: SignInPageContent
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSignInPageContent
-  portalTitle: TINY CORP CAREERS PORTAL
-  portalSubtitle: 'Application deadline: your 22nd birthday. Please complete all
-    fields before government agents complete you.'
+  portalTitle: Workbay Careers Portal
+  portalSubtitle: Please complete all fields before continuing.
   fallbackPageTitle: Applicant Portal
   usernameLabel: Username
   passwordLabel: Password
   loginButtonLabel: Log In
   twoFactorTitle: Two-factor authentication
-  twoFactorBody: Your phone buzzes somewhere under the disaster drawer. For now,
-    enter the temp code.
+  twoFactorBody: Check your mobile device.
   twoFactorButtonLabel: Verify
   refreshButtonLabel: Refresh
   nextButtonLabel: Next >
-  usernamePlaceholder: try applicant22
-  passwordPlaceholder: try birthday123
-  twoFactorPlaceholder: try 0422
+  usernamePlaceholder: ...
+  passwordPlaceholder: ...
+  twoFactorPlaceholder: ...
   usernameChallengeId: username
   passwordChallengeId: password
   twoFactorChallengeId: two_factor_code
@@ -44,10 +42,11 @@ MonoBehaviour:
   delicatePortalStatus: The portal has entered a delicate emotional state.
   sectionLoadedStatusFormat: Loaded {0}.
   unavailableStatus: Applicant portal unavailable.
-  wrongUsernameError: Username not recognized. Please refresh the page to continue.
-  wrongPasswordError: Password rejected. Please refresh the page before trying again.
-  wrongTwoFactorError: Authentication code invalid. Please refresh the page to request
-    a new code.
+  wrongUsernameError: 'Username or Password incorrect. We won''t tell you which one,
+    or if it''s both. '
+  wrongPasswordError: 'Username or Password incorrect. We won''t tell you which one,
+    or if it''s both. '
+  wrongTwoFactorError: Authentication code invalid.
   progressFormat: '{0}/{1} required items complete'
   noActiveSectionProgress: No active application section.
   refreshCooldownFormat: Refresh ({0:0.0}s)

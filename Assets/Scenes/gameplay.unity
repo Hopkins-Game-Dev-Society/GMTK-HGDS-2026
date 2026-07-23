@@ -643,7 +643,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TINY CORP CAREERS PORTAL
+  m_Text: Lorem ipsum dolor sit amet
 --- !u!222 &234501934
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3727,8 +3727,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Application deadline: your 22nd birthday. Please complete all fields before
-    government agents complete you.'
+  m_Text: Lorem ipsum dolor sit amet
 --- !u!222 &1599627631
 CanvasRenderer:
   m_ObjectHideFlags: 0
