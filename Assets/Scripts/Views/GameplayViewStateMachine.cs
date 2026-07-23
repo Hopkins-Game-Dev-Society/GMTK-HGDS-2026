@@ -8,17 +8,19 @@ using UnityEngine;
 
 //States openly visible for use in other contexts such as UI (so you can ask for current state and be sent it)
 
+
+/*
 namespace BirthdayJobJam.Views
 {
     public sealed class GameplayViewStateMachine : MonoBehaviour
     {
         [SerializeField] private GameViewId initialView = GameViewId.Computer;
-        [SerializeField] private List<GameplayView> views = new List<GameplayView>();
+        [SerializeField] private List<GameplayView> views = new();
 
         [Header("Events")]
         [SerializeField] private StringGameEvent viewChanged;
 
-        private readonly Dictionary<GameViewId, GameplayView> viewMap = new Dictionary<GameViewId, GameplayView>();
+        private readonly Dictionary<GameViewId, GameplayView> viewMap = new();
 
         public event Action<GameViewId, GameViewId> ViewChanged;
 
@@ -27,10 +29,10 @@ namespace BirthdayJobJam.Views
         private void Awake()
         {
             if (views.Count == 0)
-                GetComponentsInChildren(includeInactive: true, views);
+                GetComponentsInChildren(true, views);
 
             BuildViewMap();
-            HideAllViews();
+            DeactivateAllViews();
         }
 
         private void Start()
@@ -42,36 +44,30 @@ namespace BirthdayJobJam.Views
         private void Reset()
         {
             views.Clear();
-            GetComponentsInChildren(includeInactive: true, views);
+            GetComponentsInChildren(true, views);
         }
-
-        public void SwitchToComputer() => SwitchTo(GameViewId.Computer);
-        public void SwitchToKeyboard() => SwitchTo(GameViewId.Keyboard);
-        public void SwitchToDeskDrawer() => SwitchTo(GameViewId.DeskDrawer);
-        public void SwitchToStickyNotes() => SwitchTo(GameViewId.LeftDesk);
-        public void SwitchToDoor() => SwitchTo(GameViewId.RightDesk);
-        public void SwitchToApplication() => SwitchTo(GameViewId.Application);
 
         public void SwitchTo(GameViewId targetView)
         {
             if (targetView == GameViewId.None || targetView == CurrentView)
                 return;
 
-            if (!viewMap.TryGetValue(targetView, out GameplayView nextView) || nextView == null)
+            if (!viewMap.TryGetValue(targetView, out GameplayView nextView))
             {
-                Debug.LogWarning($"GameplayViewStateMachine: no view registered for {targetView}.", this);
+                Debug.LogWarning($"No GameplayView registered for {targetView}.", this);
                 return;
             }
 
-            GameViewId previousView = CurrentView;
+            GameViewId previous = CurrentView;
 
-            if (viewMap.TryGetValue(CurrentView, out GameplayView currentView) && currentView != null)
-                currentView.Hide();
+            if (viewMap.TryGetValue(CurrentView, out GameplayView current))
+                current.Deactivate();
 
             CurrentView = targetView;
-            nextView.Show();
 
-            ViewChanged?.Invoke(previousView, CurrentView);
+            nextView.Activate();
+
+            ViewChanged?.Invoke(previous, CurrentView);
             viewChanged?.Raise(CurrentView.ToString());
         }
 
@@ -96,18 +92,201 @@ namespace BirthdayJobJam.Views
                     continue;
 
                 if (viewMap.ContainsKey(view.ViewId))
-                    Debug.LogWarning($"Duplicate gameplay view id registered: {view.ViewId}", view);
+                    Debug.LogWarning($"Duplicate GameplayViewId: {view.ViewId}", view);
 
                 viewMap[view.ViewId] = view;
             }
         }
 
-        private void HideAllViews()
+        private void DeactivateAllViews()
         {
             foreach (GameplayView view in views)
             {
                 if (view != null)
-                    view.SetVisibleSilently(false);
+                    view.DeactivateSilently();
+            }
+        }
+    }
+} */
+
+namespace BirthdayJobJam.Views
+{
+    public sealed class GameplayViewStateMachine : MonoBehaviour
+    {
+        [SerializeField] private GameViewId initialView = GameViewId.Computer;
+
+        [SerializeField]
+        private List<GameplayView> views = new();
+
+
+        [Header("Events")]
+        [SerializeField] private StringGameEvent viewChanged;
+
+
+        private readonly Dictionary<GameViewId, GameplayView> viewMap = new();
+
+
+        public event Action<GameViewId, GameViewId> ViewChanged;
+
+
+        public GameViewId CurrentView { get; private set; } = GameViewId.None;
+
+
+
+        private void Awake()
+        {
+            if (views.Count == 0)
+            {
+                GetComponentsInChildren(
+                    includeInactive: true,
+                    views
+                );
+            }
+
+
+            BuildViewMap();
+
+            DeactivateAllViews();
+        }
+
+
+
+        private void Start()
+        {
+            if (initialView != GameViewId.None)
+                SwitchTo(initialView);
+        }
+
+
+
+        private void Reset()
+        {
+            views.Clear();
+
+            GetComponentsInChildren(
+                includeInactive: true,
+                views
+            );
+        }
+
+
+
+        public void SwitchTo(GameViewId targetView)
+        {
+            if (targetView == GameViewId.None)
+                return;
+
+
+            if (targetView == CurrentView)
+                return;
+
+
+
+            if (!viewMap.TryGetValue(targetView, out GameplayView nextView))
+            {
+                Debug.LogWarning(
+                    $"GameplayViewStateMachine: No view registered for {targetView}.",
+                    this
+                );
+
+                return;
+            }
+
+
+
+            GameViewId previousView = CurrentView;
+
+
+
+            if (viewMap.TryGetValue(CurrentView, out GameplayView currentView))
+            {
+                currentView.Deactivate();
+            }
+
+
+
+            CurrentView = targetView;
+
+
+            nextView.Activate();
+
+
+
+            ViewChanged?.Invoke(previousView, CurrentView);
+
+            viewChanged?.Raise(CurrentView.ToString());
+        }
+
+
+
+
+        public GameplayView GetCurrentView()
+        {
+            if (viewMap.TryGetValue(CurrentView, out GameplayView view))
+                return view;
+
+
+            return null;
+        }
+
+
+
+
+        public void RegisterView(GameplayView view)
+        {
+            if (view == null)
+                return;
+
+
+            if (!views.Contains(view))
+                views.Add(view);
+
+
+            viewMap[view.ViewId] = view;
+        }
+
+
+
+
+        private void BuildViewMap()
+        {
+            viewMap.Clear();
+
+
+            foreach (GameplayView view in views)
+            {
+                if (view == null)
+                    continue;
+
+
+                if (view.ViewId == GameViewId.None)
+                    continue;
+
+
+
+                if (viewMap.ContainsKey(view.ViewId))
+                {
+                    Debug.LogWarning(
+                        $"Duplicate GameplayView ID: {view.ViewId}",
+                        view
+                    );
+                }
+
+
+                viewMap[view.ViewId] = view;
+            }
+        }
+
+
+
+
+
+        private void DeactivateAllViews()
+        {
+            foreach (GameplayView view in views)
+            {
+                if (view != null)
+                    view.DeactivateSilently();
             }
         }
     }

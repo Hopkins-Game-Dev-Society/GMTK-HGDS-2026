@@ -3118,7 +3118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Core.GameContext
   persistAcrossScenes: 0
   timer: {fileID: 1964750352}
-  views: {fileID: 0}
+  views: {fileID: 757742397}
   applicationState: {fileID: 2087953873}
   score: {fileID: 0}
 --- !u!4 &362871709
@@ -3136,6 +3136,8 @@ Transform:
   m_Children:
   - {fileID: 2087953874}
   - {fileID: 1964750353}
+  - {fileID: 757742396}
+  - {fileID: 1682065167}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &364110457
@@ -3809,6 +3811,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392385870}
   m_CullTransparentMesh: 1
+--- !u!1 &404750075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+  m_PrefabInstance: {fileID: 510134787}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &440123065
 GameObject:
   m_ObjectHideFlags: 0
@@ -4245,6 +4252,34 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 487444551}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1560946855}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Navigate
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BirthdayJobJam.Views.NavigationButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Name
       value: Left Arrow
@@ -4332,7 +4367,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1560946855}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &487444550 stripped
 RectTransform:
@@ -4344,7 +4382,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6250316930659725395, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
   m_PrefabInstance: {fileID: 487444549}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1560946852}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -4632,9 +4670,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219288611}
     m_Modifications:
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 510134792}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Navigate
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BirthdayJobJam.Views.NavigationButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Name
-      value: Arrow_Button
+      value: Down Arrow
       objectReference: {fileID: 0}
     - target: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Pivot.x
@@ -4719,13 +4785,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 510134792}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &510134788 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
   m_PrefabInstance: {fileID: 510134787}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &510134792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404750075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2320a2d356312408a871422f5c6b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
+  direction: 1
+  stateMachine: {fileID: 757742397}
 --- !u!1 &513360193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4861,7 +4944,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   m_Layer: 0
-  m_Name: MonitorView
+  m_Name: MonitorCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4978,12 +5061,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.5727, y: 7.72772, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1607651942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519615917
 GameObject:
@@ -6128,10 +6211,9 @@ GameObject:
   m_Component:
   - component: {fileID: 602342904}
   - component: {fileID: 602342903}
-  - component: {fileID: 602342902}
   - component: {fileID: 602342901}
   m_Layer: 0
-  m_Name: RightDeskView
+  m_Name: RightDeskCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6181,14 +6263,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &602342902
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602342900}
-  m_Enabled: 1
 --- !u!20 &602342903
 Camera:
   m_ObjectHideFlags: 0
@@ -6248,12 +6322,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602342900}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19, y: -11, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.03134, y: -10.32062, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1264961977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
@@ -6620,10 +6694,9 @@ GameObject:
   m_Component:
   - component: {fileID: 648531510}
   - component: {fileID: 648531509}
-  - component: {fileID: 648531508}
   - component: {fileID: 648531507}
   m_Layer: 0
-  m_Name: DeskDrawerView
+  m_Name: DeskDrawerCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6673,14 +6746,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &648531508
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648531506}
-  m_Enabled: 1
 --- !u!20 &648531509
 Camera:
   m_ObjectHideFlags: 0
@@ -6740,12 +6805,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648531506}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19, y: -11, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 29.96866, y: -10.32062, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1339616919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &667707433
 GameObject:
@@ -7447,6 +7512,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744365043}
   m_CullTransparentMesh: 1
+--- !u!1 &757742395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757742396}
+  - component: {fileID: 757742397}
+  m_Layer: 0
+  m_Name: GameplayViewStateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &757742396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757742395}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 362871709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &757742397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757742395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be295d09ff0347c2809cf51eff3d351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayViewStateMachine
+  initialView: 10
+  views:
+  - {fileID: 1607651943}
+  - {fileID: 1467365957}
+  - {fileID: 842730935}
+  - {fileID: 1339616920}
+  - {fileID: 1264961978}
+  viewChanged: {fileID: 0}
 --- !u!1 &759177435
 GameObject:
   m_ObjectHideFlags: 0
@@ -8060,12 +8177,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811274754}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.63749, y: 0.26825, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 29.60615, y: 0.94763, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1122526031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &842152105
 GameObject:
@@ -8204,6 +8321,80 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &842730933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842730934}
+  - component: {fileID: 842730935}
+  - component: {fileID: 842730936}
+  m_Layer: 0
+  m_Name: Left Desk View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &842730934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842730933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.96866, y: -0.67938, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1670701962}
+  - {fileID: 1543882811}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &842730935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842730933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c2f464a060443189bde1c22349d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
+  viewId: 40
+  root: {fileID: 842730933}
+  enteredEvent: {fileID: 0}
+  exitedEvent: {fileID: 0}
+  entered:
+    m_PersistentCalls:
+      m_Calls: []
+  exited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &842730936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842730933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a5a5e30850ed4baa0151116abaa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
+  links:
+  - direction: 3
+    destination: 10
+  - direction: 1
+    destination: 30
 --- !u!1 &842957284
 GameObject:
   m_ObjectHideFlags: 0
@@ -8982,6 +9173,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219288611}
     m_Modifications:
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1105323396}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Navigate
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BirthdayJobJam.Views.NavigationButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Name
       value: Up Arrow
@@ -9069,7 +9288,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105323396}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &909602337 stripped
 RectTransform:
@@ -9310,12 +9532,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923776329}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.33, y: -13.02, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 30.29866, y: -12.34062, z: 0}
   m_LocalScale: {x: 1.822, y: 1.822, z: 1.822}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1339616919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930352318
 GameObject:
@@ -10899,6 +11121,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073429839}
   m_CullTransparentMesh: 1
+--- !u!1 &1105323392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+  m_PrefabInstance: {fileID: 909602336}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1105323396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105323392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2320a2d356312408a871422f5c6b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
+  direction: 0
+  stateMachine: {fileID: 757742397}
 --- !u!1 &1112947460
 GameObject:
   m_ObjectHideFlags: 0
@@ -11036,6 +11277,39 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1122526030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122526031}
+  m_Layer: 0
+  m_Name: Phone View (Temp)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122526031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122526030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.96866, y: -0.67938, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1327452911}
+  - {fileID: 811274756}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129010048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11773,6 +12047,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1183987522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+  m_PrefabInstance: {fileID: 1932673568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1188002092
 GameObject:
   m_ObjectHideFlags: 0
@@ -12323,6 +12602,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260772152}
   m_CullTransparentMesh: 1
+--- !u!1 &1264961976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264961977}
+  - component: {fileID: 1264961978}
+  - component: {fileID: 1264961979}
+  m_Layer: 0
+  m_Name: RightDesk View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264961977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264961976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.96866, y: -0.67938, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 602342904}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1264961978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264961976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c2f464a060443189bde1c22349d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
+  viewId: 50
+  root: {fileID: 1264961976}
+  enteredEvent: {fileID: 0}
+  exitedEvent: {fileID: 0}
+  entered:
+    m_PersistentCalls:
+      m_Calls: []
+  exited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1264961979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264961976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a5a5e30850ed4baa0151116abaa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
+  links:
+  - direction: 2
+    destination: 10
 --- !u!1 &1266022059
 GameObject:
   m_ObjectHideFlags: 0
@@ -12713,10 +13063,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1327452911}
   - component: {fileID: 1327452910}
-  - component: {fileID: 1327452909}
   - component: {fileID: 1327452908}
   m_Layer: 0
-  m_Name: Phone View
+  m_Name: PhoneCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12766,14 +13115,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1327452909
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327452907}
-  m_Enabled: 1
 --- !u!20 &1327452910
 Camera:
   m_ObjectHideFlags: 0
@@ -12781,7 +13122,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327452907}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -12833,13 +13174,85 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327452907}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 29.96866, y: 0.67938, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+  m_Father: {fileID: 1122526031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1339616918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1339616919}
+  - component: {fileID: 1339616920}
+  - component: {fileID: 1339616921}
+  m_Layer: 0
+  m_Name: DeskDrawer View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1339616919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339616918}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.96866, y: -0.67938, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 648531510}
+  - {fileID: 923776331}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1339616920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339616918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c2f464a060443189bde1c22349d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
+  viewId: 30
+  root: {fileID: 1339616918}
+  enteredEvent: {fileID: 0}
+  exitedEvent: {fileID: 0}
+  entered:
+    m_PersistentCalls:
+      m_Calls: []
+  exited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1339616921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339616918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a5a5e30850ed4baa0151116abaa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
+  links:
+  - direction: 0
+    destination: 10
 --- !u!1 &1340040033
 GameObject:
   m_ObjectHideFlags: 0
@@ -13478,6 +13891,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444269127}
   m_CullTransparentMesh: 1
+--- !u!1 &1467365955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1467365956}
+  - component: {fileID: 1467365957}
+  - component: {fileID: 1467365958}
+  m_Layer: 0
+  m_Name: Keyboard View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1467365956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467365955}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.51007, y: -0.29424, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1583811150}
+  - {fileID: 1725932230}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1467365957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467365955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c2f464a060443189bde1c22349d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
+  viewId: 20
+  root: {fileID: 1467365955}
+  enteredEvent: {fileID: 0}
+  exitedEvent: {fileID: 0}
+  entered:
+    m_PersistentCalls:
+      m_Calls: []
+  exited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1467365958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467365955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a5a5e30850ed4baa0151116abaa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
+  links:
+  - direction: 0
+    destination: 10
 --- !u!1 &1478163136
 GameObject:
   m_ObjectHideFlags: 0
@@ -14002,12 +14487,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543882809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.04, y: -0.25476, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.071341, y: 0.42462, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 842730934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553175916
 GameObject:
@@ -14130,6 +14615,25 @@ RectTransform:
   m_AnchoredPosition: {x: 95, y: -86}
   m_SizeDelta: {x: 150, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1560946852 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+  m_PrefabInstance: {fileID: 487444549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1560946855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560946852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2320a2d356312408a871422f5c6b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
+  direction: 2
+  stateMachine: {fileID: 757742397}
 --- !u!1 &1566174944
 GameObject:
   m_ObjectHideFlags: 0
@@ -14581,10 +15085,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1583811150}
   - component: {fileID: 1583811149}
-  - component: {fileID: 1583811148}
   - component: {fileID: 1583811147}
   m_Layer: 0
-  m_Name: KeyboardView
+  m_Name: KeyboardCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14634,14 +15137,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1583811148
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583811146}
-  m_Enabled: 1
 --- !u!20 &1583811149
 Camera:
   m_ObjectHideFlags: 0
@@ -14701,12 +15196,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583811146}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -11, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.51007, y: -10.70576, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1467365956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1591691049
 GameObject:
@@ -15037,6 +15532,82 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1607651941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607651942}
+  - component: {fileID: 1607651943}
+  - component: {fileID: 1607651944}
+  m_Layer: 0
+  m_Name: Computer View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1607651942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607651941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.5727, y: -7.72772, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519420032}
+  - {fileID: 1988211796}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1607651943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607651941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60c2f464a060443189bde1c22349d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
+  viewId: 10
+  root: {fileID: 1607651941}
+  enteredEvent: {fileID: 0}
+  exitedEvent: {fileID: 0}
+  entered:
+    m_PersistentCalls:
+      m_Calls: []
+  exited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1607651944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607651941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71a5a5e30850ed4baa0151116abaa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
+  links:
+  - direction: 2
+    destination: 40
+  - direction: 3
+    destination: 50
+  - direction: 1
+    destination: 20
 --- !u!1 &1613725252
 GameObject:
   m_ObjectHideFlags: 0
@@ -15608,10 +16179,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1670701962}
   - component: {fileID: 1670701961}
-  - component: {fileID: 1670701960}
   - component: {fileID: 1670701959}
   m_Layer: 0
-  m_Name: LeftDeskView
+  m_Name: LeftDestCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15661,14 +16231,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1670701960
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670701958}
-  m_Enabled: 1
 --- !u!20 &1670701961
 Camera:
   m_ObjectHideFlags: 0
@@ -15728,13 +16290,62 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670701958}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.03134, y: 0.67938, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 842730934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1682065166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682065167}
+  - component: {fileID: 1682065168}
+  m_Layer: 0
+  m_Name: ViewNavigationUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1682065167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682065166}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 362871709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1682065168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682065166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1deb7a9c1ba1984797882cd6b458d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigationControl
+  stateMachine: {fileID: 757742397}
+  upArrow: {fileID: 1105323392}
+  downArrow: {fileID: 404750075}
+  leftArrow: {fileID: 1560946852}
+  rightArrow: {fileID: 1183987522}
 --- !u!1 &1686131730
 GameObject:
   m_ObjectHideFlags: 0
@@ -16319,11 +16930,11 @@ Transform:
   m_GameObject: {fileID: 1725932228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -11, z: 0}
+  m_LocalPosition: {x: -0.51007, y: -10.70576, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1467365956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730624266
 GameObject:
@@ -17957,6 +18568,34 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1932673570}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1932673573}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Navigate
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BirthdayJobJam.Views.NavigationButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 650683417234199156, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Name
       value: Right Arrow
@@ -18044,7 +18683,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1932673573}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &1932673569 stripped
 RectTransform:
@@ -18056,12 +18698,26 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6250316930659725395, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
   m_PrefabInstance: {fileID: 1932673568}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1183987522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1932673573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183987522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2320a2d356312408a871422f5c6b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
+  direction: 3
+  stateMachine: {fileID: 757742397}
 --- !u!1 &1946563458
 GameObject:
   m_ObjectHideFlags: 0
@@ -18536,13 +19192,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988211794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0.14, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.4827, y: 7.8677197, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 760635854}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1607651942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1997850356
 GameObject:
@@ -20233,19 +20889,14 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 1988211796}
   - {fileID: 362871709}
   - {fileID: 283835821}
   - {fileID: 1219288611}
   - {fileID: 332807323}
-  - {fileID: 1583811150}
-  - {fileID: 1725932230}
-  - {fileID: 1327452911}
-  - {fileID: 811274756}
-  - {fileID: 1670701962}
-  - {fileID: 1543882811}
-  - {fileID: 602342904}
-  - {fileID: 648531510}
-  - {fileID: 923776331}
+  - {fileID: 1607651942}
+  - {fileID: 1467365956}
+  - {fileID: 842730934}
+  - {fileID: 1339616919}
+  - {fileID: 1264961977}
+  - {fileID: 1122526031}
