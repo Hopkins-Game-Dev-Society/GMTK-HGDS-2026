@@ -1,0 +1,134 @@
+using System;
+using BirthdayJobJam.Events;
+using UnityEngine;
+
+namespace BirthdayJobJam.Core
+{
+    public sealed class GameplayTimer : MonoBehaviour
+    {
+        [Header("Timer")]
+        [SerializeField, Min(1f)] private float durationSeconds = 300f;
+        [SerializeField] private bool startOnStart = true;
+        [SerializeField] private bool useUnscaledTime;
+
+        [Header("Events")]
+        [SerializeField] private GameEvent timerStarted;
+        [SerializeField] private GameEvent timerPaused;
+        [SerializeField] private GameEvent timerResumed;
+        [SerializeField] private GameEvent timerExpired;
+        [SerializeField] private FloatGameEvent secondsRemainingChanged;
+        [SerializeField] private FloatGameEvent normalizedRemainingChanged;
+
+        private bool isRunning;
+        private bool hasExpired;
+        private float secondsRemaining;
+
+        public event Action Started;
+        public event Action Paused;
+        public event Action Resumed;
+        public event Action Expired;
+        public event Action<float> SecondsRemainingChanged;
+        public event Action<float> NormalizedRemainingChanged;
+
+        public float DurationSeconds => durationSeconds;
+        public float SecondsRemaining => secondsRemaining;
+        public float SecondsElapsed => Mathf.Max(0f, durationSeconds - secondsRemaining);
+        public float NormalizedRemaining => durationSeconds <= 0f ? 0f : Mathf.Clamp01(secondsRemaining / durationSeconds);
+        public bool IsRunning => isRunning;
+        public bool HasExpired => hasExpired;
+
+        private void Awake()
+        {
+            ResetTimer();
+        }
+
+        private void Start()
+        {
+            if (startOnStart)
+                StartTimer();
+        }
+
+        private void Update()
+        {
+            if (!isRunning || hasExpired)
+                return;
+
+            float delta = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+            SetSecondsRemaining(secondsRemaining - delta);
+
+            if (secondsRemaining <= 0f)
+                Expire();
+        }
+
+        public void StartTimer()
+        {
+            hasExpired = false;
+            isRunning = true;
+            Started?.Invoke();
+            timerStarted?.Raise();
+            RaiseTimeChanged();
+        }
+
+        public void Pause()
+        {
+            if (!isRunning || hasExpired)
+                return;
+
+            isRunning = false;
+            Paused?.Invoke();
+            timerPaused?.Raise();
+        }
+
+        public void Resume()
+        {
+            if (isRunning || hasExpired)
+                return;
+
+            isRunning = true;
+            Resumed?.Invoke();
+            timerResumed?.Raise();
+        }
+
+        public void ResetTimer()
+        {
+            hasExpired = false;
+            isRunning = false;
+            SetSecondsRemaining(durationSeconds);
+        }
+
+        public void AddSeconds(float seconds)
+        {
+            SetSecondsRemaining(secondsRemaining + seconds);
+        }
+
+        public void SetSecondsRemaining(float value)
+        {
+            float clamped = Mathf.Clamp(value, 0f, durationSeconds);
+            if (Mathf.Approximately(secondsRemaining, clamped))
+                return;
+
+            secondsRemaining = clamped;
+            RaiseTimeChanged();
+        }
+
+        private void Expire()
+        {
+            if (hasExpired)
+                return;
+
+            hasExpired = true;
+            isRunning = false;
+            SetSecondsRemaining(0f);
+            Expired?.Invoke();
+            timerExpired?.Raise();
+        }
+
+        private void RaiseTimeChanged()
+        {
+            SecondsRemainingChanged?.Invoke(secondsRemaining);
+            NormalizedRemainingChanged?.Invoke(NormalizedRemaining);
+            secondsRemainingChanged?.Raise(secondsRemaining);
+            normalizedRemainingChanged?.Raise(NormalizedRemaining);
+        }
+    }
+}
