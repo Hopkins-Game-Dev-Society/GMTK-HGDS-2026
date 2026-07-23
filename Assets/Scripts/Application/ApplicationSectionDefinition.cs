@@ -9,7 +9,7 @@ namespace BirthdayJobJam.Application
     {
         [SerializeField] private ApplicationSectionId sectionId;
         [SerializeField] private string displayName;
-        [SerializeField, Min(0f)] private float refreshCooldownSeconds = 0.75f;
+        [SerializeField, Min(0f)] private float refreshCooldownSeconds = 5f;
         [SerializeField] private bool resetChallengesOnRefresh = true;
         [SerializeField] private List<ApplicationChallengeDefinition> challenges = new List<ApplicationChallengeDefinition>();
 

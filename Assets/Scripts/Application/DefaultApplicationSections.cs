@@ -52,7 +52,7 @@ namespace BirthdayJobJam.Application
             return new ApplicationSectionDefinition(
                 id,
                 displayName,
-                refreshCooldownSeconds: 0.75f,
+                refreshCooldownSeconds: 5f,
                 resetChallengesOnRefresh: true,
                 challenges: new List<ApplicationChallengeDefinition>(challenges));
         }

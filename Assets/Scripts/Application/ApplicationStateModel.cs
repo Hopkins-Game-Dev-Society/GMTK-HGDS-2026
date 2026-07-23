@@ -13,7 +13,7 @@ namespace BirthdayJobJam.Application
 
         [Header("Default Error Copy")]
         [SerializeField] private string defaultErrorMessage = "An error occurred. Please refresh the page to continue.";
-        [SerializeField, Min(0f)] private float fallbackRefreshCooldownSeconds = 0.75f;
+        [SerializeField, Min(0f)] private float fallbackRefreshCooldownSeconds = 5f;
 
         [Header("Events")]
         [SerializeField] private GameEvent stateChangedEvent;
