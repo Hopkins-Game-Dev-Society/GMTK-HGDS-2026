@@ -26,16 +26,18 @@ namespace BirthdayJobJam.Editor
             GameContext context = GetOrAdd<GameContext>(root);
 
             GameplayTimer timer = GetOrCreateChildComponent<GameplayTimer>(root.transform, "Timer");
+            ApplicationStateModel applicationState = GetOrCreateChildComponent<ApplicationStateModel>(root.transform, "Application State");
             ApplicationScoreManager score = GetOrCreateChildComponent<ApplicationScoreManager>(root.transform, "Application Score");
             GameplayViewStateMachine views = GetOrCreateChildComponent<GameplayViewStateMachine>(root.transform, ViewsRootName);
             TimerExpiryEndingDriver endingDriver = GetOrCreateChildComponent<TimerExpiryEndingDriver>(root.transform, "Ending Driver");
 
-            ConfigureContext(context, timer, score, views);
+            ConfigureContext(context, timer, applicationState, score, views);
             ConfigureEndingDriver(endingDriver, timer, score);
             CreateDefaultViews(views.transform);
 
             EditorUtility.SetDirty(context);
             EditorUtility.SetDirty(timer);
+            EditorUtility.SetDirty(applicationState);
             EditorUtility.SetDirty(score);
             EditorUtility.SetDirty(views);
             EditorUtility.SetDirty(endingDriver);
@@ -48,11 +50,13 @@ namespace BirthdayJobJam.Editor
         private static void ConfigureContext(
             GameContext context,
             GameplayTimer timer,
+            ApplicationStateModel applicationState,
             ApplicationScoreManager score,
             GameplayViewStateMachine views)
         {
             SerializedObject serialized = new(context);
             serialized.FindProperty("timer").objectReferenceValue = timer;
+            serialized.FindProperty("applicationState").objectReferenceValue = applicationState;
             serialized.FindProperty("score").objectReferenceValue = score;
             serialized.FindProperty("views").objectReferenceValue = views;
             serialized.ApplyModifiedPropertiesWithoutUndo();

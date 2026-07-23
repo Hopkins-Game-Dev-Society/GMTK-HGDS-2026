@@ -14,10 +14,12 @@ namespace BirthdayJobJam.Core
         [Header("Scene Systems")]
         [SerializeField] private GameplayTimer timer;
         [SerializeField] private GameplayViewStateMachine views;
+        [SerializeField] private ApplicationStateModel applicationState;
         [SerializeField] private ApplicationScoreManager score;
 
         public GameplayTimer Timer => timer;
         public GameplayViewStateMachine Views => views;
+        public ApplicationStateModel ApplicationState => applicationState;
         public ApplicationScoreManager Score => score;
 
         private void Awake()
@@ -53,6 +55,9 @@ namespace BirthdayJobJam.Core
 
             if (views == null)
                 views = GetComponentInChildren<GameplayViewStateMachine>(includeInactive: true);
+
+            if (applicationState == null)
+                applicationState = GetComponentInChildren<ApplicationStateModel>(includeInactive: true);
 
             if (score == null)
                 score = GetComponentInChildren<ApplicationScoreManager>(includeInactive: true);

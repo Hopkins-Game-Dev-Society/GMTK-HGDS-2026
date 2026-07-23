@@ -119,6 +119,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &362871707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 362871709}
+  - component: {fileID: 362871708}
+  m_Layer: 0
+  m_Name: Game Systems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &362871708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362871707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f032bdcb64d034b1c96093b381a1aa9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Core.GameContext
+  persistAcrossScenes: 0
+  timer: {fileID: 0}
+  views: {fileID: 0}
+  applicationState: {fileID: 2087953873}
+  score: {fileID: 0}
+--- !u!4 &362871709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362871707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2087953874}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +481,177 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2087953872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087953874}
+  - component: {fileID: 2087953873}
+  m_Layer: 0
+  m_Name: Application State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2087953873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087953872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a8717b1264f46eb848cf8af165bd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationStateModel
+  sections:
+  - sectionId: 10
+    displayName: Create Account/Sign In
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: username
+      displayName: Username
+      required: 1
+      maxPoints: 1
+    - challengeId: password
+      displayName: Password
+      required: 1
+      maxPoints: 1
+    - challengeId: two_factor_code
+      displayName: Two-Factor Authentication Code
+      required: 1
+      maxPoints: 1
+  - sectionId: 20
+    displayName: My Information
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: legal_name
+      displayName: Legal Name
+      required: 1
+      maxPoints: 1
+    - challengeId: date_of_birth
+      displayName: Date of Birth
+      required: 1
+      maxPoints: 1
+    - challengeId: government_id
+      displayName: Government ID
+      required: 1
+      maxPoints: 1
+  - sectionId: 30
+    displayName: My Experience
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: previous_job
+      displayName: Previous Job Experience
+      required: 1
+      maxPoints: 1
+    - challengeId: employment_gap
+      displayName: Explain Employment Gap
+      required: 1
+      maxPoints: 1
+    - challengeId: why_not_working_at_12
+      displayName: Why Weren't You Working At 12?
+      required: 1
+      maxPoints: 1
+  - sectionId: 40
+    displayName: Application Questions 1 of 2
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: question_1
+      displayName: Question 1
+      required: 1
+      maxPoints: 1
+    - challengeId: question_2
+      displayName: Question 2
+      required: 1
+      maxPoints: 1
+    - challengeId: question_3
+      displayName: Question 3
+      required: 1
+      maxPoints: 1
+  - sectionId: 50
+    displayName: Application Questions 2 of 2
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: madlibs_personal_statement
+      displayName: Mad-Libs Personal Statement
+      required: 1
+      maxPoints: 1
+    - challengeId: question_4
+      displayName: Question 4
+      required: 1
+      maxPoints: 1
+    - challengeId: question_5
+      displayName: Question 5
+      required: 1
+      maxPoints: 1
+  - sectionId: 60
+    displayName: Voluntary Disclosures
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: visa_sponsorship
+      displayName: Visa Sponsorship Disclosure
+      required: 1
+      maxPoints: 1
+    - challengeId: future_sponsorship
+      displayName: Future Sponsorship Disclosure
+      required: 1
+      maxPoints: 1
+    - challengeId: voluntary_certification
+      displayName: Voluntary Disclosure Certification
+      required: 1
+      maxPoints: 1
+  - sectionId: 70
+    displayName: Review
+    refreshCooldownSeconds: 0.75
+    resetChallengesOnRefresh: 1
+    challenges:
+    - challengeId: review_all_fields
+      displayName: Review All Fields
+      required: 1
+      maxPoints: 1
+    - challengeId: final_certification
+      displayName: Final Certification
+      required: 1
+      maxPoints: 1
+  initialSection: 10
+  defaultErrorMessage: An error occurred. Please refresh the page to continue.
+  fallbackRefreshCooldownSeconds: 0.75
+  stateChangedEvent: {fileID: 0}
+  sectionChangedEvent: {fileID: 0}
+  sectionCompletedEvent: {fileID: 0}
+  pageBlockedEvent: {fileID: 0}
+  pageRefreshedEvent: {fileID: 0}
+  currentSectionChangedEvent: {fileID: 0}
+  errorMessageChangedEvent: {fileID: 0}
+  refreshCooldownChangedEvent: {fileID: 0}
+--- !u!4 &2087953874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087953872}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 362871709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -438,3 +659,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1988211796}
+  - {fileID: 362871709}
