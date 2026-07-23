@@ -19,9 +19,7 @@ namespace BirthdayJobJam.Application
                     Challenge("date_of_birth", "Date of Birth")),
 
                 Section(ApplicationSectionId.MyExperience, "My Experience", "My\nExperience",
-                    Challenge("previous_job", "Previous Job Experience"),
-                    Challenge("employment_gap", "Explain Employment Gap"),
-                    Challenge("why_not_working_at_12", "Why Weren't You Working At 12?")),
+                    Challenge("resume_upload", "Resume Upload")),
 
                 Section(ApplicationSectionId.ApplicationQuestionsOne, "Application Questions 1 of 2", "Questions\n1 of 2",
                     Challenge("question_1", "Question 1"),

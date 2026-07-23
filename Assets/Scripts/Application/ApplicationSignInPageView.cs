@@ -14,11 +14,25 @@ namespace BirthdayJobJam.Application
         private const string DefaultCorrectUsername = "applicant22";
         private const string DefaultCorrectPassword = "birthday123";
         private const string DefaultCorrectTwoFactorCode = "0422";
+        private static readonly string[] DefaultResumeFileNames =
+        {
+            "resume-new.doc",
+            "resume-final.doc",
+            "resume-final-final.doc",
+            "resume-true-final.doc",
+            "resume-1.doc",
+            "resume-true-final-FINAL.doc",
+            "resume-2.doc",
+            "resume-use-this-one-maybe.doc",
+            "resume-DONT-use.doc",
+            "resume-real-actual-last.doc"
+        };
 
         [Header("Model")]
         [SerializeField] private ApplicationStateModel applicationState;
         [SerializeField] private ApplicationSignInPageContent content;
         [SerializeField] private ApplicationMyInformationPageContent myInformationContent;
+        [SerializeField] private ApplicationExperiencePageContent experienceContent;
 
         [Header("Portal Chrome")]
         [SerializeField] private TMP_Text portalTitleText;
@@ -84,6 +98,27 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Button confirmDateOfBirthButton;
         [SerializeField] private TMP_Text confirmDateOfBirthButtonText;
 
+        [Header("My Experience Controls")]
+        [SerializeField] private GameObject myExperiencePanel;
+        [SerializeField] private TMP_Text myExperienceIntroText;
+        [SerializeField] private Button uploadResumeButton;
+        [SerializeField] private TMP_Text uploadResumeButtonText;
+        [SerializeField] private GameObject resumePickerPanel;
+        [SerializeField] private TMP_Text resumePickerTitleText;
+        [SerializeField] private TMP_Text resumePickerPathText;
+        [SerializeField] private TMP_Text resumePickerStatusText;
+        [SerializeField] private Button[] resumeFileButtons;
+        [SerializeField] private TMP_Text[] resumeFileNameTexts;
+        [SerializeField] private Image[] resumeFileIconImages;
+        [SerializeField] private Button resumePickerOpenButton;
+        [SerializeField] private TMP_Text resumePickerOpenButtonText;
+        [SerializeField] private Button resumePickerSelectButton;
+        [SerializeField] private TMP_Text resumePickerSelectButtonText;
+        [SerializeField] private Button resumePickerCancelButton;
+        [SerializeField] private TMP_Text resumePickerCancelButtonText;
+        [SerializeField] private Color resumeFileNormalColor = new Color(0.92f, 0.92f, 0.9f, 0f);
+        [SerializeField] private Color resumeFileSelectedColor = new Color(0.2f, 0.48f, 0.9f, 0.35f);
+
         [Header("Navigation")]
         [SerializeField] private Button refreshButton;
         [SerializeField] private TMP_Text refreshButtonText;
@@ -91,6 +126,7 @@ namespace BirthdayJobJam.Application
         [SerializeField] private TMP_Text nextButtonText;
 
         private bool hasStartedApplication;
+        private int selectedResumeIndex = -1;
 
         private void Awake()
         {
@@ -236,6 +272,8 @@ namespace BirthdayJobJam.Application
             ApplicationSectionRuntimeState section = applicationState.CurrentSection;
             if (section != null && section.SectionId == ApplicationSectionId.MyInformation)
                 SetStatus(MyInformationInitialStatus);
+            else if (section != null && section.SectionId == ApplicationSectionId.MyExperience)
+                SetStatus(MyExperienceInitialStatus);
 
             Render();
         }
@@ -258,6 +296,63 @@ namespace BirthdayJobJam.Application
             Render();
         }
 
+        public void OpenResumePicker()
+        {
+            if (!IsOnMyExperiencePageAndInteractive() || IsChallengeComplete(applicationState.CurrentSection, ResumeChallengeId))
+                return;
+
+            selectedResumeIndex = -1;
+            SetText(resumePickerStatusText, string.Empty);
+            SetActive(resumePickerPanel, true);
+            RenderResumePickerButtons(canUsePicker: true);
+        }
+
+        public void CloseResumePicker()
+        {
+            selectedResumeIndex = -1;
+            SetText(resumePickerStatusText, string.Empty);
+            SetActive(resumePickerPanel, false);
+            Render();
+        }
+
+        public void SelectResumeFile(int index)
+        {
+            if (!IsOnMyExperiencePageAndInteractive() || index < 0 || index >= ResumeFileCount)
+                return;
+
+            selectedResumeIndex = index;
+            SetText(resumePickerStatusText, ResumeFileName(index));
+            RenderResumePickerButtons(canUsePicker: true);
+        }
+
+        public void OpenSelectedResume()
+        {
+            if (!IsOnMyExperiencePageAndInteractive() || selectedResumeIndex < 0)
+                return;
+
+            SetActive(resumePickerPanel, false);
+            Fail(ResumeChallengeId, WordActivationError);
+        }
+
+        public void SubmitSelectedResume()
+        {
+            if (!IsOnMyExperiencePageAndInteractive() || selectedResumeIndex < 0)
+                return;
+
+            if (selectedResumeIndex != CorrectResumeIndex)
+            {
+                SetActive(resumePickerPanel, false);
+                Fail(ResumeChallengeId, IncorrectResumeError);
+                return;
+            }
+
+            applicationState.MarkChallengeComplete(ResumeChallengeId);
+            selectedResumeIndex = -1;
+            SetActive(resumePickerPanel, false);
+            SetStatus(MyExperienceCompleteStatus);
+            Render();
+        }
+
         private void Render()
         {
             if (applicationState == null)
@@ -266,11 +361,13 @@ namespace BirthdayJobJam.Application
             ApplicationSectionRuntimeState section = applicationState.CurrentSection;
             bool isSignIn = section != null && section.SectionId == ApplicationSectionId.CreateAccountSignIn;
             bool isMyInformation = section != null && section.SectionId == ApplicationSectionId.MyInformation;
+            bool isMyExperience = section != null && section.SectionId == ApplicationSectionId.MyExperience;
             bool blocked = section != null && section.IsBlocked;
             bool credentialsComplete = IsChallengeComplete(section, UsernameChallengeId) && IsChallengeComplete(section, PasswordChallengeId);
             bool signInComplete = section != null && section.IsComplete;
             bool namesComplete = IsChallengeComplete(section, FirstNameChallengeId) && IsChallengeComplete(section, LastNameChallengeId);
             bool myInformationComplete = section != null && section.IsComplete;
+            bool myExperienceComplete = IsChallengeComplete(section, ResumeChallengeId);
 
             if (!hasStartedApplication)
             {
@@ -284,6 +381,7 @@ namespace BirthdayJobJam.Application
             RenderError(section, blocked);
             RenderSignInSection(isSignIn, blocked, credentialsComplete, signInComplete);
             RenderMyInformationSection(isMyInformation, blocked, namesComplete, myInformationComplete);
+            RenderMyExperienceSection(isMyExperience, blocked, myExperienceComplete);
 
             SetInteractable(nextButton, applicationState.CanAdvanceCurrentSection);
             SetText(nextButtonText, NextButtonLabel);
@@ -362,6 +460,55 @@ namespace BirthdayJobJam.Application
             SetInteractable(confirmDateOfBirthButton, canEditDateOfBirth);
         }
 
+        private void RenderMyExperienceSection(bool isMyExperience, bool blocked, bool myExperienceComplete)
+        {
+            bool canUpload = isMyExperience && !blocked && !myExperienceComplete;
+
+            SetActive(myExperiencePanel, isMyExperience);
+            SetActive(uploadResumeButton, isMyExperience && !myExperienceComplete);
+            SetInteractable(uploadResumeButton, canUpload);
+            SetText(myExperienceIntroText, myExperienceComplete ? MyExperienceCompleteStatus : MyExperienceIntroText);
+
+            if (!isMyExperience || blocked || myExperienceComplete)
+            {
+                selectedResumeIndex = -1;
+                SetActive(resumePickerPanel, false);
+            }
+
+            RenderResumePickerButtons(canUpload);
+        }
+
+        private void RenderResumePickerButtons(bool canUsePicker)
+        {
+            bool hasSelection = selectedResumeIndex >= 0;
+            SetInteractable(resumePickerOpenButton, canUsePicker && hasSelection);
+            SetInteractable(resumePickerSelectButton, canUsePicker && hasSelection);
+            SetInteractable(resumePickerCancelButton, canUsePicker);
+
+            if (resumeFileButtons == null)
+                return;
+
+            int fileCount = ResumeFileCount;
+            for (int i = 0; i < resumeFileButtons.Length; i++)
+            {
+                Button button = resumeFileButtons[i];
+                bool active = i < fileCount;
+                SetActive(button, active);
+
+                if (button == null || !active)
+                    continue;
+
+                button.interactable = canUsePicker;
+                SetButtonGraphicColor(button, i == selectedResumeIndex ? resumeFileSelectedColor : resumeFileNormalColor);
+
+                if (resumeFileNameTexts != null && i < resumeFileNameTexts.Length)
+                    SetText(resumeFileNameTexts[i], ResumeFileName(i));
+
+                if (resumeFileIconImages != null && i < resumeFileIconImages.Length)
+                    SetActive(resumeFileIconImages[i], true);
+            }
+        }
+
         private bool IsOnSignInPageAndInteractive()
         {
             if (applicationState == null)
@@ -381,6 +528,17 @@ namespace BirthdayJobJam.Application
             ApplicationSectionRuntimeState section = applicationState.CurrentSection;
             return section != null
                 && section.SectionId == ApplicationSectionId.MyInformation
+                && !section.IsBlocked;
+        }
+
+        private bool IsOnMyExperiencePageAndInteractive()
+        {
+            if (applicationState == null)
+                return false;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            return section != null
+                && section.SectionId == ApplicationSectionId.MyExperience
                 && !section.IsBlocked;
         }
 
@@ -411,6 +569,14 @@ namespace BirthdayJobJam.Application
             SetText(confirmNameButtonText, ConfirmNameButtonLabel);
             SetText(confirmDateOfBirthButtonText, ConfirmDateOfBirthButtonLabel);
             SetText(dateOfBirthHintText, DateOfBirthHintText);
+            SetText(myExperienceIntroText, MyExperienceIntroText);
+            SetText(uploadResumeButtonText, UploadResumeButtonLabel);
+            SetText(resumePickerTitleText, ResumePickerTitle);
+            SetText(resumePickerPathText, ResumePickerPath);
+            SetText(resumePickerOpenButtonText, ResumePickerOpenButtonLabel);
+            SetText(resumePickerSelectButtonText, ResumePickerSelectButtonLabel);
+            SetText(resumePickerCancelButtonText, ResumePickerCancelButtonLabel);
+            SetText(resumePickerStatusText, string.Empty);
             SetText(jobListingTitleText, JobListingTitle);
             SetText(jobListingDescriptionText, JobListingDescription);
             SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
@@ -427,6 +593,7 @@ namespace BirthdayJobJam.Application
             SetInputPlaceholder(lastNameInput, LastNamePlaceholder);
             SetInputPlaceholder(dateOfBirthInput, DateOfBirthPlaceholder);
             RenderDateOfBirthLabel();
+            RenderResumePickerButtons(canUsePicker: false);
 
             if (statusText != null && string.IsNullOrWhiteSpace(statusText.text))
                 SetStatus(InitialStatus);
@@ -479,6 +646,8 @@ namespace BirthdayJobJam.Application
             SetActive(signInFormPanel, false);
             SetActive(twoFactorGroup, false);
             SetActive(myInformationPanel, false);
+            SetActive(myExperiencePanel, false);
+            SetActive(resumePickerPanel, false);
             SetActive(jobListingPanel, true);
             SetActive(statusText, false);
             SetActive(refreshButton, true);
@@ -519,6 +688,10 @@ namespace BirthdayJobJam.Application
 
             if (dateOfBirthInput != null)
                 dateOfBirthInput.text = string.Empty;
+
+            selectedResumeIndex = -1;
+            SetText(resumePickerStatusText, string.Empty);
+            SetActive(resumePickerPanel, false);
         }
 
         private void ResolveApplicationState()
@@ -577,6 +750,31 @@ namespace BirthdayJobJam.Application
 
             if (jobListingOtherRolesButton != null)
                 jobListingOtherRolesButton.onClick.AddListener(SelectOtherRole);
+
+            if (uploadResumeButton != null)
+                uploadResumeButton.onClick.AddListener(OpenResumePicker);
+
+            if (resumePickerOpenButton != null)
+                resumePickerOpenButton.onClick.AddListener(OpenSelectedResume);
+
+            if (resumePickerSelectButton != null)
+                resumePickerSelectButton.onClick.AddListener(SubmitSelectedResume);
+
+            if (resumePickerCancelButton != null)
+                resumePickerCancelButton.onClick.AddListener(CloseResumePicker);
+
+            if (resumeFileButtons != null)
+            {
+                for (int i = 0; i < resumeFileButtons.Length; i++)
+                {
+                    if (resumeFileButtons[i] == null)
+                        continue;
+
+                    int fileIndex = i;
+                    resumeFileButtons[i].onClick.RemoveAllListeners();
+                    resumeFileButtons[i].onClick.AddListener(() => SelectResumeFile(fileIndex));
+                }
+            }
         }
 
         private void RemoveButtonListeners()
@@ -601,6 +799,27 @@ namespace BirthdayJobJam.Application
 
             if (jobListingOtherRolesButton != null)
                 jobListingOtherRolesButton.onClick.RemoveListener(SelectOtherRole);
+
+            if (uploadResumeButton != null)
+                uploadResumeButton.onClick.RemoveListener(OpenResumePicker);
+
+            if (resumePickerOpenButton != null)
+                resumePickerOpenButton.onClick.RemoveListener(OpenSelectedResume);
+
+            if (resumePickerSelectButton != null)
+                resumePickerSelectButton.onClick.RemoveListener(SubmitSelectedResume);
+
+            if (resumePickerCancelButton != null)
+                resumePickerCancelButton.onClick.RemoveListener(CloseResumePicker);
+
+            if (resumeFileButtons != null)
+            {
+                foreach (Button button in resumeFileButtons)
+                {
+                    if (button != null)
+                        button.onClick.RemoveAllListeners();
+                }
+            }
         }
 
         private void HandleSectionChanged(ApplicationSectionRuntimeState section)
@@ -611,6 +830,8 @@ namespace BirthdayJobJam.Application
 
             if (section != null && section.SectionId == ApplicationSectionId.MyInformation)
                 SetStatus(MyInformationInitialStatus);
+            else if (section != null && section.SectionId == ApplicationSectionId.MyExperience)
+                SetStatus(MyExperienceInitialStatus);
 
             Render();
         }
@@ -749,10 +970,43 @@ namespace BirthdayJobJam.Application
         private string ProgressFormat => GetContentText(content?.ProgressFormat, "{0}/{1} required items complete");
         private string NoActiveSectionProgress => GetContentText(content?.NoActiveSectionProgress, "No active application section.");
         private string RefreshCooldownFormat => GetContentText(content?.RefreshCooldownFormat, "Refresh ({0:0.0}s)");
+        private string MyExperienceIntroText => GetContentText(experienceContent?.IntroText, "Please upload your resume. Any resume. Ideally the correct one.");
+        private string UploadResumeButtonLabel => GetContentText(experienceContent?.UploadResumeButtonLabel, "Upload Resume");
+        private string MyExperienceInitialStatus => GetContentText(experienceContent?.IntroText, "Please upload your resume. Any resume. Ideally the correct one.");
+        private string MyExperienceCompleteStatus => GetContentText(experienceContent?.CompleteStatus, "Resume uploaded. Your experience has been accepted, pending inevitable disappointment.");
+        private string ResumePickerTitle => GetContentText(experienceContent?.PickerTitle, "Choose Resume");
+        private string ResumePickerPath => GetContentText(experienceContent?.PickerPath, "Macintosh HD > Users > Applicant > Desktop > resume graveyard");
+        private string ResumePickerOpenButtonLabel => GetContentText(experienceContent?.OpenButtonLabel, "Open");
+        private string ResumePickerSelectButtonLabel => GetContentText(experienceContent?.SelectButtonLabel, "Select");
+        private string ResumePickerCancelButtonLabel => GetContentText(experienceContent?.CancelButtonLabel, "Cancel");
+        private string WordActivationError => GetContentText(experienceContent?.WordActivationError, "You need to activate Mycosoft Word. Cannot open.");
+        private string IncorrectResumeError => GetContentText(experienceContent?.IncorrectResumeError, "Your experience is rough. It looks like you might be unemployed for a while.");
+        private string ResumeChallengeId => GetContentText(experienceContent?.ResumeChallengeId, "resume_upload");
+        private int CorrectResumeIndex => ResumeFileCount <= 0 ? -1 : Mathf.Clamp(experienceContent != null ? experienceContent.CorrectResumeIndex : 5, 0, ResumeFileCount - 1);
+        private int ResumeFileCount
+        {
+            get
+            {
+                IReadOnlyList<string> fileNames = experienceContent?.ResumeFileNames;
+                return fileNames != null && fileNames.Count > 0 ? fileNames.Count : DefaultResumeFileNames.Length;
+            }
+        }
 
         private static string GetContentText(string value, string fallback)
         {
             return string.IsNullOrWhiteSpace(value) ? fallback : value;
+        }
+
+        private string ResumeFileName(int index)
+        {
+            IReadOnlyList<string> fileNames = experienceContent?.ResumeFileNames;
+            if (fileNames != null && index >= 0 && index < fileNames.Count)
+                return GetContentText(fileNames[index], DefaultResumeFileNames[Mathf.Clamp(index, 0, DefaultResumeFileNames.Length - 1)]);
+
+            if (index >= 0 && index < DefaultResumeFileNames.Length)
+                return DefaultResumeFileNames[index];
+
+            return "resume-unknown.doc";
         }
 
         private string GetJobListingMinimumQualificationsBody(bool refreshed)

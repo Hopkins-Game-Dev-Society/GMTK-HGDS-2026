@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def3e4ed2a6e24a8cab6ef9b26f279c0, type: 3}
+  m_Name: ExperiencePageContent
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationExperiencePageContent
+  introText: Please upload your resume. Any resume. Ideally the correct one.
+  uploadResumeButtonLabel: Upload Resume
+  completeStatus: Resume uploaded. Your experience has been accepted, pending inevitable
+    disappointment.
+  pickerTitle: Choose Resume
+  pickerPath: Macintosh HD > Users > Applicant > Desktop > resume graveyard
+  openButtonLabel: Open
+  selectButtonLabel: Select
+  cancelButtonLabel: Cancel
+  wordActivationError: You need to activate Mycosoft Word. Cannot open.
+  incorrectResumeError: Your experience is rough. It looks like you might be unemployed
+    for a while.
+  resumeChallengeId: resume_upload
+  correctResumeIndex: 5
+  resumeFileNames:
+  - resume-new.doc
+  - resume-final.doc
+  - resume-final-final.doc
+  - resume-true-final.doc
+  - resume-1.doc
+  - resume-true-final-FINAL.doc
+  - resume-2.doc
+  - resume-use-this-one-always.doc
+  - resume-DONT-use.doc
+  - resume-real-actual-last.doc

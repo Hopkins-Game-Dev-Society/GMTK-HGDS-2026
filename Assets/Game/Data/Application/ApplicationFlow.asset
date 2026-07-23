@@ -60,16 +60,8 @@ MonoBehaviour:
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
-    - challengeId: previous_job
-      displayName: Previous Job Experience
-      required: 1
-      maxPoints: 1
-    - challengeId: employment_gap
-      displayName: Explain Employment Gap
-      required: 1
-      maxPoints: 1
-    - challengeId: why_not_working_at_12
-      displayName: Why Weren't You Working At 12?
+    - challengeId: resume_upload
+      displayName: Resume Upload
       required: 1
       maxPoints: 1
   - sectionId: 40
