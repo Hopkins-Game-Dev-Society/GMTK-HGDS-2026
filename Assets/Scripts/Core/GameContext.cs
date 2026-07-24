@@ -1,5 +1,6 @@
 using BirthdayJobJam.Application;
 using BirthdayJobJam.Views;
+using BirthdayJobJam.Player;
 using UnityEngine;
 
 namespace BirthdayJobJam.Core
@@ -17,6 +18,9 @@ namespace BirthdayJobJam.Core
         [SerializeField] private ApplicationStateModel applicationState;
         [SerializeField] private ApplicationScoreManager score;
 
+        //Testing adding this here. Just to have a way so that this can be accessed with Game.Ctx.PlayerState.PhoneCollected
+        [SerializeField] private PlayerState playerState;
+        public PlayerState PlayerState => playerState;
         public GameplayTimer Timer => timer;
         public GameplayViewStateMachine Views => views;
         public ApplicationStateModel ApplicationState => applicationState;
@@ -61,6 +65,9 @@ namespace BirthdayJobJam.Core
 
             if (score == null)
                 score = GetComponentInChildren<ApplicationScoreManager>(includeInactive: true);
+
+            if (playerState == null)
+                playerState = GetComponentInChildren<PlayerState>(true);
         }
     }
 }
