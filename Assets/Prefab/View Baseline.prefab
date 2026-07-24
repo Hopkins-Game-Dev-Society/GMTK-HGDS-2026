@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.GameplayView
   viewId: 0
   root: {fileID: 3655769526199352259}
+  viewCamera: {fileID: 5272368181335318939}
   enteredEvent: {fileID: 0}
   exitedEvent: {fileID: 0}
   entered:
