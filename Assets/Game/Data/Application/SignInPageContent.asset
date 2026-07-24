@@ -66,3 +66,14 @@ MonoBehaviour:
   progressFormat: '{0}/{1} required items complete'
   noActiveSectionProgress: No active application section.
   refreshCooldownFormat: Refresh ({0:0.0}s)
+  sessionTimerFormat: Session expires in {0:00}:{1:00}
+  sessionExpiredError: Session expired. Please complete two-factor authentication
+    before refreshing.
+  sessionExpiredTitle: Session expired, 2FA Required
+  sessionExpiredBody: For your security, Workbay has forgotten who you are. Enter
+    the authentication code to unlock refresh.
+  sessionReauthPlaceholder: 2FA code
+  sessionReauthSubmitButtonLabel: Verify
+  sessionReauthWrongCodeError: Incorrect code. Please try being the correct applicant.
+  sessionReauthSuccessStatus: Two-factor authentication accepted. You may refresh
+    the expired page.

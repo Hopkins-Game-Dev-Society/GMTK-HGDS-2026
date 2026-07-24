@@ -119,6 +119,22 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Color resumeFileNormalColor = new Color(0.92f, 0.92f, 0.9f, 0f);
         [SerializeField] private Color resumeFileSelectedColor = new Color(0.2f, 0.48f, 0.9f, 0.35f);
 
+        [Header("Web Session Timer")]
+        [SerializeField] private TMP_Text sessionTimerText;
+        [SerializeField, Min(1f)] private float sessionDurationSeconds = 120f;
+        [SerializeField, Min(0f)] private float sessionSecondsRemaining = 120f;
+        [SerializeField] private bool sessionTimerRunning;
+        [SerializeField] private bool allowSessionTimerInspectorEditsInPlayMode = true;
+
+        [Header("Session Reauthentication")]
+        [SerializeField] private GameObject sessionExpiredReauthPanel;
+        [SerializeField] private TMP_Text sessionExpiredTitleText;
+        [SerializeField] private TMP_Text sessionExpiredBodyText;
+        [SerializeField] private TMP_InputField sessionReauthInput;
+        [SerializeField] private TMP_Text sessionReauthErrorText;
+        [SerializeField] private Button sessionReauthSubmitButton;
+        [SerializeField] private TMP_Text sessionReauthSubmitButtonText;
+
         [Header("Navigation")]
         [SerializeField] private Button refreshButton;
         [SerializeField] private TMP_Text refreshButtonText;
@@ -127,10 +143,41 @@ namespace BirthdayJobJam.Application
 
         private bool hasStartedApplication;
         private int selectedResumeIndex = -1;
+        private float lastValidatedSessionDurationSeconds;
+        private float lastValidatedSessionSecondsRemaining;
 
         private void Awake()
         {
             ResolveApplicationState();
+            ResetSessionTimer();
+            CacheValidatedSessionTime();
+        }
+
+        private void OnValidate()
+        {
+            sessionDurationSeconds = Mathf.Max(1f, sessionDurationSeconds);
+            sessionSecondsRemaining = Mathf.Clamp(sessionSecondsRemaining, 0f, sessionDurationSeconds);
+
+            if (!global::UnityEngine.Application.isPlaying || !allowSessionTimerInspectorEditsInPlayMode)
+            {
+                CacheValidatedSessionTime();
+                return;
+            }
+
+            bool durationChanged = !Mathf.Approximately(sessionDurationSeconds, lastValidatedSessionDurationSeconds);
+            bool remainingChanged = !Mathf.Approximately(sessionSecondsRemaining, lastValidatedSessionSecondsRemaining);
+
+            if (!durationChanged && !remainingChanged)
+                return;
+
+            if (durationChanged)
+                sessionSecondsRemaining = Mathf.Min(sessionSecondsRemaining, sessionDurationSeconds);
+
+            CacheValidatedSessionTime();
+            RenderSessionTimer();
+
+            if (sessionSecondsRemaining <= 0f && sessionTimerRunning)
+                ExpireWebSession();
         }
 
         private void OnEnable()
@@ -151,6 +198,88 @@ namespace BirthdayJobJam.Application
         private void Update()
         {
             RenderRefreshButton();
+            UpdateSessionTimer();
+        }
+
+        public float SessionDurationSeconds
+        {
+            get => sessionDurationSeconds;
+            set => SetSessionDurationSeconds(value, resetRemaining: false);
+        }
+
+        public float SessionSecondsRemaining
+        {
+            get => sessionSecondsRemaining;
+            set => SetSessionSecondsRemaining(value);
+        }
+
+        public bool SessionTimerRunning => sessionTimerRunning;
+
+        public void StartSessionTimer()
+        {
+            if (!ShouldRunSessionTimer(applicationState != null ? applicationState.CurrentSection : null))
+                return;
+
+            sessionTimerRunning = true;
+            RenderSessionTimer();
+        }
+
+        public void StopSessionTimer()
+        {
+            sessionTimerRunning = false;
+            RenderSessionTimer();
+        }
+
+        public void ResetSessionTimer()
+        {
+            sessionSecondsRemaining = Mathf.Clamp(sessionDurationSeconds, 0f, sessionDurationSeconds);
+            sessionTimerRunning = false;
+            CacheValidatedSessionTime();
+            RenderSessionTimer();
+        }
+
+        public void SetSessionDurationSeconds(float value, bool resetRemaining = true)
+        {
+            sessionDurationSeconds = Mathf.Max(1f, value);
+
+            if (resetRemaining)
+                sessionSecondsRemaining = sessionDurationSeconds;
+            else
+                sessionSecondsRemaining = Mathf.Min(sessionSecondsRemaining, sessionDurationSeconds);
+
+            CacheValidatedSessionTime();
+            RenderSessionTimer();
+        }
+
+        public void SetSessionSecondsRemaining(float value)
+        {
+            sessionSecondsRemaining = Mathf.Clamp(value, 0f, sessionDurationSeconds);
+            CacheValidatedSessionTime();
+            RenderSessionTimer();
+
+            if (sessionSecondsRemaining <= 0f && sessionTimerRunning)
+                ExpireWebSession();
+        }
+
+        [ContextMenu("Session Timer/Set Remaining To 10 Seconds")]
+        public void SetSessionRemainingToTenSeconds()
+        {
+            SetSessionSecondsRemaining(10f);
+            StartSessionTimer();
+        }
+
+        [ContextMenu("Session Timer/Expire Now")]
+        public void ExpireSessionNow()
+        {
+            SetSessionSecondsRemaining(0f);
+            ExpireWebSession();
+        }
+
+        [ContextMenu("Session Timer/Reset And Start")]
+        public void ResetAndStartSessionTimer()
+        {
+            ResetSessionTimer();
+            StartSessionTimer();
         }
 
         public void SubmitLogin()
@@ -245,6 +374,7 @@ namespace BirthdayJobJam.Application
                 return;
 
             ClearInputs();
+            RestartSessionTimerForCurrentSection();
             SetStatus(PageRefreshedStatus);
             Render();
         }
@@ -275,6 +405,7 @@ namespace BirthdayJobJam.Application
             else if (section != null && section.SectionId == ApplicationSectionId.MyExperience)
                 SetStatus(MyExperienceInitialStatus);
 
+            RestartSessionTimerForCurrentSection();
             Render();
         }
 
@@ -353,6 +484,32 @@ namespace BirthdayJobJam.Application
             Render();
         }
 
+        public void SubmitSessionReauthentication()
+        {
+            if (applicationState == null || !applicationState.CurrentSectionRequiresReauthentication)
+                return;
+
+            string code = sessionReauthInput != null ? sessionReauthInput.text.Trim() : string.Empty;
+
+            if (code != CorrectTwoFactorCode)
+            {
+                if (sessionReauthInput != null)
+                    sessionReauthInput.text = string.Empty;
+
+                SetText(sessionReauthErrorText, SessionReauthWrongCodeError);
+                return;
+            }
+
+            applicationState.CompleteReauthenticationForCurrentSection();
+            if (sessionReauthInput != null)
+                sessionReauthInput.text = string.Empty;
+
+            SetText(sessionReauthErrorText, string.Empty);
+            SetActive(sessionExpiredReauthPanel, false);
+            SetStatus(SessionReauthSuccessStatus);
+            Render();
+        }
+
         private void Render()
         {
             if (applicationState == null)
@@ -382,6 +539,8 @@ namespace BirthdayJobJam.Application
             RenderSignInSection(isSignIn, blocked, credentialsComplete, signInComplete);
             RenderMyInformationSection(isMyInformation, blocked, namesComplete, myInformationComplete);
             RenderMyExperienceSection(isMyExperience, blocked, myExperienceComplete);
+            RenderSessionTimer();
+            RenderSessionReauthentication();
 
             SetInteractable(nextButton, applicationState.CanAdvanceCurrentSection);
             SetText(nextButtonText, NextButtonLabel);
@@ -420,6 +579,120 @@ namespace BirthdayJobJam.Application
             SetActive(jobListingPanel, false);
             SetActive(jobListingOtherRolesButton, false);
             SetButtonGraphicColor(nextButton, applicationNextButtonColor);
+        }
+
+        private void RenderSessionTimer()
+        {
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            bool show = ShouldShowSessionTimer(section);
+            SetActive(sessionTimerText, show);
+
+            if (!show)
+                return;
+
+            int totalSeconds = Mathf.CeilToInt(Mathf.Max(0f, sessionSecondsRemaining));
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            SetText(sessionTimerText, Format(SessionTimerFormat, minutes, seconds));
+        }
+
+        private void RenderSessionReauthentication()
+        {
+            bool requiresReauthentication = applicationState != null && applicationState.CurrentSectionRequiresReauthentication;
+            SetActive(sessionExpiredReauthPanel, requiresReauthentication);
+            SetInteractable(sessionReauthInput, requiresReauthentication);
+            SetInteractable(sessionReauthSubmitButton, requiresReauthentication);
+
+            if (requiresReauthentication && sessionExpiredReauthPanel != null)
+                sessionExpiredReauthPanel.transform.SetAsLastSibling();
+        }
+
+        private void UpdateSessionTimer()
+        {
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            if (!ShouldRunSessionTimer(section))
+            {
+                sessionTimerRunning = false;
+                RenderSessionTimer();
+                return;
+            }
+
+            if (!sessionTimerRunning)
+                return;
+
+            sessionSecondsRemaining = Mathf.Max(0f, sessionSecondsRemaining - Time.deltaTime);
+            CacheValidatedSessionTime();
+            RenderSessionTimer();
+
+            if (sessionSecondsRemaining <= 0f)
+                ExpireWebSession();
+        }
+
+        private void ExpireWebSession()
+        {
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            if (!ShouldRunSessionTimer(section))
+                return;
+
+            sessionTimerRunning = false;
+            sessionSecondsRemaining = 0f;
+            CacheValidatedSessionTime();
+
+            if (!applicationState.ReportWrongAnswer(
+                    FindSessionExpiryChallengeId(section),
+                    SessionExpiredError,
+                    ApplicationWrongAnswerConsequence.RequireRefresh,
+                    refreshCooldownOverrideSeconds: 0f,
+                    requireReauthenticationBeforeRefresh: true))
+                return;
+
+            selectedResumeIndex = -1;
+            SetActive(resumePickerPanel, false);
+            SetText(sessionReauthErrorText, string.Empty);
+
+            if (sessionReauthInput != null)
+                sessionReauthInput.text = string.Empty;
+
+            SetStatus(PageBlockedStatus);
+            Render();
+        }
+
+        private void RestartSessionTimerForCurrentSection()
+        {
+            ResetSessionTimer();
+
+            if (ShouldRunSessionTimer(applicationState != null ? applicationState.CurrentSection : null))
+                StartSessionTimer();
+        }
+
+        private bool ShouldShowSessionTimer(ApplicationSectionRuntimeState section)
+        {
+            return hasStartedApplication
+                && section != null
+                && section.SectionId >= ApplicationSectionId.MyInformation;
+        }
+
+        private bool ShouldRunSessionTimer(ApplicationSectionRuntimeState section)
+        {
+            return ShouldShowSessionTimer(section)
+                && !section.IsBlocked;
+        }
+
+        private string FindSessionExpiryChallengeId(ApplicationSectionRuntimeState section)
+        {
+            if (section == null)
+                return "session_expired";
+
+            for (int i = 0; i < section.Challenges.Count; i++)
+            {
+                ApplicationChallengeRuntimeState challenge = section.Challenges[i];
+                if (challenge.Required && !challenge.IsComplete)
+                    return challenge.ChallengeId;
+            }
+
+            return section.Challenges.Count > 0
+                ? section.Challenges[0].ChallengeId
+                : "session_expired";
         }
 
         private void RenderError(ApplicationSectionRuntimeState section, bool blocked)
@@ -577,6 +850,10 @@ namespace BirthdayJobJam.Application
             SetText(resumePickerSelectButtonText, ResumePickerSelectButtonLabel);
             SetText(resumePickerCancelButtonText, ResumePickerCancelButtonLabel);
             SetText(resumePickerStatusText, string.Empty);
+            SetText(sessionExpiredTitleText, SessionExpiredTitle);
+            SetText(sessionExpiredBodyText, SessionExpiredBody);
+            SetText(sessionReauthSubmitButtonText, SessionReauthSubmitButtonLabel);
+            SetText(sessionReauthErrorText, string.Empty);
             SetText(jobListingTitleText, JobListingTitle);
             SetText(jobListingDescriptionText, JobListingDescription);
             SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
@@ -592,8 +869,11 @@ namespace BirthdayJobJam.Application
             SetInputPlaceholder(firstNameInput, FirstNamePlaceholder);
             SetInputPlaceholder(lastNameInput, LastNamePlaceholder);
             SetInputPlaceholder(dateOfBirthInput, DateOfBirthPlaceholder);
+            SetInputPlaceholder(sessionReauthInput, SessionReauthPlaceholder);
             RenderDateOfBirthLabel();
             RenderResumePickerButtons(canUsePicker: false);
+            RenderSessionTimer();
+            RenderSessionReauthentication();
 
             if (statusText != null && string.IsNullOrWhiteSpace(statusText.text))
                 SetStatus(InitialStatus);
@@ -648,6 +928,8 @@ namespace BirthdayJobJam.Application
             SetActive(myInformationPanel, false);
             SetActive(myExperiencePanel, false);
             SetActive(resumePickerPanel, false);
+            SetActive(sessionTimerText, false);
+            SetActive(sessionExpiredReauthPanel, false);
             SetActive(jobListingPanel, true);
             SetActive(statusText, false);
             SetActive(refreshButton, true);
@@ -692,6 +974,12 @@ namespace BirthdayJobJam.Application
             selectedResumeIndex = -1;
             SetText(resumePickerStatusText, string.Empty);
             SetActive(resumePickerPanel, false);
+            SetText(sessionReauthErrorText, string.Empty);
+
+            if (sessionReauthInput != null)
+                sessionReauthInput.text = string.Empty;
+
+            SetActive(sessionExpiredReauthPanel, false);
         }
 
         private void ResolveApplicationState()
@@ -763,6 +1051,9 @@ namespace BirthdayJobJam.Application
             if (resumePickerCancelButton != null)
                 resumePickerCancelButton.onClick.AddListener(CloseResumePicker);
 
+            if (sessionReauthSubmitButton != null)
+                sessionReauthSubmitButton.onClick.AddListener(SubmitSessionReauthentication);
+
             if (resumeFileButtons != null)
             {
                 for (int i = 0; i < resumeFileButtons.Length; i++)
@@ -812,6 +1103,9 @@ namespace BirthdayJobJam.Application
             if (resumePickerCancelButton != null)
                 resumePickerCancelButton.onClick.RemoveListener(CloseResumePicker);
 
+            if (sessionReauthSubmitButton != null)
+                sessionReauthSubmitButton.onClick.RemoveListener(SubmitSessionReauthentication);
+
             if (resumeFileButtons != null)
             {
                 foreach (Button button in resumeFileButtons)
@@ -844,6 +1138,7 @@ namespace BirthdayJobJam.Application
 
         private void HandlePageRefreshed(ApplicationSectionRuntimeState section)
         {
+            RestartSessionTimerForCurrentSection();
             Render();
         }
 
@@ -904,6 +1199,12 @@ namespace BirthdayJobJam.Application
             TMP_Text placeholder = input.placeholder.GetComponent<TMP_Text>();
             if (placeholder != null)
                 placeholder.text = value;
+        }
+
+        private void CacheValidatedSessionTime()
+        {
+            lastValidatedSessionDurationSeconds = sessionDurationSeconds;
+            lastValidatedSessionSecondsRemaining = sessionSecondsRemaining;
         }
 
         private static string Format(string format, params object[] args)
@@ -970,6 +1271,14 @@ namespace BirthdayJobJam.Application
         private string ProgressFormat => GetContentText(content?.ProgressFormat, "{0}/{1} required items complete");
         private string NoActiveSectionProgress => GetContentText(content?.NoActiveSectionProgress, "No active application section.");
         private string RefreshCooldownFormat => GetContentText(content?.RefreshCooldownFormat, "Refresh ({0:0.0}s)");
+        private string SessionTimerFormat => GetContentText(content?.SessionTimerFormat, "Session expires in {0:00}:{1:00}");
+        private string SessionExpiredError => GetContentText(content?.SessionExpiredError, "Session expired. Please complete two-factor authentication before refreshing.");
+        private string SessionExpiredTitle => GetContentText(content?.SessionExpiredTitle, "Session expired, 2FA Required");
+        private string SessionExpiredBody => GetContentText(content?.SessionExpiredBody, "For your security, Workbay has forgotten who you are. Enter the authentication code to unlock refresh.");
+        private string SessionReauthPlaceholder => GetContentText(content?.SessionReauthPlaceholder, "2FA code");
+        private string SessionReauthSubmitButtonLabel => GetContentText(content?.SessionReauthSubmitButtonLabel, "Verify");
+        private string SessionReauthWrongCodeError => GetContentText(content?.SessionReauthWrongCodeError, "Incorrect code. Please try being the correct applicant.");
+        private string SessionReauthSuccessStatus => GetContentText(content?.SessionReauthSuccessStatus, "Two-factor authentication accepted. You may refresh the expired page.");
         private string MyExperienceIntroText => GetContentText(experienceContent?.IntroText, "Please upload your resume. Any resume. Ideally the correct one.");
         private string UploadResumeButtonLabel => GetContentText(experienceContent?.UploadResumeButtonLabel, "Upload Resume");
         private string MyExperienceInitialStatus => GetContentText(experienceContent?.IntroText, "Please upload your resume. Any resume. Ideally the correct one.");

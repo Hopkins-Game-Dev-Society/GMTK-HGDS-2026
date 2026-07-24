@@ -39,6 +39,7 @@ namespace BirthdayJobJam.Application
         public bool ResetChallengesOnRefresh { get; }
         public IReadOnlyList<ApplicationChallengeRuntimeState> Challenges => challenges;
         public bool IsBlocked { get; private set; }
+        public bool RequiresReauthenticationBeforeRefresh { get; private set; }
         public string ErrorMessage { get; private set; }
         public int WrongAttempts { get; private set; }
         public int RefreshCount { get; private set; }
@@ -114,9 +115,10 @@ namespace BirthdayJobJam.Application
             return null;
         }
 
-        internal void Block(string errorMessage, float refreshAvailableAtTime)
+        internal void Block(string errorMessage, float refreshAvailableAtTime, bool requiresReauthenticationBeforeRefresh = false)
         {
             IsBlocked = true;
+            RequiresReauthenticationBeforeRefresh = requiresReauthenticationBeforeRefresh;
             ErrorMessage = errorMessage;
             RefreshAvailableAtTime = Mathf.Max(Time.time, refreshAvailableAtTime);
         }
@@ -124,8 +126,15 @@ namespace BirthdayJobJam.Application
         internal void ClearBlock()
         {
             IsBlocked = false;
+            RequiresReauthenticationBeforeRefresh = false;
             ErrorMessage = string.Empty;
             RefreshAvailableAtTime = 0f;
+        }
+
+        internal void CompleteReauthentication(float refreshAvailableAtTime)
+        {
+            RequiresReauthenticationBeforeRefresh = false;
+            RefreshAvailableAtTime = Mathf.Max(Time.time, refreshAvailableAtTime);
         }
 
         internal void RecordWrongAnswer()

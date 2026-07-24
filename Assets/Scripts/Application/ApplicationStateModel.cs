@@ -47,7 +47,13 @@ namespace BirthdayJobJam.Application
         public bool HasInitialized { get; private set; }
         public bool IsOnFinalSection => currentSectionIndex >= runtimeSections.Count - 1;
         public bool CanAdvanceCurrentSection => CurrentSection != null && !CurrentSection.IsBlocked && CurrentSection.IsComplete && !IsOnFinalSection;
-        public bool CanRefreshCurrentSection => CurrentSection != null && CurrentSection.IsBlocked && RefreshCooldownRemaining <= 0f;
+        public bool CanRefreshCurrentSection => CurrentSection != null
+            && CurrentSection.IsBlocked
+            && !CurrentSection.RequiresReauthenticationBeforeRefresh
+            && RefreshCooldownRemaining <= 0f;
+        public bool CurrentSectionRequiresReauthentication => CurrentSection != null
+            && CurrentSection.IsBlocked
+            && CurrentSection.RequiresReauthenticationBeforeRefresh;
         public ApplicationFlowDefinition FlowDefinition => flowDefinition;
 
         public float RefreshCooldownRemaining
@@ -178,7 +184,8 @@ namespace BirthdayJobJam.Application
             string challengeId,
             string errorMessage,
             ApplicationWrongAnswerConsequence consequence,
-            float refreshCooldownOverrideSeconds = -1f)
+            float refreshCooldownOverrideSeconds = -1f,
+            bool requireReauthenticationBeforeRefresh = false)
         {
             ApplicationSectionRuntimeState section = CurrentSection;
             if (section == null || section.IsBlocked)
@@ -212,13 +219,25 @@ namespace BirthdayJobJam.Application
                         ? refreshCooldownOverrideSeconds
                         : Mathf.Max(GetFallbackRefreshCooldownSeconds(), section.RefreshCooldownSeconds);
 
-                    section.Block(resolvedErrorMessage, Time.time + cooldown);
+                    section.Block(resolvedErrorMessage, Time.time + cooldown, requireReauthenticationBeforeRefresh);
                     PageBlocked?.Invoke(section);
                     pageBlockedEvent?.Raise();
                     errorMessageChangedEvent?.Raise(resolvedErrorMessage);
                     break;
             }
 
+            RaiseStateChanged();
+            return true;
+        }
+
+        public bool CompleteReauthenticationForCurrentSection()
+        {
+            ApplicationSectionRuntimeState section = CurrentSection;
+            if (section == null || !section.IsBlocked || !section.RequiresReauthenticationBeforeRefresh)
+                return false;
+
+            section.CompleteReauthentication(Time.time);
+            lastReportedRefreshCooldown = -1f;
             RaiseStateChanged();
             return true;
         }
