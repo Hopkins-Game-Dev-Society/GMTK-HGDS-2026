@@ -110,6 +110,9 @@ namespace BirthdayJobJam.Views
         [Header("View Root")]
         [SerializeField] private GameObject root;
 
+        [Header("Camera")]
+        [SerializeField] private Camera viewCamera;
+
         [Header("Events")]
         [SerializeField] private GameEvent enteredEvent;
         [SerializeField] private GameEvent exitedEvent;
@@ -120,9 +123,85 @@ namespace BirthdayJobJam.Views
 
         public GameViewId ViewId => viewId;
 
+        public Camera ViewCamera => viewCamera;
+
         public bool IsActive { get; private set; }
 
+             private void Reset()
+        {
+            root = gameObject;
+            viewCamera = GetComponentInChildren<Camera>();
+        }
 
+
+        private void Awake()
+        {
+            SetCameraActive(false);
+        }
+
+
+        public void Activate()
+        {
+            SetActive(true, true);
+        }
+
+
+        public void Deactivate()
+        {
+            SetActive(false, true);
+        }
+
+
+        public void ActivateSilently()
+        {
+            SetActive(true, false);
+        }
+
+
+        public void DeactivateSilently()
+        {
+            SetActive(false, false);
+        }
+
+
+        public void SetActive(bool active, bool sendEvents)
+        {
+            IsActive = active;
+
+
+            // DO NOT disable root anymore.
+            // Objects stay alive.
+
+            SetCameraActive(active);
+
+
+            if (!sendEvents)
+                return;
+
+
+            if (active)
+            {
+                entered?.Invoke();
+                enteredEvent?.Raise();
+            }
+            else
+            {
+                exited?.Invoke();
+                exitedEvent?.Raise();
+            }
+        }
+
+
+        public void SetCameraActive(bool active)
+        {
+            if (viewCamera != null)
+                viewCamera.enabled = active;
+        }
+    }
+}
+
+        
+        /*
         private void Awake()
         {
             if (root == null)
@@ -185,4 +264,4 @@ namespace BirthdayJobJam.Views
             }
         }
     }
-}
+}*/

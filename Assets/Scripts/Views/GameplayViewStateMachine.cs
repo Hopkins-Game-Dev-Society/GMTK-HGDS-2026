@@ -229,6 +229,18 @@ namespace BirthdayJobJam.Views
             return null;
         }
 
+        public Camera CurrentCamera
+        {
+            get
+            {
+                GameplayView view = GetCurrentView();
+
+                return view != null
+                    ? view.ViewCamera
+                    : null;
+            }
+        }
+
 
 
 
