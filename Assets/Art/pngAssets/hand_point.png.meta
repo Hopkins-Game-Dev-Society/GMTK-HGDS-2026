@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6769a83ba5d3aee4aa9037705538cdd3
+guid: d62bab59a223c0d4191645a23635b4ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 386011022290077205
-    second: phoneOnTable_0
+      213: 1574497776588965693
+    second: hand_point_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: phoneOnTable_0
+      name: hand_point_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 3
-        width: 149
-        height: 89
+        x: 0
+        y: 0
+        width: 109
+        height: 377
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5164cf6caf26b5500800000000000000
-      internalID: 386011022290077205
+      spriteID: d374a31c26db9d510800000000000000
+      internalID: 1574497776588965693
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      phoneOnTable_0: 386011022290077205
+      hand_point_0: 1574497776588965693
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
