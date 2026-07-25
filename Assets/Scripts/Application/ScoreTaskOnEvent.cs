@@ -6,7 +6,7 @@ namespace BirthdayJobJam.Application
     {
         [SerializeField] private ApplicationScoreManager scoreManager;
         [SerializeField] private ApplicationTaskDefinition task;
-        [SerializeField, Range(0, 5)] private int points = 5;
+        [SerializeField, Range(0, 10)] private int points = 10;
 
         public void Score()
         {

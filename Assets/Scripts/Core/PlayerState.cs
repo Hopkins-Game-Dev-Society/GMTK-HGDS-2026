@@ -9,12 +9,18 @@ namespace BirthdayJobJam.Player
         [SerializeField]
         private bool phoneCollected;
 
+        private bool phoneActive;
+
         // Used to detect Inspector changes while playing.
         private bool previousPhoneCollected;
 
         public bool PhoneCollected => phoneCollected;
 
         public event Action PhoneCollectedChanged;
+
+        //Need to add a phone active trigger here as well.
+
+        public bool PhoneActive => phoneActive;
 
         private void Awake()
         {
@@ -43,6 +49,18 @@ namespace BirthdayJobJam.Player
             PhoneCollectedChanged?.Invoke();
         }
 
+        //Just reverses the current indicator
+        public void SetPhoneOnOff()
+        {
+            if (phoneActive == true)
+            {
+                phoneActive = false;
+            } else
+            {
+                phoneActive = true;
+            }
+        }
+
         public void CollectPhone()
         {
             SetPhoneCollected(true);
@@ -56,25 +74,3 @@ namespace BirthdayJobJam.Player
 }
 
 //Can use Game.Ctx.PlayerState.SetPhoneCollected(true); or collectPhone / removePhone
-
-/*using System;
-using UnityEngine;
-
-namespace BirthdayJobJam.Player
-{
-    public sealed class PlayerState : MonoBehaviour
-    {
-        public bool PhoneCollected { get; private set; }
-
-        public event Action PhoneCollectedChanged;
-
-        public void CollectPhone()
-        {
-            if (PhoneCollected)
-                return;
-
-            PhoneCollected = true;
-            PhoneCollectedChanged?.Invoke();
-        }
-    }
-} */

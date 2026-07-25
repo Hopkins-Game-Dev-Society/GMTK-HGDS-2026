@@ -1,4 +1,5 @@
 using BirthdayJobJam.Core;
+using BirthdayJobJam.UI;
 using UnityEngine;
 
 //Should be attached to the button and makes it visible only if the phone has been collected
@@ -9,6 +10,9 @@ namespace BirthdayJobJam.Player
     {
         [SerializeField]
         private GameObject button;
+
+        [SerializeField]
+        private UISlidePanel phone;
 
         private PlayerState playerState;
 
@@ -43,6 +47,13 @@ namespace BirthdayJobJam.Player
         private void Refresh()
         {
             button.SetActive(playerState.PhoneCollected);
+
+        }
+
+        public void PressButtonAppear()
+        {
+            phone.Show();
+            button.SetActive(false);
         }
     }
 }

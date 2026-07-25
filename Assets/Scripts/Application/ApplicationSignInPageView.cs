@@ -33,6 +33,7 @@ namespace BirthdayJobJam.Application
         [SerializeField] private ApplicationSignInPageContent content;
         [SerializeField] private ApplicationMyInformationPageContent myInformationContent;
         [SerializeField] private ApplicationExperiencePageContent experienceContent;
+        private ApplicationSessionManager applicationSession;
 
         [Header("Portal Chrome")]
         [SerializeField] private TMP_Text portalTitleText;
@@ -149,6 +150,7 @@ namespace BirthdayJobJam.Application
         private void Awake()
         {
             ResolveApplicationState();
+            ResolveApplicationSession();
             ResetSessionTimer();
             CacheValidatedSessionTime();
         }
@@ -183,6 +185,7 @@ namespace BirthdayJobJam.Application
         private void OnEnable()
         {
             ResolveApplicationState();
+            ResolveApplicationSession();
             Subscribe();
             AddButtonListeners();
             RenderStaticCopy();
@@ -994,6 +997,30 @@ namespace BirthdayJobJam.Application
                 applicationState = FindAnyObjectByType<ApplicationStateModel>();
         }
 
+        private void ResolveApplicationSession()
+        {
+            if (applicationSession != null)
+                return;
+
+            if (Game.Ctx != null)
+                applicationSession = Game.Ctx.ApplicationSession;
+
+            if (applicationSession == null)
+                applicationSession = FindAnyObjectByType<ApplicationSessionManager>();
+        }
+
+        private ApplicationApplicantRuntimeData CurrentApplicant
+        {
+            get
+            {
+                //I use the randomized values for this run first and the existing page content if there is no session.
+                ResolveApplicationSession();
+                return applicationSession != null
+                    ? applicationSession.Current?.Applicant
+                    : null;
+            }
+        }
+
         private void Subscribe()
         {
             if (applicationState == null)
@@ -1253,9 +1280,15 @@ namespace BirthdayJobJam.Application
         private string UsernameChallengeId => GetContentText(content?.UsernameChallengeId, DefaultUsernameChallengeId);
         private string PasswordChallengeId => GetContentText(content?.PasswordChallengeId, DefaultPasswordChallengeId);
         private string TwoFactorChallengeId => GetContentText(content?.TwoFactorChallengeId, DefaultTwoFactorChallengeId);
-        private string CorrectUsername => GetContentText(content?.CorrectUsername, DefaultCorrectUsername);
-        private string CorrectPassword => GetContentText(content?.CorrectPassword, DefaultCorrectPassword);
-        private string CorrectTwoFactorCode => GetContentText(content?.CorrectTwoFactorCode, DefaultCorrectTwoFactorCode);
+        private string CorrectUsername => GetContentText(
+            CurrentApplicant?.Username,
+            GetContentText(content?.CorrectUsername, DefaultCorrectUsername));
+        private string CorrectPassword => GetContentText(
+            CurrentApplicant?.Password,
+            GetContentText(content?.CorrectPassword, DefaultCorrectPassword));
+        private string CorrectTwoFactorCode => GetContentText(
+            CurrentApplicant?.TwoFactorCode,
+            GetContentText(content?.CorrectTwoFactorCode, DefaultCorrectTwoFactorCode));
         private string InitialStatus => GetContentText(content?.InitialStatus, "Log in to begin becoming professionally acceptable.");
         private string CredentialsAcceptedStatus => GetContentText(content?.CredentialsAcceptedStatus, "Credentials accepted. Two-factor authentication required, because of course it is.");
         private string SignInCompleteStatus => GetContentText(content?.SignInCompleteStatus, "Sign-in complete. You may proceed to My Information.");
@@ -1414,8 +1447,12 @@ namespace BirthdayJobJam.Application
         private string FirstNameChallengeId => GetContentText(myInformationContent?.FirstNameChallengeId, "first_name");
         private string LastNameChallengeId => GetContentText(myInformationContent?.LastNameChallengeId, "last_name");
         private string DateOfBirthChallengeId => GetContentText(myInformationContent?.DateOfBirthChallengeId, "date_of_birth");
-        private string CorrectFirstName => GetContentText(myInformationContent?.CorrectFirstName, "Jamie");
-        private string CorrectLastName => GetContentText(myInformationContent?.CorrectLastName, "Applicant");
+        private string CorrectFirstName => GetContentText(
+            CurrentApplicant?.FirstName,
+            GetContentText(myInformationContent?.CorrectFirstName, "Jamie"));
+        private string CorrectLastName => GetContentText(
+            CurrentApplicant?.LastName,
+            GetContentText(myInformationContent?.CorrectLastName, "Applicant"));
         private int CorrectBirthMonth => myInformationContent != null ? myInformationContent.CorrectBirthMonth : 4;
         private int CorrectBirthDay => myInformationContent != null ? myInformationContent.CorrectBirthDay : 22;
         private int CorrectBirthYear => myInformationContent != null ? myInformationContent.CorrectBirthYear : 2004;
