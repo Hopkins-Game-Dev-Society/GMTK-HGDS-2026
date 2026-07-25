@@ -433,6 +433,8 @@ GameObject:
   m_Component:
   - component: {fileID: 940625650683711868}
   - component: {fileID: 6630282474307080754}
+  - component: {fileID: 3482204407614450101}
+  - component: {fileID: 3482204407614450102}
   m_Layer: 0
   m_Name: Game Systems
   m_TagString: Untagged
@@ -477,5 +479,49 @@ MonoBehaviour:
   timer: {fileID: 6301139913528209077}
   views: {fileID: 8824372238789830241}
   applicationState: {fileID: 8715736626020238855}
-  score: {fileID: 0}
+  applicationSession: {fileID: 3482204407614450101}
+  score: {fileID: 3482204407614450102}
   playerState: {fileID: 5437313211691312243}
+--- !u!114 &3482204407614450101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8881386339653172105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64ff84f7ef5499bbba135b196c1a8ff, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSessionManager
+  catalog: {fileID: 11400000, guid: 2c9b8667408b4738970265bc37acbeef, type: 2}
+  applicationState: {fileID: 8715736626020238855}
+  useFixedSeed: 0
+  fixedSeed: 2204
+  currentSessionId:
+  currentSeed: 0
+  currentNameId:
+  currentUsernameId:
+  currentPasswordId:
+  currentTwoFactorCodeId:
+  currentQuestionIds: []
+  currentClueIds: []
+--- !u!114 &3482204407614450102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8881386339653172105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92be7300c7424266b573317ea2fcffe, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationScoreManager
+  endings: []
+  sessionManager: {fileID: 3482204407614450101}
+  applicationScore: 0
+  hasFinalScore: 0
+  answeredQuestionCount: 0
+  scoreChanged: {fileID: 0}
+  endingResolved: {fileID: 0}

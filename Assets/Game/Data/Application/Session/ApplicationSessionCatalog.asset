@@ -1,0 +1,392 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b537560b50045e183b3d5c254c3555d, type: 3}
+  m_Name: ApplicationSessionCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSessionCatalog
+  names:
+  - nameId: samuel_huang
+    firstName: Samuel
+    lastName: Huang
+  - nameId: greg_anderson
+    firstName: Greg
+    lastName: Anderson
+  - nameId: bartholomew_huang
+    firstName: Bartholomew
+    lastName: Huang
+  - nameId: big_boss
+    firstName: Big
+    lastName: Boss
+  - nameId: jamie_applicant
+    firstName: Jamie
+    lastName: Applicant
+  usernames:
+  - valueId: samuel_username
+    value: shuan143@jh.edu
+  - valueId: greg_username
+    value: greg.anderson@workmail.test
+  - valueId: bartholomew_username
+    value: bartholomew.huang@workmail.test
+  - valueId: big_boss_username
+    value: big.boss@outerheaven.test
+  - valueId: jamie_username
+    value: applicant22
+  passwords:
+  - valueId: ultrakill_password
+    value: iloveultrakill
+  - valueId: spreadsheet_password
+    value: spreadsheetwizard
+  - valueId: banana_password
+    value: banana_protocol
+  - valueId: outer_heaven_password
+    value: outer_heaven
+  - valueId: birthday_password
+    value: birthday123
+  twoFactorCodes:
+  - valueId: birthday_0422
+    value: '0422'
+  questions:
+  - questionId: favorite_game
+    prompt: What is your favorite game?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: ultrakill
+    possibleAnswers:
+    - answerId: ultrakill
+      answerText: ULTRAKILL
+      rating: 10
+    - answerId: tetris
+      answerText: Tetris
+      rating: 8
+    - answerId: sports_games
+      answerText: Sports games
+      rating: 4
+    - answerId: no_games
+      answerText: I do not play games
+      rating: 0
+  - questionId: height
+    prompt: How tall are you?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: confidence_units
+    possibleAnswers:
+    - answerId: short
+      answerText: Short
+      rating: 6
+    - answerId: average
+      answerText: About average
+      rating: 6
+    - answerId: tall
+      answerText: Tall
+      rating: 6
+    - answerId: confidence_units
+      answerText: Measured in confidence
+      rating: 10
+    - answerId: unknown_height
+      answerText: I have never checked
+      rating: 2
+  - questionId: favorite_food
+    prompt: What is your favorite food?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: banana
+    possibleAnswers:
+    - answerId: banana
+      answerText: Banana
+      rating: 10
+    - answerId: pizza
+      answerText: Pizza
+      rating: 8
+    - answerId: salad
+      answerText: Salad
+      rating: 6
+    - answerId: printer_ink
+      answerText: Printer ink
+      rating: 0
+  - questionId: visa_sponsorship
+    prompt: Will you need visa sponsorship?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: visa_yes
+    possibleAnswers:
+    - answerId: visa_yes
+      answerText: Yes
+      rating: 10
+    - answerId: visa_no
+      answerText: No
+      rating: 10
+    - answerId: visa_unsure
+      answerText: I am not sure
+      rating: 4
+    - answerId: visa_refuse
+      answerText: Prefer not to answer
+      rating: 2
+  - questionId: wants_job
+    prompt: Do you want a job?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: wants_yes
+    possibleAnswers:
+    - answerId: wants_yes
+      answerText: Yes
+      rating: 10
+    - answerId: wants_maybe
+      answerText: Maybe
+      rating: 4
+    - answerId: wants_no
+      answerText: No
+      rating: 0
+  - questionId: really_wants_job
+    prompt: Do you really want a job?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: really_yes
+    possibleAnswers:
+    - answerId: really_yes
+      answerText: Yes, really
+      rating: 10
+    - answerId: really_still_yes
+      answerText: I already said yes
+      rating: 8
+    - answerId: really_unsure
+      answerText: Less than before this question
+      rating: 4
+    - answerId: really_no
+      answerText: No
+      rating: 0
+  - questionId: job_desperation
+    prompt: How bad do you want this job?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: desperation_maximum
+    possibleAnswers:
+    - answerId: desperation_maximum
+      answerText: Extremely badly
+      rating: 10
+    - answerId: desperation_reasonable
+      answerText: A reasonable amount
+      rating: 8
+    - answerId: desperation_mild
+      answerText: A little
+      rating: 4
+    - answerId: desperation_none
+      answerText: Not at all
+      rating: 0
+  clues:
+  - clueId: samuel_first_name
+    category: 0
+    targetId: first_name
+    associatedAnswer: Samuel
+    variantId: applicant_file_first_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Samuel
+  - clueId: samuel_last_name
+    category: 0
+    targetId: last_name
+    associatedAnswer: Huang
+    variantId: applicant_file_last_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Huang
+  - clueId: samuel_username
+    category: 10
+    targetId: username
+    associatedAnswer: shuan143@jh.edu
+    variantId: account_record_username
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: shuan143@jh.edu
+  - clueId: samuel_password
+    category: 10
+    targetId: password
+    associatedAnswer: iloveultrakill
+    variantId: account_record_password
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: iloveultrakill
+  - clueId: greg_first_name
+    category: 0
+    targetId: first_name
+    associatedAnswer: Greg
+    variantId: applicant_file_first_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Greg
+  - clueId: greg_last_name
+    category: 0
+    targetId: last_name
+    associatedAnswer: Anderson
+    variantId: applicant_file_last_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Anderson
+  - clueId: greg_username
+    category: 10
+    targetId: username
+    associatedAnswer: greg.anderson@workmail.test
+    variantId: account_record_username
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: greg.anderson@workmail.test
+  - clueId: greg_password
+    category: 10
+    targetId: password
+    associatedAnswer: spreadsheetwizard
+    variantId: account_record_password
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: spreadsheetwizard
+  - clueId: bartholomew_first_name
+    category: 0
+    targetId: first_name
+    associatedAnswer: Bartholomew
+    variantId: applicant_file_first_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Bartholomew
+  - clueId: bartholomew_last_name
+    category: 0
+    targetId: last_name
+    associatedAnswer: Huang
+    variantId: applicant_file_last_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Huang
+  - clueId: bartholomew_username
+    category: 10
+    targetId: username
+    associatedAnswer: bartholomew.huang@workmail.test
+    variantId: account_record_username
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: bartholomew.huang@workmail.test
+  - clueId: bartholomew_password
+    category: 10
+    targetId: password
+    associatedAnswer: banana_protocol
+    variantId: account_record_password
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: banana_protocol
+  - clueId: big_boss_first_name
+    category: 0
+    targetId: first_name
+    associatedAnswer: Big
+    variantId: applicant_file_first_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Big
+  - clueId: big_boss_last_name
+    category: 0
+    targetId: last_name
+    associatedAnswer: Boss
+    variantId: applicant_file_last_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Boss
+  - clueId: big_boss_username
+    category: 10
+    targetId: username
+    associatedAnswer: big.boss@outerheaven.test
+    variantId: account_record_username
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: big.boss@outerheaven.test
+  - clueId: big_boss_password
+    category: 10
+    targetId: password
+    associatedAnswer: outer_heaven
+    variantId: account_record_password
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: outer_heaven
+  - clueId: jamie_first_name
+    category: 0
+    targetId: first_name
+    associatedAnswer: Jamie
+    variantId: applicant_file_first_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Jamie
+  - clueId: jamie_last_name
+    category: 0
+    targetId: last_name
+    associatedAnswer: Applicant
+    variantId: applicant_file_last_name
+    authoredReference: {fileID: 0}
+    spawnGroupId: identity
+    resolvedPayload: Applicant
+  - clueId: jamie_username
+    category: 10
+    targetId: username
+    associatedAnswer: applicant22
+    variantId: account_record_username
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: applicant22
+  - clueId: jamie_password
+    category: 10
+    targetId: password
+    associatedAnswer: birthday123
+    variantId: account_record_password
+    authoredReference: {fileID: 0}
+    spawnGroupId: credentials
+    resolvedPayload: birthday123
+  - clueId: favorite_game_preferred
+    category: 20
+    targetId: favorite_game
+    associatedAnswer: ultrakill
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: ultrakill
+  - clueId: height_preferred
+    category: 20
+    targetId: height
+    associatedAnswer: confidence_units
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: confidence_units
+  - clueId: favorite_food_preferred
+    category: 20
+    targetId: favorite_food
+    associatedAnswer: banana
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: banana
+  - clueId: visa_sponsorship_preferred
+    category: 20
+    targetId: visa_sponsorship
+    associatedAnswer: visa_yes
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: visa_yes
+  - clueId: wants_job_preferred
+    category: 20
+    targetId: wants_job
+    associatedAnswer: wants_yes
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: wants_yes
+  - clueId: really_wants_job_preferred
+    category: 20
+    targetId: really_wants_job
+    associatedAnswer: really_yes
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: really_yes
+  - clueId: job_desperation_preferred
+    category: 20
+    targetId: job_desperation
+    associatedAnswer: desperation_maximum
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: desperation_maximum

@@ -16,6 +16,7 @@ namespace BirthdayJobJam.Core
         [SerializeField] private GameplayTimer timer;
         [SerializeField] private GameplayViewStateMachine views;
         [SerializeField] private ApplicationStateModel applicationState;
+        [SerializeField] private ApplicationSessionManager applicationSession;
         [SerializeField] private ApplicationScoreManager score;
 
         //Testing adding this here. Just to have a way so that this can be accessed with Game.Ctx.PlayerState.PhoneCollected
@@ -24,6 +25,7 @@ namespace BirthdayJobJam.Core
         public GameplayTimer Timer => timer;
         public GameplayViewStateMachine Views => views;
         public ApplicationStateModel ApplicationState => applicationState;
+        public ApplicationSessionManager ApplicationSession => applicationSession;
         public ApplicationScoreManager Score => score;
 
         private void Awake()
@@ -62,6 +64,9 @@ namespace BirthdayJobJam.Core
 
             if (applicationState == null)
                 applicationState = GetComponentInChildren<ApplicationStateModel>(includeInactive: true);
+
+            if (applicationSession == null)
+                applicationSession = GetComponentInChildren<ApplicationSessionManager>(includeInactive: true);
 
             if (score == null)
                 score = GetComponentInChildren<ApplicationScoreManager>(includeInactive: true);

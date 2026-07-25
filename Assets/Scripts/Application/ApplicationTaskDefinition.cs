@@ -8,7 +8,7 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string taskId;
         [SerializeField] private string displayName;
         [SerializeField, TextArea] private string notes;
-        [SerializeField, Range(1, 5)] private int maxPoints = 5;
+        [SerializeField, Range(1, 10)] private int maxPoints = 10;
 
         public string TaskId => string.IsNullOrWhiteSpace(taskId) ? name : taskId;
         public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? name : displayName;
