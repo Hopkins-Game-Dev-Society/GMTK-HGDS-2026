@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3bd87262bb41be4fa9490df5209d890
+guid: 27744ea8f8430154b8d334ce553fddfb
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: crumpledPaper
+  - name: hand_point
     originalName: 
-    pivot: {x: 0.47500002, y: -0.022727272}
+    pivot: {x: 0.36, y: 0.97}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 40
-      height: 44
-    spriteID: b15de7f102a65594dac47b584922f5ff
+      width: 107
+      height: 376
+    spriteID: b0b921f3a40e50346b11c1d88200ffc3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -153,25 +153,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3163292226
+      value0: 960217374
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: crumpledPaper
+    name: hand_point
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: crumpledPaper
+    - name: hand_point
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 5
-        y: 1
-        width: 40
-        height: 44
-      spriteId: b15de7f102a65594dac47b584922f5ff
+        x: 1
+        y: 0
+        width: 107
+        height: 376
+      spriteId: b0b921f3a40e50346b11c1d88200ffc3
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -181,5 +181,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 48, y: 46}
-  previousTextureSize: {x: 64, y: 64}
+  canvasSize: {x: 113, y: 380}
+  previousTextureSize: {x: 128, y: 512}

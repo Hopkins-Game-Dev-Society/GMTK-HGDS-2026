@@ -42,6 +42,9 @@ namespace BirthdayJobJam.Core
 
             ResolveSceneSystems();
             Game.SetContext(this);
+            
+            //This is for removing the cursor for the hand
+            Cursor.visible = false;
         }
 
         private void OnDestroy()

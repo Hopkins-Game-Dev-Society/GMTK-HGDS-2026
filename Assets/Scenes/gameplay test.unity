@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 9069908}
   - component: {fileID: 9069910}
   - component: {fileID: 9069909}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,8 @@ GameObject:
   - component: {fileID: 22068801}
   - component: {fileID: 22068800}
   - component: {fileID: 22068799}
-  m_Layer: 0
+  - component: {fileID: 22068802}
+  m_Layer: 5
   m_Name: Other Roles Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,6 +332,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22068797}
   m_CullTransparentMesh: 1
+--- !u!114 &22068802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22068797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &45022935
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +356,8 @@ GameObject:
   - component: {fileID: 45022939}
   - component: {fileID: 45022938}
   - component: {fileID: 45022940}
-  m_Layer: 0
+  - component: {fileID: 45022941}
+  m_Layer: 5
   m_Name: Password Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,6 +524,18 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
+--- !u!114 &45022941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45022935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &45154066
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +547,7 @@ GameObject:
   - component: {fileID: 45154067}
   - component: {fileID: 45154069}
   - component: {fileID: 45154070}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +684,7 @@ GameObject:
   - component: {fileID: 58412152}
   - component: {fileID: 58412154}
   - component: {fileID: 58412153}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +759,7 @@ GameObject:
   - component: {fileID: 137554002}
   - component: {fileID: 137554001}
   - component: {fileID: 137554003}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +896,7 @@ GameObject:
   - component: {fileID: 156512676}
   - component: {fileID: 156512678}
   - component: {fileID: 156512677}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +972,7 @@ GameObject:
   - component: {fileID: 189613733}
   - component: {fileID: 189613732}
   - component: {fileID: 189613731}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1091,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 229988941}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Job Listing Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1133,7 @@ GameObject:
   - component: {fileID: 234501932}
   - component: {fileID: 234501934}
   - component: {fileID: 234501935}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Workbay Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1245,7 +1271,7 @@ GameObject:
   - component: {fileID: 236739111}
   - component: {fileID: 236739110}
   - component: {fileID: 236739109}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Confirm Date Of Birth Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1366,7 +1392,7 @@ GameObject:
   - component: {fileID: 238935427}
   - component: {fileID: 238935426}
   - component: {fileID: 238935428}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: First Name Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1546,7 +1572,8 @@ GameObject:
   - component: {fileID: 239252716}
   - component: {fileID: 239252718}
   - component: {fileID: 239252719}
-  m_Layer: 0
+  - component: {fileID: 239252720}
+  m_Layer: 5
   m_Name: Username Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,6 +1754,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.VirtualKeyboardTarget
   selectedIndicator: {fileID: 1474136486}
+--- !u!114 &239252720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239252713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &243258331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1778,7 @@ GameObject:
   - component: {fileID: 243258335}
   - component: {fileID: 243258334}
   - component: {fileID: 243258336}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Two-Factor Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1917,7 +1956,7 @@ GameObject:
   - component: {fileID: 246594098}
   - component: {fileID: 246594100}
   - component: {fileID: 246594099}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1991,6 +2030,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4829827992150217079, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
   m_PrefabInstance: {fileID: 1923242037655389857}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &266385935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266385929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &270492847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,7 +2053,7 @@ GameObject:
   - component: {fileID: 270492848}
   - component: {fileID: 270492850}
   - component: {fileID: 270492851}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Username Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2139,7 +2190,7 @@ GameObject:
   - component: {fileID: 278792179}
   - component: {fileID: 278792181}
   - component: {fileID: 278792180}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2294,7 +2345,7 @@ GameObject:
   - component: {fileID: 284832467}
   - component: {fileID: 284832466}
   - component: {fileID: 284832465}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2415,7 +2466,7 @@ GameObject:
   - component: {fileID: 311402857}
   - component: {fileID: 311402859}
   - component: {fileID: 311402858}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2493,7 +2544,7 @@ GameObject:
   - component: {fileID: 332807320}
   - component: {fileID: 332807319}
   - component: {fileID: 332807318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: System Overlay Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2643,7 +2694,7 @@ GameObject:
   - component: {fileID: 333339599}
   - component: {fileID: 333339598}
   - component: {fileID: 333339597}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Open Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2763,7 +2814,7 @@ GameObject:
   - component: {fileID: 334569271}
   - component: {fileID: 334569270}
   - component: {fileID: 334569269}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Two-Factor Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2842,7 +2893,7 @@ GameObject:
   - component: {fileID: 337326480}
   - component: {fileID: 337326482}
   - component: {fileID: 337326483}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2979,7 +3030,7 @@ GameObject:
   - component: {fileID: 364110458}
   - component: {fileID: 364110460}
   - component: {fileID: 364110461}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Intro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3116,7 +3167,7 @@ GameObject:
   - component: {fileID: 377705611}
   - component: {fileID: 377705613}
   - component: {fileID: 377705612}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Minimum Qualifications Heading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3254,7 +3305,7 @@ GameObject:
   - component: {fileID: 379491869}
   - component: {fileID: 379491868}
   - component: {fileID: 379491867}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3375,7 +3426,7 @@ GameObject:
   - component: {fileID: 381461903}
   - component: {fileID: 381461905}
   - component: {fileID: 381461904}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Portal Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3450,7 +3501,7 @@ GameObject:
   - component: {fileID: 385859266}
   - component: {fileID: 385859268}
   - component: {fileID: 385859267}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3530,7 +3581,7 @@ GameObject:
   - component: {fileID: 392385874}
   - component: {fileID: 392385873}
   - component: {fileID: 392385872}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Confirm Name Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3655,7 +3706,7 @@ GameObject:
   - component: {fileID: 440123066}
   - component: {fileID: 440123068}
   - component: {fileID: 440123067}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3730,7 +3781,7 @@ GameObject:
   - component: {fileID: 446249247}
   - component: {fileID: 446249249}
   - component: {fileID: 446249248}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3867,7 +3918,7 @@ GameObject:
   - component: {fileID: 448038215}
   - component: {fileID: 448038217}
   - component: {fileID: 448038216}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +3993,7 @@ GameObject:
   - component: {fileID: 457530355}
   - component: {fileID: 457530357}
   - component: {fileID: 457530358}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Two-Factor Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4112,6 +4163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4199,6 +4254,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1560946855}
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1560946859}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &487444550 stripped
 RectTransform:
@@ -4227,7 +4285,7 @@ GameObject:
   - component: {fileID: 491079124}
   - component: {fileID: 491079126}
   - component: {fileID: 491079125}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Benefits Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4364,7 +4422,7 @@ GameObject:
   - component: {fileID: 501900115}
   - component: {fileID: 501900117}
   - component: {fileID: 501900118}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4530,6 +4588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Down Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4617,6 +4679,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       insertIndex: -1
       addedObject: {fileID: 510134792}
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 510134797}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &510134788 stripped
 RectTransform:
@@ -4637,6 +4702,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
   direction: 1
   stateMachine: {fileID: 757742397}
+--- !u!114 &510134797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404750075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &513360193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,7 +4726,7 @@ GameObject:
   - component: {fileID: 513360197}
   - component: {fileID: 513360196}
   - component: {fileID: 513360195}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,7 +4984,7 @@ GameObject:
   - component: {fileID: 519615918}
   - component: {fileID: 519615920}
   - component: {fileID: 519615919}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume Picker Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4989,7 +5066,7 @@ GameObject:
   - component: {fileID: 527592056}
   - component: {fileID: 527592058}
   - component: {fileID: 527592057}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5126,7 +5203,7 @@ GameObject:
   - component: {fileID: 534475710}
   - component: {fileID: 534475712}
   - component: {fileID: 534475713}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5252,6 +5329,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &542699231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2011483198776482060, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+  m_PrefabInstance: {fileID: 1473086615707574017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &542699237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542699231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &552050153
 GameObject:
   m_ObjectHideFlags: 0
@@ -5264,7 +5358,8 @@ GameObject:
   - component: {fileID: 552050156}
   - component: {fileID: 552050155}
   - component: {fileID: 552050154}
-  m_Layer: 0
+  - component: {fileID: 552050158}
+  m_Layer: 5
   m_Name: Refresh Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5373,6 +5468,18 @@ RectTransform:
   m_AnchoredPosition: {x: 235, y: -226}
   m_SizeDelta: {x: 130, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &552050158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552050153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &557070229
 GameObject:
   m_ObjectHideFlags: 0
@@ -5384,7 +5491,7 @@ GameObject:
   - component: {fileID: 557070230}
   - component: {fileID: 557070232}
   - component: {fileID: 557070231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sign In Form Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5465,7 +5572,7 @@ GameObject:
   - component: {fileID: 564840847}
   - component: {fileID: 564840846}
   - component: {fileID: 564840848}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Date Of Birth Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5643,7 +5750,7 @@ GameObject:
   - component: {fileID: 568320085}
   - component: {fileID: 568320087}
   - component: {fileID: 568320086}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Description Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5782,7 +5889,7 @@ GameObject:
   - component: {fileID: 589876119}
   - component: {fileID: 589876118}
   - component: {fileID: 589876117}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5903,7 +6010,7 @@ GameObject:
   - component: {fileID: 600592062}
   - component: {fileID: 600592064}
   - component: {fileID: 600592063}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6194,7 +6301,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000715fa9239fd77a8b8b299e5e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -6253,7 +6360,7 @@ GameObject:
   - component: {fileID: 623554187}
   - component: {fileID: 623554186}
   - component: {fileID: 623554185}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Two-Factor Submit Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6386,7 +6493,7 @@ GameObject:
   - component: {fileID: 631624050}
   - component: {fileID: 631624052}
   - component: {fileID: 631624051}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Status Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6651,7 +6758,7 @@ GameObject:
   - component: {fileID: 667707434}
   - component: {fileID: 667707436}
   - component: {fileID: 667707437}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6790,7 +6897,7 @@ GameObject:
   - component: {fileID: 686517496}
   - component: {fileID: 686517498}
   - component: {fileID: 686517497}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6865,7 +6972,7 @@ GameObject:
   - component: {fileID: 693401694}
   - component: {fileID: 693401696}
   - component: {fileID: 693401697}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7002,7 +7109,7 @@ GameObject:
   - component: {fileID: 728710577}
   - component: {fileID: 728710579}
   - component: {fileID: 728710580}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7139,7 +7246,7 @@ GameObject:
   - component: {fileID: 729710107}
   - component: {fileID: 729710109}
   - component: {fileID: 729710108}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7214,7 +7321,7 @@ GameObject:
   - component: {fileID: 744365044}
   - component: {fileID: 744365046}
   - component: {fileID: 744365045}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7362,7 +7469,7 @@ GameObject:
   - component: {fileID: 759177436}
   - component: {fileID: 759177438}
   - component: {fileID: 759177437}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Benefits Heading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7501,7 +7608,7 @@ GameObject:
   - component: {fileID: 760635857}
   - component: {fileID: 760635856}
   - component: {fileID: 760635855}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Application UI Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7766,7 +7873,7 @@ GameObject:
   - component: {fileID: 790757771}
   - component: {fileID: 790757773}
   - component: {fileID: 790757772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Intro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7892,97 +7999,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790757770}
   m_CullTransparentMesh: 1
---- !u!1 &811274754
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 811274756}
-  - component: {fileID: 811274755}
-  m_Layer: 0
-  m_Name: Phone Temp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &811274755
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811274754}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 7490072851743989780, guid: 884b07a3f07d5284a9740aefd7f78c68, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &811274756
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811274754}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.60615, y: 0.94763, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1122526031}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &842152105
 GameObject:
   m_ObjectHideFlags: 0
@@ -7994,7 +8010,7 @@ GameObject:
   - component: {fileID: 842152106}
   - component: {fileID: 842152108}
   - component: {fileID: 842152109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8206,7 +8222,7 @@ GameObject:
   - component: {fileID: 842957285}
   - component: {fileID: 842957287}
   - component: {fileID: 842957288}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Two-Factor Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8344,7 +8360,7 @@ GameObject:
   - component: {fileID: 846690109}
   - component: {fileID: 846690108}
   - component: {fileID: 846690107}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cancel Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8464,7 +8480,7 @@ GameObject:
   - component: {fileID: 857087409}
   - component: {fileID: 857087411}
   - component: {fileID: 857087412}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Date Of Birth Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8601,7 +8617,7 @@ GameObject:
   - component: {fileID: 861676930}
   - component: {fileID: 861676932}
   - component: {fileID: 861676931}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8677,7 +8693,7 @@ GameObject:
   - component: {fileID: 873988251}
   - component: {fileID: 873988250}
   - component: {fileID: 873988252}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Last Name Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8856,7 +8872,7 @@ GameObject:
   - component: {fileID: 882248424}
   - component: {fileID: 882248423}
   - component: {fileID: 882248422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Return To Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8965,6 +8981,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -231}
   m_SizeDelta: {x: 250, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &903946596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 55744658616259296, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+  m_PrefabInstance: {fileID: 1473086615707574017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &903946602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903946596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1001 &909602336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8980,6 +9013,10 @@ PrefabInstance:
     - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Name
       value: Up Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Pivot.x
@@ -9061,10 +9098,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6250316930659725395, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105323397}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &909602337 stripped
 RectTransform:
@@ -9082,7 +9126,7 @@ GameObject:
   - component: {fileID: 910330593}
   - component: {fileID: 910330595}
   - component: {fileID: 910330594}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Close Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9157,7 +9201,7 @@ GameObject:
   - component: {fileID: 922111819}
   - component: {fileID: 922111821}
   - component: {fileID: 922111820}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9323,7 +9367,7 @@ GameObject:
   - component: {fileID: 930352319}
   - component: {fileID: 930352321}
   - component: {fileID: 930352320}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9398,7 +9442,7 @@ GameObject:
   - component: {fileID: 953191819}
   - component: {fileID: 953191821}
   - component: {fileID: 953191820}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9473,7 +9517,7 @@ GameObject:
   - component: {fileID: 954928031}
   - component: {fileID: 954928033}
   - component: {fileID: 954928032}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Path Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9610,7 +9654,7 @@ GameObject:
   - component: {fileID: 970779264}
   - component: {fileID: 970779266}
   - component: {fileID: 970779267}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Last Name Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9747,7 +9791,7 @@ GameObject:
   - component: {fileID: 979020200}
   - component: {fileID: 979020202}
   - component: {fileID: 979020201}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9884,7 +9928,7 @@ GameObject:
   - component: {fileID: 983974767}
   - component: {fileID: 983974769}
   - component: {fileID: 983974770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pause Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10021,7 +10065,7 @@ GameObject:
   - component: {fileID: 987474869}
   - component: {fileID: 987474871}
   - component: {fileID: 987474870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10158,7 +10202,7 @@ GameObject:
   - component: {fileID: 1013157847}
   - component: {fileID: 1013157849}
   - component: {fileID: 1013157848}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10295,7 +10339,7 @@ GameObject:
   - component: {fileID: 1013198591}
   - component: {fileID: 1013198593}
   - component: {fileID: 1013198594}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10432,7 +10476,7 @@ GameObject:
   - component: {fileID: 1038181765}
   - component: {fileID: 1038181767}
   - component: {fileID: 1038181766}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10569,7 +10613,7 @@ GameObject:
   - component: {fileID: 1060130649}
   - component: {fileID: 1060130651}
   - component: {fileID: 1060130652}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10708,7 +10752,7 @@ GameObject:
   - component: {fileID: 1069047733}
   - component: {fileID: 1069047735}
   - component: {fileID: 1069047734}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10784,7 +10828,7 @@ GameObject:
   - component: {fileID: 1073429843}
   - component: {fileID: 1073429842}
   - component: {fileID: 1073429841}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10894,11 +10938,126 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073429839}
   m_CullTransparentMesh: 1
+--- !u!1 &1087256352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1087256356}
+  - component: {fileID: 1087256355}
+  - component: {fileID: 1087256354}
+  - component: {fileID: 1087256353}
+  m_Layer: 7
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1087256353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087256352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1087256354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087256352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1087256355
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087256352}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 999
+  m_TargetDisplay: 0
+--- !u!224 &1087256356
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087256352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1954211106}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1105323392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
   m_PrefabInstance: {fileID: 909602336}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1105323397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105323392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1112947460
 GameObject:
   m_ObjectHideFlags: 0
@@ -10910,7 +11069,7 @@ GameObject:
   - component: {fileID: 1112947461}
   - component: {fileID: 1112947462}
   - component: {fileID: 1112947463}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11036,39 +11195,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &1122526030
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1122526031}
-  m_Layer: 0
-  m_Name: Phone View (Temp)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1122526031
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122526030}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.96866, y: -0.67938, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1327452911}
-  - {fileID: 811274756}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129010048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11081,7 +11207,8 @@ GameObject:
   - component: {fileID: 1129010052}
   - component: {fileID: 1129010051}
   - component: {fileID: 1129010050}
-  m_Layer: 0
+  - component: {fileID: 1129010053}
+  m_Layer: 5
   m_Name: Next Page Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11190,6 +11317,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129010048}
   m_CullTransparentMesh: 1
+--- !u!114 &1129010053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129010048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1141351395
 GameObject:
   m_ObjectHideFlags: 0
@@ -11201,7 +11340,7 @@ GameObject:
   - component: {fileID: 1141351396}
   - component: {fileID: 1141351398}
   - component: {fileID: 1141351397}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: My Information Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11284,7 +11423,7 @@ GameObject:
   - component: {fileID: 1153480297}
   - component: {fileID: 1153480296}
   - component: {fileID: 1153480295}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Upload Resume Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11404,7 +11543,7 @@ GameObject:
   - component: {fileID: 1167984567}
   - component: {fileID: 1167984569}
   - component: {fileID: 1167984570}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11543,7 +11682,7 @@ GameObject:
   - component: {fileID: 1170162797}
   - component: {fileID: 1170162799}
   - component: {fileID: 1170162798}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11680,7 +11819,7 @@ GameObject:
   - component: {fileID: 1172924063}
   - component: {fileID: 1172924065}
   - component: {fileID: 1172924066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11806,159 +11945,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &1179524656
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1179524657}
-  - component: {fileID: 1179524660}
-  - component: {fileID: 1179524659}
-  - component: {fileID: 1179524658}
-  m_Layer: 0
-  m_Name: A Key Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1179524657
+--- !u!4 &1179524657 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+  m_PrefabInstance: {fileID: 6033924718094393851}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179524656}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.87693, y: -0.5762396, z: 0.4}
-  m_LocalScale: {x: 1.4066, y: 1.4066, z: 1.4066}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1725932230}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1179524658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179524656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38756b04ef096b24280aebbdd4dc605c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.VirtualKeyboardKey
-  keyType: 0
-  value: a
---- !u!61 &1179524659
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179524656}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0009045005, y: 0.0018090159}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.45003068, y: 0.42289206}
-  m_EdgeRadius: 0
---- !u!212 &1179524660
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179524656}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 3a097fe4b00d34c7a8f1921d42a52744, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
 --- !u!1 &1183987522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
@@ -11975,7 +11966,7 @@ GameObject:
   - component: {fileID: 1188002093}
   - component: {fileID: 1188002095}
   - component: {fileID: 1188002094}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12051,7 +12042,7 @@ GameObject:
   - component: {fileID: 1198518580}
   - component: {fileID: 1198518578}
   - component: {fileID: 1198518581}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Countdown Timer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12205,7 +12196,7 @@ GameObject:
   - component: {fileID: 1219288610}
   - component: {fileID: 1219288609}
   - component: {fileID: 1219288608}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Gameplay HUD Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12313,7 +12304,7 @@ GameObject:
   - component: {fileID: 1238618190}
   - component: {fileID: 1238618192}
   - component: {fileID: 1238618193}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12471,6 +12462,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 602342904}
+  - {fileID: 1739436493}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1264961978
@@ -12523,7 +12515,7 @@ GameObject:
   - component: {fileID: 1266022062}
   - component: {fileID: 1266022061}
   - component: {fileID: 1266022063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Restart Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12643,7 +12635,7 @@ GameObject:
   - component: {fileID: 1292590924}
   - component: {fileID: 1292590926}
   - component: {fileID: 1292590927}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12781,7 +12773,7 @@ GameObject:
   - component: {fileID: 1309827706}
   - component: {fileID: 1309827705}
   - component: {fileID: 1309827704}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12891,134 +12883,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309827702}
   m_CullTransparentMesh: 1
---- !u!1 &1327452907
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1327452911}
-  - component: {fileID: 1327452910}
-  - component: {fileID: 1327452908}
-  m_Layer: 0
-  m_Name: PhoneCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1327452908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327452907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
---- !u!20 &1327452910
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327452907}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &1327452911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327452907}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.96866, y: 0.67938, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1122526031}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1339616918
 GameObject:
   m_ObjectHideFlags: 0
@@ -13091,7 +12955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.ViewNavigation
   links:
   - direction: 0
-    destination: 10
+    destination: 40
 --- !u!1 &1340040033
 GameObject:
   m_ObjectHideFlags: 0
@@ -13103,7 +12967,7 @@ GameObject:
   - component: {fileID: 1340040034}
   - component: {fileID: 1340040036}
   - component: {fileID: 1340040035}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13178,7 +13042,7 @@ GameObject:
   - component: {fileID: 1349276118}
   - component: {fileID: 1349276120}
   - component: {fileID: 1349276121}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: First Name Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13315,7 +13179,7 @@ GameObject:
   - component: {fileID: 1372101914}
   - component: {fileID: 1372101916}
   - component: {fileID: 1372101915}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13452,7 +13316,7 @@ GameObject:
   - component: {fileID: 1410291487}
   - component: {fileID: 1410291488}
   - component: {fileID: 1410291489}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ending Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13591,7 +13455,7 @@ GameObject:
   - component: {fileID: 1424061304}
   - component: {fileID: 1424061306}
   - component: {fileID: 1424061305}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13666,7 +13530,7 @@ GameObject:
   - component: {fileID: 1444269128}
   - component: {fileID: 1444269130}
   - component: {fileID: 1444269129}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Minimize Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13814,7 +13678,7 @@ GameObject:
   - component: {fileID: 1474136487}
   - component: {fileID: 1474136490}
   - component: {fileID: 1474136489}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Caret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13890,7 +13754,7 @@ GameObject:
   - component: {fileID: 1478163139}
   - component: {fileID: 1478163138}
   - component: {fileID: 1478163140}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Timeout End Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13980,7 +13844,7 @@ GameObject:
   - component: {fileID: 1497728938}
   - component: {fileID: 1497728937}
   - component: {fileID: 1497728939}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14117,7 +13981,7 @@ GameObject:
   - component: {fileID: 1517606556}
   - component: {fileID: 1517606558}
   - component: {fileID: 1517606557}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Dot 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14192,7 +14056,7 @@ GameObject:
   - component: {fileID: 1525288305}
   - component: {fileID: 1525288307}
   - component: {fileID: 1525288306}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14421,7 +14285,8 @@ GameObject:
   - component: {fileID: 1553175919}
   - component: {fileID: 1553175918}
   - component: {fileID: 1553175917}
-  m_Layer: 0
+  - component: {fileID: 1553175921}
+  m_Layer: 5
   m_Name: Login Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14530,6 +14395,18 @@ RectTransform:
   m_AnchoredPosition: {x: 95, y: -86}
   m_SizeDelta: {x: 150, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1553175921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553175916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1560946852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
@@ -14549,6 +14426,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
   direction: 2
   stateMachine: {fileID: 757742397}
+--- !u!114 &1560946859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560946852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1566174944
 GameObject:
   m_ObjectHideFlags: 0
@@ -14560,7 +14449,7 @@ GameObject:
   - component: {fileID: 1566174945}
   - component: {fileID: 1566174947}
   - component: {fileID: 1566174948}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Date Of Birth Hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14697,7 +14586,7 @@ GameObject:
   - component: {fileID: 1568321206}
   - component: {fileID: 1568321208}
   - component: {fileID: 1568321207}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Zoom Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14772,7 +14661,7 @@ GameObject:
   - component: {fileID: 1571826001}
   - component: {fileID: 1571826003}
   - component: {fileID: 1571826002}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14910,7 +14799,7 @@ GameObject:
   - component: {fileID: 1577204290}
   - component: {fileID: 1577204289}
   - component: {fileID: 1577204291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pause Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15130,7 +15019,7 @@ GameObject:
   - component: {fileID: 1591691053}
   - component: {fileID: 1591691052}
   - component: {fileID: 1591691051}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15250,7 +15139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1594531265}
   - component: {fileID: 1594531266}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15321,7 +15210,7 @@ GameObject:
   - component: {fileID: 1599627629}
   - component: {fileID: 1599627631}
   - component: {fileID: 1599627632}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Threat Copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15535,7 +15424,7 @@ GameObject:
   - component: {fileID: 1613725253}
   - component: {fileID: 1613725255}
   - component: {fileID: 1613725254}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15610,7 +15499,7 @@ GameObject:
   - component: {fileID: 1615410024}
   - component: {fileID: 1615410023}
   - component: {fileID: 1615410025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15747,7 +15636,7 @@ GameObject:
   - component: {fileID: 1618099803}
   - component: {fileID: 1618099805}
   - component: {fileID: 1618099806}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15884,7 +15773,7 @@ GameObject:
   - component: {fileID: 1623940912}
   - component: {fileID: 1623940914}
   - component: {fileID: 1623940913}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Line 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15959,7 +15848,7 @@ GameObject:
   - component: {fileID: 1657122070}
   - component: {fileID: 1657122069}
   - component: {fileID: 1657122071}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16224,7 +16113,7 @@ GameObject:
   - component: {fileID: 1686131733}
   - component: {fileID: 1686131732}
   - component: {fileID: 1686131734}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Status Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16361,7 +16250,7 @@ GameObject:
   - component: {fileID: 1693897454}
   - component: {fileID: 1693897456}
   - component: {fileID: 1693897455}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16498,7 +16387,7 @@ GameObject:
   - component: {fileID: 1719088578}
   - component: {fileID: 1719088580}
   - component: {fileID: 1719088579}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16636,7 +16525,7 @@ GameObject:
   - component: {fileID: 1723187827}
   - component: {fileID: 1723187826}
   - component: {fileID: 1723187825}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Timeout Fade Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16830,7 +16719,7 @@ GameObject:
   - component: {fileID: 1730624269}
   - component: {fileID: 1730624268}
   - component: {fileID: 1730624270}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16956,6 +16845,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &1739436493 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+  m_PrefabInstance: {fileID: 7521563321292587515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1740878838
 GameObject:
   m_ObjectHideFlags: 0
@@ -16967,7 +16861,7 @@ GameObject:
   - component: {fileID: 1740878839}
   - component: {fileID: 1740878841}
   - component: {fileID: 1740878842}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17104,7 +16998,7 @@ GameObject:
   - component: {fileID: 1766576205}
   - component: {fileID: 1766576207}
   - component: {fileID: 1766576208}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17241,7 +17135,7 @@ GameObject:
   - component: {fileID: 1768245701}
   - component: {fileID: 1768245703}
   - component: {fileID: 1768245704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17378,7 +17272,7 @@ GameObject:
   - component: {fileID: 1787194450}
   - component: {fileID: 1787194452}
   - component: {fileID: 1787194451}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17504,6 +17398,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787194449}
   m_CullTransparentMesh: 1
+--- !u!1 &1799436533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7669981681812777746, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+  m_PrefabInstance: {fileID: 1473086615707574017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1799436539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799436533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1814217955
 GameObject:
   m_ObjectHideFlags: 0
@@ -17515,7 +17426,7 @@ GameObject:
   - component: {fileID: 1814217956}
   - component: {fileID: 1814217958}
   - component: {fileID: 1814217959}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17655,7 +17566,7 @@ GameObject:
   - component: {fileID: 1839249202}
   - component: {fileID: 1839249201}
   - component: {fileID: 1839249203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Resume Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17776,7 +17687,7 @@ GameObject:
   - component: {fileID: 1867757619}
   - component: {fileID: 1867757618}
   - component: {fileID: 1867757617}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17897,7 +17808,7 @@ GameObject:
   - component: {fileID: 1868646163}
   - component: {fileID: 1868646165}
   - component: {fileID: 1868646164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Minimum Qualifications Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18037,7 +17948,7 @@ GameObject:
   - component: {fileID: 1868749269}
   - component: {fileID: 1868749271}
   - component: {fileID: 1868749272}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Label 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18176,7 +18087,7 @@ GameObject:
   - component: {fileID: 1886944549}
   - component: {fileID: 1886944551}
   - component: {fileID: 1886944552}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Password Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18313,7 +18224,7 @@ GameObject:
   - component: {fileID: 1894371521}
   - component: {fileID: 1894371523}
   - component: {fileID: 1894371522}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: File Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18483,6 +18394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5057650236028120037, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18570,6 +18485,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1932673573}
+    - targetCorrespondingSourceObject: {fileID: 4982817698262706738, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1932673577}
   m_SourcePrefab: {fileID: 100100000, guid: 2ded3b6152d81fb4aa609e88e1916645, type: 3}
 --- !u!224 &1932673569 stripped
 RectTransform:
@@ -18601,6 +18519,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
   direction: 3
   stateMachine: {fileID: 757742397}
+--- !u!114 &1932673577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183987522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1946563458
 GameObject:
   m_ObjectHideFlags: 0
@@ -18612,7 +18542,7 @@ GameObject:
   - component: {fileID: 1946563459}
   - component: {fileID: 1946563461}
   - component: {fileID: 1946563462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18738,6 +18668,96 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1954211105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1954211106}
+  - component: {fileID: 1954211109}
+  - component: {fileID: 1954211108}
+  - component: {fileID: 1954211107}
+  m_Layer: 7
+  m_Name: HandCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1954211106
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954211105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 8, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1087256356}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -64.82898, y: 276}
+  m_SizeDelta: {x: 99.31, y: 100}
+  m_Pivot: {x: 0.37, y: 0.97}
+--- !u!114 &1954211107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954211105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8ea0598c88f364299a653f0c25e232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.HandCursorController
+  openHand: {fileID: 5175748537643562687, guid: 56839017c18eef848976c90c8e2a5634, type: 3}
+  pointingHand: {fileID: -1947065630456155887, guid: 27744ea8f8430154b8d334ce553fddfb, type: 3}
+--- !u!114 &1954211108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954211105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 5175748537643562687, guid: 56839017c18eef848976c90c8e2a5634, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1954211109
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954211105}
+  m_CullTransparentMesh: 1
 --- !u!1 &1957469214
 GameObject:
   m_ObjectHideFlags: 0
@@ -18749,7 +18769,7 @@ GameObject:
   - component: {fileID: 1957469215}
   - component: {fileID: 1957469217}
   - component: {fileID: 1957469216}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: My Experience Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18838,7 +18858,7 @@ GameObject:
   - component: {fileID: 1977721240}
   - component: {fileID: 1977721239}
   - component: {fileID: 1977721238}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Select Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19048,7 +19068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1997850357}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Date Of Birth Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19087,7 +19107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999212292}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Stepper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19144,7 +19164,7 @@ GameObject:
   - component: {fileID: 2060809739}
   - component: {fileID: 2060809741}
   - component: {fileID: 2060809742}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19281,7 +19301,7 @@ GameObject:
   - component: {fileID: 2061681185}
   - component: {fileID: 2061681187}
   - component: {fileID: 2061681186}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19356,7 +19376,7 @@ GameObject:
   - component: {fileID: 2075604604}
   - component: {fileID: 2075604603}
   - component: {fileID: 2075604605}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Page Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19493,7 +19513,7 @@ GameObject:
   - component: {fileID: 2077124123}
   - component: {fileID: 2077124125}
   - component: {fileID: 2077124126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19630,7 +19650,7 @@ GameObject:
   - component: {fileID: 2079304627}
   - component: {fileID: 2079304626}
   - component: {fileID: 2079304628}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Error Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19779,7 +19799,7 @@ GameObject:
   - component: {fileID: 2089561425}
   - component: {fileID: 2089561424}
   - component: {fileID: 2089561426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Restart Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19900,7 +19920,7 @@ GameObject:
   - component: {fileID: 2100176628}
   - component: {fileID: 2100176627}
   - component: {fileID: 2100176626}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Return To Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20020,7 +20040,7 @@ GameObject:
   - component: {fileID: 2101296722}
   - component: {fileID: 2101296723}
   - component: {fileID: 2101296724}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20157,7 +20177,7 @@ GameObject:
   - component: {fileID: 2105782421}
   - component: {fileID: 2105782423}
   - component: {fileID: 2105782422}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Error Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20234,7 +20254,7 @@ GameObject:
   - component: {fileID: 2115011295}
   - component: {fileID: 2115011294}
   - component: {fileID: 2115011293}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume File 05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20355,7 +20375,7 @@ GameObject:
   - component: {fileID: 2119265400}
   - component: {fileID: 2119265401}
   - component: {fileID: 2119265402}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20492,7 +20512,7 @@ GameObject:
   - component: {fileID: 2140227765}
   - component: {fileID: 2140227767}
   - component: {fileID: 2140227766}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20564,10 +20584,126 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219288611}
     m_Modifications:
+    - target: {fileID: 55744658616259296, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 66160736142425008, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 265450800802395198, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912775601826244675, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855316333589926801, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011483198776482060, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2772408448842883032, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
       propertyPath: PhoneUIbutton
       value: 
       objectReference: {fileID: 266385929}
+    - target: {fileID: 2853847358087149137, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986134075471714303, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986134075471714303, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 598302577
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446340501826536029, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4243966742960309362, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423855053780944787, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431991492268396910, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104906255195593736, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105328959263376741, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607481528334705374, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741202330608264611, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266021037281181097, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669981681812777746, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7866821938836870060, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -20652,10 +20788,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phone Overlay
       objectReference: {fileID: 0}
+    - target: {fileID: 9176703688648030287, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2011483198776482060, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 542699237}
+    - targetCorrespondingSourceObject: {fileID: 7669981681812777746, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1799436539}
+    - targetCorrespondingSourceObject: {fileID: 55744658616259296, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 903946602}
   m_SourcePrefab: {fileID: 100100000, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
 --- !u!1001 &1923242037655389857
 PrefabInstance:
@@ -20665,9 +20814,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219288611}
     m_Modifications:
+    - target: {fileID: 418274885586138525, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3457590479619273780, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
       propertyPath: m_Name
       value: Phone Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457590479619273780, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4829827992150217079, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
       propertyPath: m_Pivot.x
@@ -20756,7 +20913,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3457590479619273780, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 266385935}
   m_SourcePrefab: {fileID: 100100000, guid: b178bc4b801f2c4418c8805c478f5ffb, type: 3}
 --- !u!1001 &3686132482744641200
 PrefabInstance:
@@ -20851,6 +21011,229 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
+--- !u!1001 &6033924718094393851
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1725932230}
+    m_Modifications:
+    - target: {fileID: 87386120848492730, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_Name
+      value: A Key Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.87693
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5762396
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540002386974519614, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a2eb7d7fcb91af438bfd85597421f2b, type: 3}
+--- !u!1001 &7521563321292587515
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1264961977}
+    m_Modifications:
+    - target: {fileID: 1695545933728736966, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_Name
+      value: Clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 4506739950580999078, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 1964750352}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.9313
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.823
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661371477503857, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c0f96281a027264e9cb5d5038db454d, type: 3}
+--- !u!1001 &8391506323702663749
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3515429308952132145, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: stateMachine
+      value: 
+      objectReference: {fileID: 757742397}
+    - target: {fileID: 5865870457164780335, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_Name
+      value: Hand Cursor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865870457164780335, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184053531989281478, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a18f67d3f04d22449f9520eb14c0a51, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -20865,4 +21248,5 @@ SceneRoots:
   - {fileID: 842730934}
   - {fileID: 1339616919}
   - {fileID: 1264961977}
-  - {fileID: 1122526031}
+  - {fileID: 1087256356}
+  - {fileID: 8391506323702663749}
