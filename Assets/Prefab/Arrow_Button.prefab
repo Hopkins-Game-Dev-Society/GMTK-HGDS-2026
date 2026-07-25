@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2721788140222709396}
   - component: {fileID: 6250316930659725395}
   - component: {fileID: 650683417234199156}
+  - component: {fileID: 748088179420403411}
   m_Layer: 0
   m_Name: Arrow_Button
   m_TagString: Untagged
@@ -119,4 +120,30 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6250316930659725395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 748088179420403411}
+        m_TargetAssemblyTypeName: BirthdayJobJam.Views.NavigationButton, Assembly-CSharp
+        m_MethodName: Navigate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &748088179420403411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982817698262706738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2320a2d356312408a871422f5c6b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
+  direction: 0
+  stateMachine: {fileID: 0}

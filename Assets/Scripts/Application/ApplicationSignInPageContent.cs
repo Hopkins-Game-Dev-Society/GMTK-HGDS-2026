@@ -72,6 +72,16 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string noActiveSectionProgress = "No active application section.";
         [SerializeField] private string refreshCooldownFormat = "Refresh ({0:0.0}s)";
 
+        [Header("Session Expiry")]
+        [SerializeField] private string sessionTimerFormat = "Session expires in {0:00}:{1:00}";
+        [TextArea] [SerializeField] private string sessionExpiredError = "Session expired. Please complete two-factor authentication before refreshing.";
+        [SerializeField] private string sessionExpiredTitle = "Session expired, 2FA Required";
+        [TextArea] [SerializeField] private string sessionExpiredBody = "For your security, Workbay has forgotten who you are. Enter the authentication code to unlock refresh.";
+        [SerializeField] private string sessionReauthPlaceholder = "2FA code";
+        [SerializeField] private string sessionReauthSubmitButtonLabel = "Verify";
+        [TextArea] [SerializeField] private string sessionReauthWrongCodeError = "Incorrect code.";
+        [TextArea] [SerializeField] private string sessionReauthSuccessStatus = "Two-factor authentication accepted. You may refresh the expired page.";
+
         public string PortalTitle => portalTitle;
         public string PortalSubtitle => portalSubtitle;
         public string FallbackPageTitle => fallbackPageTitle;
@@ -121,5 +131,13 @@ namespace BirthdayJobJam.Application
         public string ProgressFormat => progressFormat;
         public string NoActiveSectionProgress => noActiveSectionProgress;
         public string RefreshCooldownFormat => refreshCooldownFormat;
+        public string SessionTimerFormat => sessionTimerFormat;
+        public string SessionExpiredError => sessionExpiredError;
+        public string SessionExpiredTitle => sessionExpiredTitle;
+        public string SessionExpiredBody => sessionExpiredBody;
+        public string SessionReauthPlaceholder => sessionReauthPlaceholder;
+        public string SessionReauthSubmitButtonLabel => sessionReauthSubmitButtonLabel;
+        public string SessionReauthWrongCodeError => sessionReauthWrongCodeError;
+        public string SessionReauthSuccessStatus => sessionReauthSuccessStatus;
     }
 }
