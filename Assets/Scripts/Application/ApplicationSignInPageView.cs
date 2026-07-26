@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using BirthdayJobJam.Core;
+using BirthdayJobJam.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BirthdayJobJam.Application
@@ -197,7 +197,6 @@ namespace BirthdayJobJam.Application
         private float lastValidatedSessionDurationSeconds;
         private float lastValidatedSessionSecondsRemaining;
         private Coroutine winSceneLoadRoutine;
-        private CanvasGroup winSceneFadeGroup;
 
         private void Awake()
         {
@@ -1988,84 +1987,12 @@ namespace BirthdayJobJam.Application
             if (winSceneDelaySeconds > 0f)
                 yield return new WaitForSecondsRealtime(winSceneDelaySeconds);
 
-            yield return FadeOutToWinScene();
-
-            if (winSceneBlackHoldSeconds > 0f)
-                yield return new WaitForSecondsRealtime(winSceneBlackHoldSeconds);
-
-            SceneManager.LoadScene(winSceneName);
-        }
-
-        private IEnumerator FadeOutToWinScene()
-        {
-            CanvasGroup fadeGroup = GetOrCreateWinSceneFadeGroup();
-            if (fadeGroup == null)
-                yield break;
-
-            fadeGroup.gameObject.SetActive(true);
-            fadeGroup.alpha = 0f;
-            fadeGroup.blocksRaycasts = true;
-            fadeGroup.interactable = false;
-
-            if (winSceneFadeOutSeconds <= 0f)
-            {
-                fadeGroup.alpha = 1f;
-                yield break;
-            }
-
-            float elapsed = 0f;
-            while (elapsed < winSceneFadeOutSeconds)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                fadeGroup.alpha = Mathf.Clamp01(elapsed / winSceneFadeOutSeconds);
-                yield return null;
-            }
-
-            fadeGroup.alpha = 1f;
-        }
-
-        private CanvasGroup GetOrCreateWinSceneFadeGroup()
-        {
-            if (winSceneFadeGroup != null)
-                return winSceneFadeGroup;
-
-            GameObject canvasObject = new GameObject(
-                "Win Scene Fade Canvas",
-                typeof(RectTransform),
-                typeof(Canvas),
-                typeof(CanvasScaler),
-                typeof(GraphicRaycaster),
-                typeof(CanvasGroup));
-
-            Canvas canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = winSceneFadeSortingOrder;
-
-            CanvasScaler scaler = canvasObject.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.matchWidthOrHeight = 0.5f;
-
-            winSceneFadeGroup = canvasObject.GetComponent<CanvasGroup>();
-            winSceneFadeGroup.alpha = 0f;
-            winSceneFadeGroup.blocksRaycasts = false;
-            winSceneFadeGroup.interactable = false;
-
-            GameObject imageObject = new GameObject("Black Fade", typeof(RectTransform), typeof(Image));
-            imageObject.transform.SetParent(canvasObject.transform, false);
-
-            RectTransform imageRect = imageObject.GetComponent<RectTransform>();
-            imageRect.anchorMin = Vector2.zero;
-            imageRect.anchorMax = Vector2.one;
-            imageRect.offsetMin = Vector2.zero;
-            imageRect.offsetMax = Vector2.zero;
-
-            Image image = imageObject.GetComponent<Image>();
-            image.color = Color.black;
-            image.raycastTarget = true;
-
-            canvasObject.SetActive(false);
-            return winSceneFadeGroup;
+            SceneTransitioner.LoadScene(
+                winSceneName,
+                winSceneFadeOutSeconds,
+                winSceneBlackHoldSeconds,
+                winSceneFadeOutSeconds,
+                winSceneFadeSortingOrder);
         }
 
         private void EnsureReviewPasswordPanel()

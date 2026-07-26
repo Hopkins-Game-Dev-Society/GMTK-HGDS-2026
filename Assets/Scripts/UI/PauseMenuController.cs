@@ -1,6 +1,5 @@
 using BirthdayJobJam.Core;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BirthdayJobJam.UI
@@ -116,14 +115,13 @@ namespace BirthdayJobJam.UI
         private void RestartCurrentScene()
         {
             Time.timeScale = 1f;
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            SceneTransitioner.ReloadActiveScene();
         }
 
         private void ReturnToMenu()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(menuSceneName);
+            SceneTransitioner.LoadScene(menuSceneName);
         }
 
         private static void ShowGroup(CanvasGroup group)
