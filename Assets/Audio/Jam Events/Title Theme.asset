@@ -6,18 +6,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45ac9c6b15934bdcbcc6f3ac116217bf, type: 3}
-  m_Name: Victory Theme
+  m_Name: Title Theme
   m_EditorClassIdentifier: JamAudioToolkit.Runtime::JamAudioToolkit.JamMusicEvent
-  musicClip: {fileID: 8300000, guid: d7a4b638f80b54e15b19a0c0f463666d, type: 3}
+  musicClip: {fileID: 8300000, guid: 9c0d65dd1ada6414caa0925d8be9a381, type: 3}
   volume: 0.5
-  loop: 0
+  loop: 1
   persistAcrossScenes: 1
   lowPassFilterAmount: 0
   highPassFilterAmount: 0
-  fadeInDuration: 1.5
+  fadeInDuration: 1
   fadeOutDuration: 1
   outputMixerGroup: {fileID: 0}

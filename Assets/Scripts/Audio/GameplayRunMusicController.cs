@@ -10,7 +10,7 @@ namespace BirthdayJobJam.Audio
         [SerializeField] private JamMusicEvent gameplayTheme;
         [SerializeField] private bool restartOnTimerStarted = true;
         [SerializeField] private bool playIfTimerAlreadyRunning = true;
-        [SerializeField] private bool stopBeforeRestart = true;
+        [SerializeField] private bool stopBeforeRestart;
         [SerializeField] private bool stopOnTimerExpired = true;
         [SerializeField, Min(0f)] private float restartFadeOutSeconds;
         [SerializeField, Min(0f)] private float expiredFadeOutSeconds = 0.25f;

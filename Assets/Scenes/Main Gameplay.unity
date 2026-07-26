@@ -14592,7 +14592,7 @@ SpriteRenderer:
   m_Size: {x: 26.666666, y: 21.916666}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &921974505
 Transform:
@@ -16499,7 +16499,7 @@ MonoBehaviour:
   gameplayTheme: {fileID: 11400000, guid: 1d9d6623029b4d1fb6994a0813df9eff, type: 2}
   restartOnTimerStarted: 1
   playIfTimerAlreadyRunning: 1
-  stopBeforeRestart: 1
+  stopBeforeRestart: 0
   stopOnTimerExpired: 1
   restartFadeOutSeconds: 0
   expiredFadeOutSeconds: 0.25
@@ -27775,6 +27775,9 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 1498719636}
   fadeDurationSeconds: 1.25
   blackScreenHoldSeconds: 2
+  loadLoseSceneAfterExpiry: 1
+  loseSceneName: lose
+  gameOverSound: {fileID: 11400000, guid: 81266cf2c2eb4e408df6ee87a3a29572, type: 2}
   endScreenCanvasGroup: {fileID: 1282655275}
   endingMessage: 'You were executed on your birthday.
 

@@ -1,8 +1,8 @@
 using System.Collections;
 using BirthdayJobJam.Core;
+using JamAudioToolkit;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BirthdayJobJam.UI
@@ -16,6 +16,11 @@ namespace BirthdayJobJam.UI
         [SerializeField] private CanvasGroup fadeCanvasGroup;
         [SerializeField, Min(0f)] private float fadeDurationSeconds = 1.25f;
         [SerializeField, Min(0f)] private float blackScreenHoldSeconds = 2f;
+
+        [Header("Lose Transition")]
+        [SerializeField] private bool loadLoseSceneAfterExpiry = true;
+        [SerializeField] private string loseSceneName = "lose";
+        [SerializeField] private JamSoundEvent gameOverSound;
 
         [Header("End Screen")]
         [SerializeField] private CanvasGroup endScreenCanvasGroup;
@@ -70,6 +75,9 @@ namespace BirthdayJobJam.UI
             if (sequence != null)
                 StopCoroutine(sequence);
 
+            if (gameOverSound != null)
+                JamAudio.Play(gameOverSound);
+
             sequence = StartCoroutine(PlayExpiredSequence());
         }
 
@@ -100,6 +108,12 @@ namespace BirthdayJobJam.UI
             if (blackScreenHoldSeconds > 0f)
                 yield return new WaitForSecondsRealtime(blackScreenHoldSeconds);
 
+            if (loadLoseSceneAfterExpiry && !string.IsNullOrWhiteSpace(loseSceneName))
+            {
+                SceneTransitioner.LoadScene(loseSceneName, 0f, 0f, fadeDurationSeconds);
+                yield break;
+            }
+
             if (endScreenCanvasGroup != null)
             {
                 endScreenCanvasGroup.gameObject.SetActive(true);
@@ -112,14 +126,13 @@ namespace BirthdayJobJam.UI
         private void RestartCurrentScene()
         {
             Time.timeScale = 1f;
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            SceneTransitioner.ReloadActiveScene();
         }
 
         private void ReturnToMenu()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(menuSceneName);
+            SceneTransitioner.LoadScene(menuSceneName);
         }
 
         private static void HideGroup(CanvasGroup group)

@@ -1,16 +1,15 @@
+using BirthdayJobJam.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ChangeToGame : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Main Gameplay");
+        SceneTransitioner.LoadScene("Main Gameplay");
     }
 
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("title");
+        SceneTransitioner.LoadScene("title");
     }
-    
 }
