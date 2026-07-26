@@ -32,13 +32,9 @@ namespace BirthdayJobJam.Application
                     Challenge("madlib_2", "Personal Statement 2")),
 
                 Section(ApplicationSectionId.VoluntaryDisclosures, "Review", "Review",
-                    Challenge("visa_sponsorship", "Visa Sponsorship Disclosure"),
-                    Challenge("future_sponsorship", "Future Sponsorship Disclosure"),
-                    Challenge("voluntary_certification", "Voluntary Disclosure Certification")),
+                    Challenge("review_password", "Identity Verification")),
 
-                Section(ApplicationSectionId.Review, "Submit", "Submit",
-                    Challenge("review_all_fields", "Review All Fields"),
-                    Challenge("final_certification", "Final Certification"))
+                Section(ApplicationSectionId.Review, "Submitted", "Submitted")
             };
         }
 

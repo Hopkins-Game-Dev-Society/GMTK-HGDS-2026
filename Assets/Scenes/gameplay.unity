@@ -19059,32 +19059,16 @@ MonoBehaviour:
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
-    - challengeId: visa_sponsorship
-      displayName: Visa Sponsorship Disclosure
-      required: 1
-      maxPoints: 1
-    - challengeId: future_sponsorship
-      displayName: Future Sponsorship Disclosure
-      required: 1
-      maxPoints: 1
-    - challengeId: voluntary_certification
-      displayName: Voluntary Disclosure Certification
+    - challengeId: review_password
+      displayName: Identity Verification
       required: 1
       maxPoints: 1
   - sectionId: 70
-    displayName: Submit
-    progressLabel: Submit
+    displayName: Submitted
+    progressLabel: Submitted
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
-    challenges:
-    - challengeId: review_all_fields
-      displayName: Review All Fields
-      required: 1
-      maxPoints: 1
-    - challengeId: final_certification
-      displayName: Final Certification
-      required: 1
-      maxPoints: 1
+    challenges: []
   initialSection: 10
   defaultErrorMessage: An error occurred. Please refresh the page to continue.
   fallbackRefreshCooldownSeconds: 5

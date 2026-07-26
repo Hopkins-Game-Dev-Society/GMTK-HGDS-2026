@@ -44,6 +44,16 @@ namespace BirthdayJobJam.Application
         [TextArea] [SerializeField] private string madlibIntroText = "We want to know a little more about yourself in your own words. However, because of AI abuse, we're writing most of it for you.";
         [SerializeField] private string madlibCompleteStatus = "Personal statement accepted.";
 
+        [Header("Review")]
+        [TextArea] [SerializeField] private string reviewPromptText = "To submit, we need to check if it's you.";
+        [SerializeField] private string reviewPasswordLabel = "Password";
+        [SerializeField] private string reviewPasswordPlaceholder = "...";
+        [SerializeField] private string reviewSubmitButtonLabel = "Verify Identity";
+        [SerializeField] private string reviewPasswordChallengeId = "review_password";
+        [TextArea] [SerializeField] private string reviewWrongPasswordError = "Identity check failed. Refresh to retry.";
+        [TextArea] [SerializeField] private string reviewCompleteStatus = "Identity verified. You may submit your application.";
+        [TextArea] [SerializeField] private string submittedText = "submission complete.";
+
         [Header("Placeholders")]
         [SerializeField] private string usernamePlaceholder = "try applicant22";
         [SerializeField] private string passwordPlaceholder = "try birthday123";
@@ -121,6 +131,14 @@ namespace BirthdayJobJam.Application
         public string WrongQuestionAnswerError => wrongQuestionAnswerError;
         public string MadlibIntroText => madlibIntroText;
         public string MadlibCompleteStatus => madlibCompleteStatus;
+        public string ReviewPromptText => reviewPromptText;
+        public string ReviewPasswordLabel => reviewPasswordLabel;
+        public string ReviewPasswordPlaceholder => reviewPasswordPlaceholder;
+        public string ReviewSubmitButtonLabel => reviewSubmitButtonLabel;
+        public string ReviewPasswordChallengeId => reviewPasswordChallengeId;
+        public string ReviewWrongPasswordError => reviewWrongPasswordError;
+        public string ReviewCompleteStatus => reviewCompleteStatus;
+        public string SubmittedText => submittedText;
         public string UsernamePlaceholder => usernamePlaceholder;
         public string PasswordPlaceholder => passwordPlaceholder;
         public string TwoFactorPlaceholder => twoFactorPlaceholder;

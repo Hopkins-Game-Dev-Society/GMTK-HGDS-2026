@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using BirthdayJobJam.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BirthdayJobJam.Application
@@ -147,6 +149,21 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Color madlibBlankSelectedColor = new Color(0.13f, 0.42f, 0.86f, 1f);
         [SerializeField] private Color madlibBlankNormalColor = new Color(0.86f, 0.88f, 0.92f, 1f);
 
+        [Header("Review Controls")]
+        [SerializeField] private GameObject reviewPasswordPanel;
+        [SerializeField] private TMP_Text reviewPromptText;
+        [SerializeField] private TMP_Text reviewPasswordLabelText;
+        [SerializeField] private TMP_InputField reviewPasswordInput;
+        [SerializeField] private Button reviewPasswordSubmitButton;
+        [SerializeField] private TMP_Text reviewPasswordSubmitButtonText;
+
+        [Header("Submitted Controls")]
+        [SerializeField] private GameObject submittedPanel;
+        [SerializeField] private TMP_Text submittedMessageText;
+        [SerializeField] private bool loadWinSceneAfterSubmission = true;
+        [SerializeField] private string winSceneName = "win";
+        [SerializeField, Min(0f)] private float winSceneDelaySeconds = 2f;
+
         [Header("Web Session Timer")]
         [SerializeField] private TMP_Text sessionTimerText;
         [SerializeField, Min(1f)] private float sessionDurationSeconds = 120f;
@@ -176,6 +193,7 @@ namespace BirthdayJobJam.Application
         private readonly List<string> selectedMadlibWordIds = new();
         private float lastValidatedSessionDurationSeconds;
         private float lastValidatedSessionSecondsRemaining;
+        private Coroutine winSceneLoadRoutine;
 
         private void Awake()
         {
@@ -224,6 +242,8 @@ namespace BirthdayJobJam.Application
             AddButtonListeners();
             EnsureApplicationQuestionsPanel();
             EnsureApplicationMadlibsPanel();
+            EnsureReviewPasswordPanel();
+            EnsureSubmittedPanel();
             RenderStaticCopy();
             Render();
         }
@@ -493,6 +513,10 @@ namespace BirthdayJobJam.Application
                 SetStatus(QuestionsIntroText);
             else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo)
                 SetStatus(MadlibIntroText);
+            else if (section != null && section.SectionId == ApplicationSectionId.VoluntaryDisclosures)
+                SetStatus(ReviewPromptText);
+            else if (section != null && section.SectionId == ApplicationSectionId.Review)
+                SetStatus(SubmittedText);
 
             RestartSessionTimerForCurrentSection();
             Render();
@@ -654,6 +678,23 @@ namespace BirthdayJobJam.Application
             Render();
         }
 
+        public void SubmitReviewPassword()
+        {
+            if (!IsOnReviewPageAndInteractive())
+                return;
+
+            string password = reviewPasswordInput != null ? reviewPasswordInput.text : string.Empty;
+            if (password != CorrectPassword)
+            {
+                Fail(ReviewPasswordChallengeId, ReviewWrongPasswordError);
+                return;
+            }
+
+            applicationState.MarkChallengeComplete(ReviewPasswordChallengeId);
+            SetStatus(ReviewCompleteStatus);
+            Render();
+        }
+
         public void SubmitSessionReauthentication()
         {
             if (applicationState == null || !applicationState.CurrentSectionRequiresReauthentication)
@@ -691,12 +732,15 @@ namespace BirthdayJobJam.Application
             bool isMyExperience = section != null && section.SectionId == ApplicationSectionId.MyExperience;
             bool isApplicationQuestionsOne = section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsOne;
             bool isApplicationQuestionsTwo = section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo;
+            bool isReview = section != null && section.SectionId == ApplicationSectionId.VoluntaryDisclosures;
+            bool isSubmitted = section != null && section.SectionId == ApplicationSectionId.Review;
             bool blocked = section != null && section.IsBlocked;
             bool credentialsComplete = IsChallengeComplete(section, UsernameChallengeId) && IsChallengeComplete(section, PasswordChallengeId);
             bool signInComplete = section != null && section.IsComplete;
             bool namesComplete = IsChallengeComplete(section, FirstNameChallengeId) && IsChallengeComplete(section, LastNameChallengeId);
             bool myInformationComplete = section != null && section.IsComplete;
             bool myExperienceComplete = IsChallengeComplete(section, ResumeChallengeId);
+            bool reviewComplete = IsChallengeComplete(section, ReviewPasswordChallengeId);
 
             if (!hasStartedApplication)
             {
@@ -713,11 +757,15 @@ namespace BirthdayJobJam.Application
             RenderMyExperienceSection(isMyExperience, blocked, myExperienceComplete);
             RenderApplicationQuestionsOneSection(isApplicationQuestionsOne, blocked);
             RenderApplicationMadlibsSection(isApplicationQuestionsTwo, blocked);
+            RenderReviewSection(isReview, blocked, reviewComplete);
+            RenderSubmittedSection(isSubmitted);
             RenderSessionTimer();
             RenderSessionReauthentication();
 
-            SetInteractable(nextButton, applicationState.CanAdvanceCurrentSection);
-            SetText(nextButtonText, NextButtonLabel);
+            SetActive(nextButton, !isSubmitted);
+            SetActive(refreshButton, !isSubmitted);
+            SetInteractable(nextButton, !isSubmitted && applicationState.CanAdvanceCurrentSection);
+            SetText(nextButtonText, isReview ? "Submit" : NextButtonLabel);
             RenderRefreshButton();
         }
 
@@ -843,7 +891,8 @@ namespace BirthdayJobJam.Application
         {
             return hasStartedApplication
                 && section != null
-                && section.SectionId >= ApplicationSectionId.MyInformation;
+                && section.SectionId >= ApplicationSectionId.MyInformation
+                && section.SectionId < ApplicationSectionId.Review;
         }
 
         private bool ShouldRunSessionTimer(ApplicationSectionRuntimeState section)
@@ -978,6 +1027,36 @@ namespace BirthdayJobJam.Application
 
             RenderMadlibBlankButtons(madlib, canAnswer);
             RenderMadlibWordButtons(madlib, canAnswer);
+        }
+
+        private void RenderReviewSection(bool isReview, bool blocked, bool complete)
+        {
+            EnsureReviewPasswordPanel();
+
+            SetActive(reviewPasswordPanel, isReview);
+            if (!isReview)
+                return;
+
+            bool canAnswer = !blocked && !complete;
+            SetText(reviewPromptText, complete ? ReviewCompleteStatus : ReviewPromptText);
+            SetText(reviewPasswordLabelText, ReviewPasswordLabel);
+            SetText(reviewPasswordSubmitButtonText, ReviewSubmitButtonLabel);
+            SetInteractable(reviewPasswordInput, canAnswer);
+            SetInteractable(reviewPasswordSubmitButton, canAnswer);
+        }
+
+        private void RenderSubmittedSection(bool isSubmitted)
+        {
+            EnsureSubmittedPanel();
+
+            SetActive(submittedPanel, isSubmitted);
+            if (!isSubmitted)
+                return;
+
+            SetText(submittedMessageText, SubmittedText);
+            StopSessionTimer();
+            gameplayTimer?.StopTimer();
+            BeginWinSceneLoad();
         }
 
         private void RenderQuestionAnswerButtons(ApplicationQuestionRuntimeData question, bool canAnswer)
@@ -1170,6 +1249,17 @@ namespace BirthdayJobJam.Application
                 && !section.IsBlocked;
         }
 
+        private bool IsOnReviewPageAndInteractive()
+        {
+            if (applicationState == null)
+                return false;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            return section != null
+                && section.SectionId == ApplicationSectionId.VoluntaryDisclosures
+                && !section.IsBlocked;
+        }
+
         private void Fail(string challengeId, string message)
         {
             applicationState.ReportWrongAnswer(
@@ -1209,6 +1299,10 @@ namespace BirthdayJobJam.Application
             SetText(sessionExpiredBodyText, SessionExpiredBody);
             SetText(sessionReauthSubmitButtonText, SessionReauthSubmitButtonLabel);
             SetText(sessionReauthErrorText, string.Empty);
+            SetText(reviewPromptText, ReviewPromptText);
+            SetText(reviewPasswordLabelText, ReviewPasswordLabel);
+            SetText(reviewPasswordSubmitButtonText, ReviewSubmitButtonLabel);
+            SetText(submittedMessageText, SubmittedText);
             SetText(jobListingTitleText, JobListingTitle);
             SetText(jobListingDescriptionText, JobListingDescription);
             SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
@@ -1225,6 +1319,7 @@ namespace BirthdayJobJam.Application
             SetInputPlaceholder(lastNameInput, LastNamePlaceholder);
             SetInputPlaceholder(dateOfBirthInput, DateOfBirthPlaceholder);
             SetInputPlaceholder(sessionReauthInput, SessionReauthPlaceholder);
+            SetInputPlaceholder(reviewPasswordInput, ReviewPasswordPlaceholder);
             RenderDateOfBirthLabel();
             RenderResumePickerButtons(canUsePicker: false);
             RenderSessionTimer();
@@ -1284,6 +1379,8 @@ namespace BirthdayJobJam.Application
             SetActive(myExperiencePanel, false);
             SetActive(applicationQuestionsPanel, false);
             SetActive(applicationMadlibsPanel, false);
+            SetActive(reviewPasswordPanel, false);
+            SetActive(submittedPanel, false);
             SetActive(resumePickerPanel, false);
             SetActive(sessionTimerText, false);
             SetActive(sessionExpiredReauthPanel, false);
@@ -1327,6 +1424,9 @@ namespace BirthdayJobJam.Application
 
             if (dateOfBirthInput != null)
                 dateOfBirthInput.text = string.Empty;
+
+            if (reviewPasswordInput != null)
+                reviewPasswordInput.text = string.Empty;
 
             selectedResumeIndex = -1;
             ResetMadlibSelection();
@@ -1681,6 +1781,9 @@ namespace BirthdayJobJam.Application
             if (sessionReauthSubmitButton != null)
                 sessionReauthSubmitButton.onClick.AddListener(SubmitSessionReauthentication);
 
+            if (reviewPasswordSubmitButton != null)
+                reviewPasswordSubmitButton.onClick.AddListener(SubmitReviewPassword);
+
             if (resumeFileButtons != null)
             {
                 for (int i = 0; i < resumeFileButtons.Length; i++)
@@ -1733,6 +1836,9 @@ namespace BirthdayJobJam.Application
             if (sessionReauthSubmitButton != null)
                 sessionReauthSubmitButton.onClick.RemoveListener(SubmitSessionReauthentication);
 
+            if (reviewPasswordSubmitButton != null)
+                reviewPasswordSubmitButton.onClick.RemoveListener(SubmitReviewPassword);
+
             if (applicationQuestionAnswerButtons != null)
             {
                 foreach (Button button in applicationQuestionAnswerButtons)
@@ -1784,6 +1890,10 @@ namespace BirthdayJobJam.Application
                 SetStatus(QuestionsIntroText);
             else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo)
                 SetStatus(MadlibIntroText);
+            else if (section != null && section.SectionId == ApplicationSectionId.VoluntaryDisclosures)
+                SetStatus(ReviewPromptText);
+            else if (section != null && section.SectionId == ApplicationSectionId.Review)
+                SetStatus(SubmittedText);
 
             Render();
         }
@@ -1857,6 +1967,214 @@ namespace BirthdayJobJam.Application
             TMP_Text placeholder = input.placeholder.GetComponent<TMP_Text>();
             if (placeholder != null)
                 placeholder.text = value;
+        }
+
+        private void BeginWinSceneLoad()
+        {
+            if (!loadWinSceneAfterSubmission || string.IsNullOrWhiteSpace(winSceneName) || winSceneLoadRoutine != null)
+                return;
+
+            winSceneLoadRoutine = StartCoroutine(LoadWinSceneAfterDelay());
+        }
+
+        private IEnumerator LoadWinSceneAfterDelay()
+        {
+            if (winSceneDelaySeconds > 0f)
+                yield return new WaitForSecondsRealtime(winSceneDelaySeconds);
+
+            SceneManager.LoadScene(winSceneName);
+        }
+
+        private void EnsureReviewPasswordPanel()
+        {
+            if (reviewPasswordPanel != null
+                && reviewPasswordInput != null
+                && reviewPasswordSubmitButton != null)
+            {
+                return;
+            }
+
+            RectTransform parent = signInFormPanel != null
+                ? signInFormPanel.transform.parent as RectTransform
+                : transform as RectTransform;
+
+            if (parent == null)
+                return;
+
+            GameObject panel = new GameObject("Review Password Panel", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(parent, false);
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            MatchSmallPanelToExperiencePanel(panelRect);
+
+            Image panelImage = panel.GetComponent<Image>();
+            panelImage.color = new Color(1f, 0.98f, 0.9f, 0.92f);
+
+            VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(18, 18, 14, 14);
+            layout.spacing = 8f;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+
+            reviewPasswordPanel = panel;
+            reviewPromptText = CreateQuestionText(panel.transform, "Prompt", 16f, FontStyles.Bold, 42f);
+            reviewPasswordLabelText = CreateQuestionText(panel.transform, "Password Label", 13f, FontStyles.Bold, 18f);
+            reviewPasswordInput = CreateReviewInputField(panel.transform, "Password Input");
+            reviewPasswordSubmitButton = CreateReviewButton(panel.transform, "Submit Button", out reviewPasswordSubmitButtonText);
+            reviewPasswordSubmitButton.onClick.AddListener(SubmitReviewPassword);
+
+            SetActive(reviewPasswordPanel, false);
+        }
+
+        private void EnsureSubmittedPanel()
+        {
+            if (submittedPanel != null && submittedMessageText != null)
+                return;
+
+            RectTransform parent = signInFormPanel != null
+                ? signInFormPanel.transform.parent as RectTransform
+                : transform as RectTransform;
+
+            if (parent == null)
+                return;
+
+            GameObject panel = new GameObject("Submitted Panel", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(parent, false);
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            MatchSmallPanelToExperiencePanel(panelRect);
+
+            Image panelImage = panel.GetComponent<Image>();
+            panelImage.color = new Color(1f, 0.98f, 0.9f, 0.92f);
+
+            VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(18, 18, 36, 18);
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = true;
+
+            submittedMessageText = CreateQuestionText(panel.transform, "Message", 24f, FontStyles.Bold, 90f);
+            submittedMessageText.alignment = TextAlignmentOptions.Center;
+
+            submittedPanel = panel;
+            SetActive(submittedPanel, false);
+        }
+
+        private void MatchSmallPanelToExperiencePanel(RectTransform panelRect)
+        {
+            RectTransform sourceRect = myExperiencePanel != null
+                ? myExperiencePanel.GetComponent<RectTransform>()
+                : null;
+
+            if (sourceRect == null)
+            {
+                panelRect.anchorMin = new Vector2(0f, 1f);
+                panelRect.anchorMax = new Vector2(0f, 1f);
+                panelRect.pivot = new Vector2(0f, 1f);
+                panelRect.anchoredPosition = new Vector2(92f, -230f);
+                panelRect.sizeDelta = new Vector2(560f, 170f);
+                return;
+            }
+
+            panelRect.anchorMin = sourceRect.anchorMin;
+            panelRect.anchorMax = sourceRect.anchorMax;
+            panelRect.pivot = sourceRect.pivot;
+            panelRect.anchoredPosition = sourceRect.anchoredPosition + new Vector2(0f, 36f);
+            panelRect.sizeDelta = new Vector2(sourceRect.sizeDelta.x, 170f);
+        }
+
+        private TMP_InputField CreateReviewInputField(Transform parent, string name)
+        {
+            GameObject inputObject = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(TMP_InputField), typeof(LayoutElement));
+            inputObject.transform.SetParent(parent, false);
+
+            Image image = inputObject.GetComponent<Image>();
+            image.color = new Color(0.86f, 0.86f, 0.82f, 1f);
+
+            LayoutElement layoutElement = inputObject.GetComponent<LayoutElement>();
+            layoutElement.minHeight = 36f;
+            layoutElement.preferredHeight = 36f;
+
+            GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(inputObject.transform, false);
+            RectTransform textRect = textObject.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(10f, 6f);
+            textRect.offsetMax = new Vector2(-10f, -6f);
+
+            TMP_Text text = textObject.GetComponent<TMP_Text>();
+            text.font = pageTitleText != null ? pageTitleText.font : text.font;
+            text.fontSize = 16f;
+            text.color = new Color(0.12f, 0.12f, 0.12f, 1f);
+            text.enableWordWrapping = false;
+            text.overflowMode = TextOverflowModes.Ellipsis;
+            text.alignment = TextAlignmentOptions.MidlineLeft;
+
+            GameObject placeholderObject = new GameObject("Placeholder", typeof(RectTransform), typeof(TextMeshProUGUI));
+            placeholderObject.transform.SetParent(inputObject.transform, false);
+            RectTransform placeholderRect = placeholderObject.GetComponent<RectTransform>();
+            placeholderRect.anchorMin = Vector2.zero;
+            placeholderRect.anchorMax = Vector2.one;
+            placeholderRect.offsetMin = new Vector2(10f, 6f);
+            placeholderRect.offsetMax = new Vector2(-10f, -6f);
+
+            TMP_Text placeholder = placeholderObject.GetComponent<TMP_Text>();
+            placeholder.font = text.font;
+            placeholder.fontSize = 16f;
+            placeholder.color = new Color(0.45f, 0.45f, 0.45f, 1f);
+            placeholder.enableWordWrapping = false;
+            placeholder.overflowMode = TextOverflowModes.Ellipsis;
+            placeholder.alignment = TextAlignmentOptions.MidlineLeft;
+            placeholder.text = ReviewPasswordPlaceholder;
+
+            TMP_InputField input = inputObject.GetComponent<TMP_InputField>();
+            input.textComponent = text;
+            input.placeholder = placeholder;
+            input.targetGraphic = image;
+            input.contentType = TMP_InputField.ContentType.Password;
+            input.lineType = TMP_InputField.LineType.SingleLine;
+
+            return input;
+        }
+
+        private Button CreateReviewButton(
+            Transform parent,
+            string name,
+            out TMP_Text buttonText)
+        {
+            GameObject buttonObject = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
+            buttonObject.transform.SetParent(parent, false);
+
+            Image image = buttonObject.GetComponent<Image>();
+            image.color = jobListingApplyButtonColor;
+
+            LayoutElement layoutElement = buttonObject.GetComponent<LayoutElement>();
+            layoutElement.minHeight = 36f;
+            layoutElement.preferredHeight = 36f;
+
+            Button button = buttonObject.GetComponent<Button>();
+            button.targetGraphic = image;
+
+            GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(buttonObject.transform, false);
+            RectTransform textRect = textObject.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(8f, 4f);
+            textRect.offsetMax = new Vector2(-8f, -4f);
+
+            buttonText = textObject.GetComponent<TMP_Text>();
+            buttonText.font = pageTitleText != null ? pageTitleText.font : buttonText.font;
+            buttonText.fontSize = 15f;
+            buttonText.fontStyle = FontStyles.Bold;
+            buttonText.color = Color.white;
+            buttonText.enableWordWrapping = false;
+            buttonText.overflowMode = TextOverflowModes.Ellipsis;
+            buttonText.alignment = TextAlignmentOptions.Center;
+
+            return button;
         }
 
         private void EnsureApplicationQuestionsPanel()
@@ -2249,6 +2567,14 @@ namespace BirthdayJobJam.Application
         private string WrongQuestionAnswerError => GetContentText(content?.WrongQuestionAnswerError, "That answer doesn't look right. Refresh to retry.");
         private string MadlibIntroText => GetContentText(content?.MadlibIntroText, "We want to know a little more about yourself in your own words. However, because of AI abuse, we're writing most of it for you.");
         private string MadlibCompleteStatus => GetContentText(content?.MadlibCompleteStatus, "Personal statement accepted.");
+        private string ReviewPromptText => GetContentText(content?.ReviewPromptText, "To submit, we need to check if it's you.");
+        private string ReviewPasswordLabel => GetContentText(content?.ReviewPasswordLabel, "Password");
+        private string ReviewPasswordPlaceholder => GetContentText(content?.ReviewPasswordPlaceholder, "...");
+        private string ReviewSubmitButtonLabel => GetContentText(content?.ReviewSubmitButtonLabel, "Verify Identity");
+        private string ReviewPasswordChallengeId => GetContentText(content?.ReviewPasswordChallengeId, "review_password");
+        private string ReviewWrongPasswordError => GetContentText(content?.ReviewWrongPasswordError, "Identity check failed. Refresh to retry.");
+        private string ReviewCompleteStatus => GetContentText(content?.ReviewCompleteStatus, "Identity verified. You may submit your application.");
+        private string SubmittedText => GetContentText(content?.SubmittedText, "submission complete.");
         private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try applicant22");
         private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try birthday123");
         private string TwoFactorPlaceholder => GetContentText(content?.TwoFactorPlaceholder, "try 0422");

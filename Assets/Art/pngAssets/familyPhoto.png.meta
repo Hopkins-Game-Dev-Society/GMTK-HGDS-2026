@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b3a05f9a5792c9d47bd6bef2562af829
+guid: 5694e0ba6f6704508b7545131991052c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -765150924802650856
-    second: arrow_0
+      213: 2978214902193471070
+    second: familyPhoto_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: arrow_0
+      name: familyPhoto_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 57
-        height: 56
+        x: 176
+        y: 9
+        width: 292
+        height: 347
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81d839fa943a165f0800000000000000
-      internalID: -765150924802650856
+      spriteID: e5e340e9caeb45920800000000000000
+      internalID: 2978214902193471070
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      arrow_0: -765150924802650856
+      familyPhoto_0: 2978214902193471070
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

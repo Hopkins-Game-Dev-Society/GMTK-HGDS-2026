@@ -51,6 +51,14 @@ MonoBehaviour:
   madlibIntroText: We want to know a little more about yourself in your own words.
     However, because of AI abuse, we're writing most of it for you.
   madlibCompleteStatus: Personal statement accepted.
+  reviewPromptText: To submit, we need to check if it's you.
+  reviewPasswordLabel: Password
+  reviewPasswordPlaceholder: ...
+  reviewSubmitButtonLabel: Verify Identity
+  reviewPasswordChallengeId: review_password
+  reviewWrongPasswordError: Identity check failed. Refresh to retry.
+  reviewCompleteStatus: Identity verified. You may submit your application.
+  submittedText: submission complete.
   usernamePlaceholder: ...
   passwordPlaceholder: ...
   twoFactorPlaceholder: ...
