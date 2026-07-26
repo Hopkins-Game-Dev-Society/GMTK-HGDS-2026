@@ -26,8 +26,8 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string dateOfBirthChallengeId = "date_of_birth";
 
         [Header("Temporary Correct Answers")]
-        [SerializeField] private string correctFirstName = "Jamie";
-        [SerializeField] private string correctLastName = "Applicant";
+        [SerializeField] private string correctFirstName = "Bartholomew";
+        [SerializeField] private string correctLastName = "Huang";
         [SerializeField] private int correctBirthMonth = 4;
         [SerializeField] private int correctBirthDay = 22;
         [SerializeField] private int correctBirthYear = 2004;

@@ -13,8 +13,8 @@ namespace BirthdayJobJam.Application
         private const string DefaultUsernameChallengeId = "username";
         private const string DefaultPasswordChallengeId = "password";
         private const string DefaultTwoFactorChallengeId = "two_factor_code";
-        private const string DefaultCorrectUsername = "applicant22";
-        private const string DefaultCorrectPassword = "birthday123";
+        private const string DefaultCorrectUsername = "big.boss@outerheaven.com";
+        private const string DefaultCorrectPassword = "banana_protocol";
         private const string DefaultCorrectTwoFactorCode = "0422";
         private const string TimeLeftSecondsQuestionId = "time_left_seconds";
         private const string CorrectTimeLeftAnswerId = "birthday_timer_seconds";
@@ -2585,8 +2585,8 @@ namespace BirthdayJobJam.Application
         private string ReviewWrongPasswordError => GetContentText(content?.ReviewWrongPasswordError, "Identity check failed. Refresh to retry.");
         private string ReviewCompleteStatus => GetContentText(content?.ReviewCompleteStatus, "Identity verified. You may submit your application.");
         private string SubmittedText => GetContentText(content?.SubmittedText, "submission complete.");
-        private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try applicant22");
-        private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try birthday123");
+        private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try big.boss@outerheaven.com");
+        private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try banana_protocol");
         private string TwoFactorPlaceholder => GetContentText(content?.TwoFactorPlaceholder, "try 0422");
         private string UsernameChallengeId => GetContentText(content?.UsernameChallengeId, DefaultUsernameChallengeId);
         private string PasswordChallengeId => GetContentText(content?.PasswordChallengeId, DefaultPasswordChallengeId);
@@ -2760,10 +2760,10 @@ namespace BirthdayJobJam.Application
         private string DateOfBirthChallengeId => GetContentText(myInformationContent?.DateOfBirthChallengeId, "date_of_birth");
         private string CorrectFirstName => GetContentText(
             CurrentApplicant?.FirstName,
-            GetContentText(myInformationContent?.CorrectFirstName, "Jamie"));
+            GetContentText(myInformationContent?.CorrectFirstName, "Bartholomew"));
         private string CorrectLastName => GetContentText(
             CurrentApplicant?.LastName,
-            GetContentText(myInformationContent?.CorrectLastName, "Applicant"));
+            GetContentText(myInformationContent?.CorrectLastName, "Huang"));
         private int CorrectBirthMonth => myInformationContent != null ? myInformationContent.CorrectBirthMonth : 4;
         private int CorrectBirthDay => myInformationContent != null ? myInformationContent.CorrectBirthDay : 22;
         private int CorrectBirthYear => myInformationContent != null ? myInformationContent.CorrectBirthYear : 2004;

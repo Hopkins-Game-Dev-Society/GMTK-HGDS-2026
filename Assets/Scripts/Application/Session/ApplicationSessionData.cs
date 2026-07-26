@@ -104,8 +104,7 @@ namespace BirthdayJobJam.Application
             ApplicationSectionId sectionId,
             int weight,
             ApplicationQuestionDefinition definition,
-            string preferredAnswerId,
-            System.Random random)
+            string preferredAnswerId)
         {
             SlotId = slotId;
             SectionId = sectionId;
@@ -128,7 +127,6 @@ namespace BirthdayJobJam.Application
                     answer.AnswerText));
             }
 
-            ApplicationRuntimeShuffle.Shuffle(possibleAnswers, random);
         }
 
         public string SlotId { get; }
@@ -152,21 +150,6 @@ namespace BirthdayJobJam.Application
 
         public string AnswerId { get; }
         public string AnswerText { get; }
-    }
-
-    internal static class ApplicationRuntimeShuffle
-    {
-        public static void Shuffle<T>(IList<T> values, System.Random random)
-        {
-            if (values == null || random == null)
-                return;
-
-            for (int i = values.Count - 1; i > 0; i--)
-            {
-                int swapIndex = random.Next(i + 1);
-                (values[i], values[swapIndex]) = (values[swapIndex], values[i]);
-            }
-        }
     }
 
     public sealed class ApplicationQuestionAnswerRecord
@@ -201,8 +184,7 @@ namespace BirthdayJobJam.Application
             string slotId,
             ApplicationSectionId sectionId,
             int weight,
-            ApplicationMadlibDefinition definition,
-            System.Random random)
+            ApplicationMadlibDefinition definition)
         {
             SlotId = slotId;
             SectionId = sectionId;
@@ -235,7 +217,6 @@ namespace BirthdayJobJam.Application
                     string.IsNullOrWhiteSpace(word.Text) ? word.WordId : word.Text));
             }
 
-            ApplicationRuntimeShuffle.Shuffle(wordBank, random);
         }
 
         public string SlotId { get; }

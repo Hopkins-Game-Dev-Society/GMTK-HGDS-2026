@@ -36,7 +36,7 @@ MonoBehaviour:
   - valueId: bartholomew_username
     value: bartholomew.huang@workmail.test
   - valueId: big_boss_username
-    value: big.boss@outerheaven.test
+    value: big.boss@outerheaven.com
   - valueId: jamie_username
     value: applicant22
   passwords:
@@ -52,7 +52,7 @@ MonoBehaviour:
     value: birthday123
   twoFactorCodes:
   - valueId: birthday_0422
-    value: '0422'
+    value: 0422
   questions:
   - questionId: eye_color_outside
     prompt: What color is the eye of the man outside?
@@ -82,16 +82,16 @@ MonoBehaviour:
     incompatibleQuestionIds: []
     possibleAnswers:
     - answerId: birthday_timer_seconds
-      answerText: '0'
+      answerText: 0
       rating: 10
     - answerId: browser_timer_seconds
-      answerText: '0'
+      answerText: 0
       rating: 0
     - answerId: microwave_timer_seconds
-      answerText: '0'
+      answerText: 0
       rating: 0
     - answerId: random_counter_seconds
-      answerText: '0'
+      answerText: 0
       rating: 0
   - questionId: wants_job
     prompt: Do you want a job?
@@ -405,11 +405,11 @@ MonoBehaviour:
   - clueId: big_boss_username
     category: 10
     targetId: username
-    associatedAnswer: big.boss@outerheaven.test
+    associatedAnswer: big.boss@outerheaven.com
     variantId: account_record_username
     authoredReference: {fileID: 0}
     spawnGroupId: credentials
-    resolvedPayload: big.boss@outerheaven.test
+    resolvedPayload: big.boss@outerheaven.com
   - clueId: big_boss_password
     category: 10
     targetId: password

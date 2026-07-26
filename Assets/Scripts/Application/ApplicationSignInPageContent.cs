@@ -55,8 +55,8 @@ namespace BirthdayJobJam.Application
         [TextArea] [SerializeField] private string submittedText = "submission complete.";
 
         [Header("Placeholders")]
-        [SerializeField] private string usernamePlaceholder = "try applicant22";
-        [SerializeField] private string passwordPlaceholder = "try birthday123";
+        [SerializeField] private string usernamePlaceholder = "try big.boss@outerheaven.com";
+        [SerializeField] private string passwordPlaceholder = "try banana_protocol";
         [SerializeField] private string twoFactorPlaceholder = "try 0422";
 
         [Header("Challenge Ids")]
@@ -65,8 +65,8 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string twoFactorChallengeId = "two_factor_code";
 
         [Header("Temporary Correct Answers")]
-        [SerializeField] private string correctUsername = "applicant22";
-        [SerializeField] private string correctPassword = "birthday123";
+        [SerializeField] private string correctUsername = "big.boss@outerheaven.com";
+        [SerializeField] private string correctPassword = "banana_protocol";
         [SerializeField] private string correctTwoFactorCode = "0422";
 
         [Header("Status Copy")]

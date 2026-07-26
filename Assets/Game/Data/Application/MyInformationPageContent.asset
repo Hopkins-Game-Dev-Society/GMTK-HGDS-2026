@@ -25,7 +25,7 @@ MonoBehaviour:
   firstNameChallengeId: first_name
   lastNameChallengeId: last_name
   dateOfBirthChallengeId: date_of_birth
-  correctFirstName: Samuel
+  correctFirstName: Bartholomew
   correctLastName: Huang
   correctBirthMonth: 4
   correctBirthDay: 22
