@@ -19,5 +19,5 @@ MonoBehaviour:
   lowPassFilterAmount: 0
   highPassFilterAmount: 0
   fadeInDuration: 0
-  fadeOutDuration: 3
+  fadeOutDuration: 0
   outputMixerGroup: {fileID: 0}
