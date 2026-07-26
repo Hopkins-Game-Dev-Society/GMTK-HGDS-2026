@@ -285,6 +285,51 @@ namespace BirthdayJobJam.Application
             StartSessionTimer();
         }
 
+#if UNITY_EDITOR
+        public string DebugCorrectUsername => CorrectUsername;
+        public string DebugCorrectPassword => CorrectPassword;
+        public string DebugCorrectTwoFactorCode => CorrectTwoFactorCode;
+        public string DebugCorrectFirstName => CorrectFirstName;
+        public string DebugCorrectLastName => CorrectLastName;
+        public string DebugCurrentDateOfBirthFormat => CurrentDateOfBirthFormat;
+        public string DebugCorrectDateOfBirth => BuildExpectedDateOfBirth(CurrentDateOfBirthFormat);
+        public int DebugCorrectResumeIndex => CorrectResumeIndex;
+        public string DebugCorrectResumeFileName => ResumeFileName(CorrectResumeIndex);
+
+        public bool DebugJumpToJobListing()
+        {
+            ResolveApplicationState();
+            if (applicationState == null)
+                return false;
+
+            hasStartedApplication = false;
+            applicationState.TryGoToSection(ApplicationSectionId.CreateAccountSignIn);
+            applicationState.DebugForceClearCurrentSectionBlock();
+            ClearInputs();
+            StopSessionTimer();
+            SetStatus(string.Empty);
+            Render();
+            return true;
+        }
+
+        public bool DebugJumpToSection(ApplicationSectionId sectionId)
+        {
+            ResolveApplicationState();
+            if (applicationState == null || !applicationState.TryGoToSection(sectionId))
+                return false;
+
+            hasStartedApplication = true;
+            applicationState.DebugForceClearCurrentSectionBlock();
+            ClearInputs();
+            RestartSessionTimerForCurrentSection();
+            SetStatus(applicationState.CurrentSection != null
+                ? Format(SectionLoadedStatusFormat, applicationState.CurrentSection.DisplayName)
+                : UnavailableStatus);
+            Render();
+            return true;
+        }
+#endif
+
         public void SubmitLogin()
         {
             if (!IsOnSignInPageAndInteractive())

@@ -274,6 +274,21 @@ namespace BirthdayJobJam.Application
             RaiseStateChanged();
         }
 
+#if UNITY_EDITOR
+        public bool DebugForceClearCurrentSectionBlock()
+        {
+            ApplicationSectionRuntimeState section = CurrentSection;
+            if (section == null || !section.IsBlocked)
+                return false;
+
+            section.ClearBlock();
+            lastReportedRefreshCooldown = -1f;
+            errorMessageChangedEvent?.Raise(string.Empty);
+            RaiseStateChanged();
+            return true;
+        }
+#endif
+
         [ContextMenu("Use Default Jam Sections")]
         public void UseDefaultJamSections()
         {
