@@ -4,12 +4,31 @@ using UnityEngine;
 
 namespace BirthdayJobJam.Application
 {
-    //So here the plan is to build one randomized run and keep it the same when the player changes application views.
     [DisallowMultipleComponent]
     public sealed class ApplicationSessionManager : MonoBehaviour
     {
         private const string QuestionSlotPrefix = "question_";
         private const string MadlibSlotPrefix = "madlib_";
+        private const string FixedNameId = "bartholomew_huang";
+        private const string FixedUsernameId = "big_boss_username";
+        private const string FixedPasswordId = "banana_password";
+        private const string FixedTwoFactorCodeId = "birthday_0422";
+        private static readonly string[] FixedQuestionIds =
+        {
+            "ideal_salary",
+            "mothers_maiden_name",
+            "time_left_seconds",
+            "eye_color_outside",
+            "visa_sponsorship_needed",
+            "fight_horse"
+        };
+        private static readonly string[] FixedMadlibIds =
+        {
+            "biggest_strength",
+            "overcome_stress",
+            "workplace_argument",
+            "five_years"
+        };
 
         [Header("Authoring")]
         [SerializeField] private ApplicationSessionCatalog catalog;
@@ -104,42 +123,40 @@ namespace BirthdayJobJam.Application
                 return;
             }
 
-            int seed = useFixedSeed ? fixedSeed : CreateSeed();
-            System.Random random = new(seed);
+            int seed = fixedSeed;
 
             List<ApplicationQuestionDefinition> selectedQuestionDefinitions =
-                SelectQuestionsForSlots(questionBank, questionSlots.Count, random);
+                SelectFixedQuestionsForSlots(questionBank, questionSlots.Count);
 
             if (selectedQuestionDefinitions.Count < questionSlots.Count)
             {
                 Debug.LogError(
-                    $"ApplicationSessionManager: the question bank could only provide {selectedQuestionDefinitions.Count} compatible questions, "
-                    + $"but the active application flow requires {questionSlots.Count}. Check incompatible question settings.",
+                    $"ApplicationSessionManager: the fixed question list could only provide {selectedQuestionDefinitions.Count} questions, "
+                    + $"but the active application flow requires {questionSlots.Count}. Check the catalog and fixed question ids.",
                     this);
                 return;
             }
 
             List<ApplicationMadlibDefinition> selectedMadlibDefinitions =
-                SelectMadlibsForSlots(madlibBank, madlibSlots.Count, random);
+                SelectFixedMadlibsForSlots(madlibBank, madlibSlots.Count);
 
             if (selectedMadlibDefinitions.Count < madlibSlots.Count)
             {
                 Debug.LogError(
-                    $"ApplicationSessionManager: the madlib bank has {selectedMadlibDefinitions.Count} valid madlibs, "
-                    + $"but the active application flow requires {madlibSlots.Count}.",
+                    $"ApplicationSessionManager: the fixed madlib list could only provide {selectedMadlibDefinitions.Count} madlibs, "
+                    + $"but the active application flow requires {madlibSlots.Count}. Check the catalog and fixed madlib ids.",
                     this);
                 return;
             }
 
-            //I pick one value from each randomization pool for this run.
             ApplicationNameDefinition selectedName =
-                names[random.Next(names.Count)];
+                FindById(names, FixedNameId, name => name.NameId) ?? names[0];
             ApplicationRandomValueDefinition selectedUsername =
-                usernames[random.Next(usernames.Count)];
+                FindById(usernames, FixedUsernameId, value => value.ValueId) ?? usernames[0];
             ApplicationRandomValueDefinition selectedPassword =
-                passwords[random.Next(passwords.Count)];
+                FindById(passwords, FixedPasswordId, value => value.ValueId) ?? passwords[0];
             ApplicationRandomValueDefinition selectedTwoFactorCode =
-                twoFactorCodes[random.Next(twoFactorCodes.Count)];
+                FindById(twoFactorCodes, FixedTwoFactorCodeId, value => value.ValueId) ?? twoFactorCodes[0];
             ApplicationApplicantRuntimeData applicant =
                 new(
                     selectedName,
@@ -157,8 +174,7 @@ namespace BirthdayJobJam.Application
                     slot.SectionId,
                     slot.Weight,
                     selectedQuestion,
-                    ResolvePreferredAnswerId(selectedQuestion, random),
-                    random));
+                    ResolvePreferredAnswerId(selectedQuestion)));
             }
 
             List<ApplicationMadlibRuntimeData> selectedMadlibs = new(madlibSlots.Count);
@@ -169,14 +185,12 @@ namespace BirthdayJobJam.Application
                     slot.SlotId,
                     slot.SectionId,
                     slot.Weight,
-                    selectedMadlibDefinitions[i],
-                    random));
+                    selectedMadlibDefinitions[i]));
             }
 
             List<ApplicationClueRuntimeData> selectedClues = ResolveClues(
                 applicant,
-                selectedQuestions,
-                random);
+                selectedQuestions);
 
             Current = new ApplicationSessionData(
                 Guid.NewGuid().ToString("N"),
@@ -281,90 +295,47 @@ namespace BirthdayJobJam.Application
             return result;
         }
 
-        private static List<ApplicationQuestionDefinition> SelectQuestionsForSlots(
+        private static List<ApplicationQuestionDefinition> SelectFixedQuestionsForSlots(
             List<ApplicationQuestionDefinition> questionBank,
-            int slotCount,
-            System.Random random)
+            int slotCount)
         {
-            List<ApplicationQuestionDefinition> shuffled = new(questionBank);
-            List<ApplicationQuestionDefinition> best = new(slotCount);
-
-            for (int attempt = 0; attempt < 24; attempt++)
+            List<ApplicationQuestionDefinition> selected = new(slotCount);
+            for (int i = 0; i < FixedQuestionIds.Length && selected.Count < slotCount; i++)
             {
-                Shuffle(shuffled, random);
-                List<ApplicationQuestionDefinition> selected = new(slotCount);
+                ApplicationQuestionDefinition question =
+                    FindById(questionBank, FixedQuestionIds[i], item => item.QuestionId);
 
-                for (int i = 0; i < shuffled.Count && selected.Count < slotCount; i++)
-                {
-                    ApplicationQuestionDefinition candidate = shuffled[i];
-                    if (!IsCompatibleWithSelected(candidate, selected))
-                        continue;
-
-                    selected.Add(candidate);
-                }
-
-                if (selected.Count > best.Count)
-                    best = selected;
-
-                if (selected.Count == slotCount)
-                    return selected;
+                if (question != null)
+                    selected.Add(question);
             }
 
-            return best;
-        }
-
-        private static bool IsCompatibleWithSelected(
-            ApplicationQuestionDefinition candidate,
-            IReadOnlyList<ApplicationQuestionDefinition> selected)
-        {
-            for (int i = 0; i < selected.Count; i++)
-            {
-                if (!candidate.IsCompatibleWith(selected[i]))
-                    return false;
-            }
-
-            return true;
+            return selected;
         }
 
         private static string ResolvePreferredAnswerId(
-            ApplicationQuestionDefinition question,
-            System.Random random)
+            ApplicationQuestionDefinition question)
         {
             if (question == null)
                 return string.Empty;
 
-            if (!question.RandomizePreferredAnswer)
-                return question.PreferredAnswerId;
-
-            IReadOnlyList<ApplicationQuestionAnswerDefinition> answers = question.PossibleAnswers;
-            if (answers == null || answers.Count == 0)
-                return question.PreferredAnswerId;
-
-            List<ApplicationQuestionAnswerDefinition> validAnswers = new();
-            for (int i = 0; i < answers.Count; i++)
-            {
-                ApplicationQuestionAnswerDefinition answer = answers[i];
-                if (answer != null && !string.IsNullOrWhiteSpace(answer.AnswerId))
-                    validAnswers.Add(answer);
-            }
-
-            return validAnswers.Count > 0
-                ? validAnswers[random.Next(validAnswers.Count)].AnswerId
-                : question.PreferredAnswerId;
+            return question.PreferredAnswerId;
         }
 
-        private static List<ApplicationMadlibDefinition> SelectMadlibsForSlots(
+        private static List<ApplicationMadlibDefinition> SelectFixedMadlibsForSlots(
             List<ApplicationMadlibDefinition> madlibBank,
-            int slotCount,
-            System.Random random)
+            int slotCount)
         {
-            List<ApplicationMadlibDefinition> shuffled = new(madlibBank);
-            Shuffle(shuffled, random);
+            List<ApplicationMadlibDefinition> selected = new(slotCount);
+            for (int i = 0; i < FixedMadlibIds.Length && selected.Count < slotCount; i++)
+            {
+                ApplicationMadlibDefinition madlib =
+                    FindById(madlibBank, FixedMadlibIds[i], item => item.MadlibId);
 
-            if (shuffled.Count > slotCount)
-                shuffled.RemoveRange(slotCount, shuffled.Count - slotCount);
+                if (madlib != null)
+                    selected.Add(madlib);
+            }
 
-            return shuffled;
+            return selected;
         }
 
         private List<QuestionSlot> GetQuestionSlots()
@@ -512,16 +483,14 @@ namespace BirthdayJobJam.Application
 
         private List<ApplicationClueRuntimeData> ResolveClues(
             ApplicationApplicantRuntimeData applicant,
-            IReadOnlyList<ApplicationQuestionRuntimeData> questions,
-            System.Random random)
+            IReadOnlyList<ApplicationQuestionRuntimeData> questions)
         {
-            //I match clues using the target and selected value so the randomized result still points to the right clue.
             List<ApplicationClueRuntimeData> result = new();
 
-            AddRandomMatchingClue(result, random, "first_name", applicant.FirstName);
-            AddRandomMatchingClue(result, random, "last_name", applicant.LastName);
-            AddRandomMatchingClue(result, random, "username", applicant.Username);
-            AddRandomMatchingClue(result, random, "password", applicant.Password);
+            AddMatchingClue(result, "first_name", applicant.FirstName);
+            AddMatchingClue(result, "last_name", applicant.LastName);
+            AddMatchingClue(result, "username", applicant.Username);
+            AddMatchingClue(result, "password", applicant.Password);
 
             for (int i = 0; i < questions.Count; i++)
             {
@@ -529,9 +498,8 @@ namespace BirthdayJobJam.Application
                 if (string.IsNullOrWhiteSpace(question.PreferredAnswerId))
                     continue;
 
-                AddRandomMatchingClue(
+                AddMatchingClue(
                     result,
-                    random,
                     question.QuestionId,
                     question.PreferredAnswerId,
                     question.SlotId);
@@ -540,9 +508,8 @@ namespace BirthdayJobJam.Application
             return result;
         }
 
-        private void AddRandomMatchingClue(
+        private void AddMatchingClue(
             List<ApplicationClueRuntimeData> destination,
-            System.Random random,
             string targetId,
             string associatedAnswer,
             string targetSlotId = null)
@@ -562,14 +529,7 @@ namespace BirthdayJobJam.Application
             if (candidates.Count == 0)
                 return;
 
-            destination.Add(new ApplicationClueRuntimeData(
-                candidates[random.Next(candidates.Count)],
-                targetSlotId));
-        }
-
-        private static int CreateSeed()
-        {
-            return Guid.NewGuid().GetHashCode() ^ Environment.TickCount;
+            destination.Add(new ApplicationClueRuntimeData(candidates[0], targetSlotId));
         }
 
         private void UpdateInspectorState()
@@ -608,13 +568,22 @@ namespace BirthdayJobJam.Application
                 currentClueIds.Add(Current.Clues[i].ClueId);
         }
 
-        private static void Shuffle<T>(IList<T> values, System.Random random)
+        private static T FindById<T>(
+            IReadOnlyList<T> values,
+            string id,
+            Func<T, string> getId)
         {
-            for (int i = values.Count - 1; i > 0; i--)
+            if (values == null || string.IsNullOrWhiteSpace(id) || getId == null)
+                return default;
+
+            for (int i = 0; i < values.Count; i++)
             {
-                int swapIndex = random.Next(i + 1);
-                (values[i], values[swapIndex]) = (values[swapIndex], values[i]);
+                T value = values[i];
+                if (value != null && string.Equals(getId(value), id, StringComparison.OrdinalIgnoreCase))
+                    return value;
             }
+
+            return default;
         }
 
         private readonly struct QuestionSlot

@@ -65,8 +65,8 @@ MonoBehaviour:
   usernameChallengeId: username
   passwordChallengeId: password
   twoFactorChallengeId: two_factor_code
-  correctUsername: shuan143@jh.edu
-  correctPassword: iloveultrakill
+  correctUsername: big.boss@outerheaven.com
+  correctPassword: banana_protocol
   correctTwoFactorCode: 0422
   initialStatus: Log in to begin becoming professionally acceptable.
   credentialsAcceptedStatus: Credentials accepted. Two-factor authentication required.

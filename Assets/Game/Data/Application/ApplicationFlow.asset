@@ -88,6 +88,14 @@ MonoBehaviour:
       displayName: Question 4
       required: 1
       maxPoints: 1
+    - challengeId: question_5
+      displayName: Question 5
+      required: 1
+      maxPoints: 1
+    - challengeId: question_6
+      displayName: Question 6
+      required: 1
+      maxPoints: 1
   - sectionId: 50
     displayName: Application Questions 2 of 2
     progressLabel: 'Questions
@@ -102,6 +110,14 @@ MonoBehaviour:
       maxPoints: 1
     - challengeId: madlib_2
       displayName: Personal Statement 2
+      required: 1
+      maxPoints: 1
+    - challengeId: madlib_3
+      displayName: Personal Statement 3
+      required: 1
+      maxPoints: 1
+    - challengeId: madlib_4
+      displayName: Personal Statement 4
       required: 1
       maxPoints: 1
   - sectionId: 60
