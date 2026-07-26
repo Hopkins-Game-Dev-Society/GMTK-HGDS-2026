@@ -1315,6 +1315,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189613729}
   m_CullTransparentMesh: 1
+--- !u!114 &219990001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362871707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64ff84f7ef5499bbba135b196c1a8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSessionManager
+  catalog: {fileID: 11400000, guid: 2c9b8667408b4738970265bc37acbeef, type: 2}
+  applicationState: {fileID: 2087953873}
+  useFixedSeed: 0
+  fixedSeed: 2204
+  currentSessionId: 
+  currentSeed: 0
+  currentNameId: 
+  currentUsernameId: 
+  currentPasswordId: 
+  currentTwoFactorCodeId: 
+  currentQuestionIds: []
+  currentClueIds: []
+--- !u!114 &219990002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362871707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92be7300c7424266b573317ea2fcffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationScoreManager
+  endings: []
+  sessionManager: {fileID: 219990001}
+  scoreChanged: {fileID: 0}
+  endingResolved: {fileID: 0}
+  applicationScore: 0
+  hasFinalScore: 0
+  answeredQuestionCount: 0
 --- !u!1 &229988940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,6 +3245,51 @@ RectTransform:
   m_AnchoredPosition: {x: 225, y: -42}
   m_SizeDelta: {x: 360, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &336687231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 336687233}
+  - component: {fileID: 336687232}
+  m_Layer: 0
+  m_Name: Invoker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &336687232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336687231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66cfc6f5bbe6c4d868995f0b2c81c1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  onButtonClicked: {fileID: 11400000, guid: e50caf7fa89e54d578874e65bacae57e, type: 2}
+--- !u!4 &336687233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336687231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.81631, y: -1.15946, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &337326479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,49 +3465,6 @@ MonoBehaviour:
   applicationSession: {fileID: 219990001}
   score: {fileID: 219990002}
   playerState: {fileID: 0}
---- !u!114 &219990001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362871707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64ff84f7ef5499bbba135b196c1a8ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationSessionManager
-  catalog: {fileID: 11400000, guid: 2c9b8667408b4738970265bc37acbeef, type: 2}
-  applicationState: {fileID: 2087953873}
-  useFixedSeed: 0
-  fixedSeed: 2204
-  currentSessionId:
-  currentSeed: 0
-  currentNameId:
-  currentUsernameId:
-  currentPasswordId:
-  currentTwoFactorCodeId:
-  currentQuestionIds: []
-  currentClueIds: []
---- !u!114 &219990002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362871707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e92be7300c7424266b573317ea2fcffe, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Application.ApplicationScoreManager
-  endings: []
-  sessionManager: {fileID: 219990001}
-  applicationScore: 0
-  hasFinalScore: 0
-  answeredQuestionCount: 0
-  scoreChanged: {fileID: 0}
-  endingResolved: {fileID: 0}
 --- !u!4 &362871709
 Transform:
   m_ObjectHideFlags: 0
@@ -10560,9 +10605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Voluntary
-
-    Disclosures'
+  m_text: Review
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
   m_sharedMaterial: {fileID: 1807758169521012969, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
@@ -12174,6 +12217,79 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1220425096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220425099}
+  - component: {fileID: 1220425098}
+  - component: {fileID: 1220425097}
+  m_Layer: 0
+  m_Name: SFX Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1220425097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220425096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0722aa294f3e4536932ed7cf6c21a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Events.GameEventListener
+  gameEvent: {fileID: 11400000, guid: e50caf7fa89e54d578874e65bacae57e, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1220425098}
+        m_TargetAssemblyTypeName: audioplayer, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1220425098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220425096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d685d19d721034461b869773bb7de716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!4 &1220425099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220425096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14674, y: -0.99407, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1226575015
 GameObject:
   m_ObjectHideFlags: 0
@@ -16180,7 +16296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Review
+  m_text: Submit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
   m_sharedMaterial: {fileID: 1807758169521012969, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
@@ -18919,8 +19035,8 @@ MonoBehaviour:
       required: 1
       maxPoints: 1
   - sectionId: 60
-    displayName: Voluntary Disclosures
-    progressLabel: 
+    displayName: Review
+    progressLabel: Review
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -18937,8 +19053,8 @@ MonoBehaviour:
       required: 1
       maxPoints: 1
   - sectionId: 70
-    displayName: Review
-    progressLabel: 
+    displayName: Submit
+    progressLabel: Submit
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -19913,3 +20029,5 @@ SceneRoots:
   - {fileID: 283835821}
   - {fileID: 1219288611}
   - {fileID: 332807323}
+  - {fileID: 336687233}
+  - {fileID: 1220425099}

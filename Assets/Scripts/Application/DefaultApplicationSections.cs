@@ -31,12 +31,12 @@ namespace BirthdayJobJam.Application
                     Challenge("question_4", "Question 4"),
                     Challenge("question_5", "Question 5")),
 
-                Section(ApplicationSectionId.VoluntaryDisclosures, "Voluntary Disclosures", "Voluntary\nDisclosures",
+                Section(ApplicationSectionId.VoluntaryDisclosures, "Review", "Review",
                     Challenge("visa_sponsorship", "Visa Sponsorship Disclosure"),
                     Challenge("future_sponsorship", "Future Sponsorship Disclosure"),
                     Challenge("voluntary_certification", "Voluntary Disclosure Certification")),
 
-                Section(ApplicationSectionId.Review, "Review", "Review",
+                Section(ApplicationSectionId.Review, "Submit", "Submit",
                     Challenge("review_all_fields", "Review All Fields"),
                     Challenge("final_certification", "Final Certification"))
             };

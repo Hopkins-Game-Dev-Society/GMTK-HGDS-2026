@@ -105,10 +105,8 @@ MonoBehaviour:
       required: 1
       maxPoints: 1
   - sectionId: 60
-    displayName: Voluntary Disclosures
-    progressLabel: 'Voluntary
-
-      Disclosures'
+    displayName: Review
+    progressLabel: Review
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
@@ -125,8 +123,8 @@ MonoBehaviour:
       required: 1
       maxPoints: 1
   - sectionId: 70
-    displayName: Review
-    progressLabel: Review
+    displayName: Submit
+    progressLabel: Submit
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:

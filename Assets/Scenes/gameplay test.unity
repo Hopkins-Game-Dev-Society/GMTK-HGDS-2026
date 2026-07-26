@@ -10667,9 +10667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Voluntary
-
-    Disclosures'
+  m_text: Review
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
   m_sharedMaterial: {fileID: 1807758169521012969, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
@@ -16812,7 +16810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Review
+  m_text: Submit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
   m_sharedMaterial: {fileID: 1807758169521012969, guid: bde9147653fea4ad3b0f1611ca59aff6, type: 2}
