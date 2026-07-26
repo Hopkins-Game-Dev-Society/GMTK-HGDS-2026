@@ -4702,7 +4702,7 @@ Transform:
   m_GameObject: {fileID: 209842669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.51007, y: -10.70576, z: -10}
+  m_LocalPosition: {x: -1.19, y: -10.70576, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10538,7 +10538,7 @@ Transform:
   m_GameObject: {fileID: 567172276}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.51007, y: -0.29424, z: 0}
+  m_LocalPosition: {x: 1.08, y: -0.29424, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11127,7 +11127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Workbay Careers Portal\nusername:\nbig.boss@outerhaven.com\npassword:
+  m_text: "Workbay Careers Portal\nusername:\nbig.boss@outerheaven.com\npassword:
     \nbanana_protocol"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22a5f50a536af70409f57d2e7f39f230, type: 2}
@@ -23764,7 +23764,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PLACEHOLDER
+  m_text: '0422
 
 '
   m_isRightToLeft: 0
@@ -25944,6 +25944,14 @@ PrefabInstance:
     - target: {fileID: 940625650683711868, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301139913528209077, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
+      propertyPath: durationSeconds
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301139913528209077, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
+      propertyPath: secondsRemaining
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6431798798168147915, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
       propertyPath: upArrow
