@@ -24,8 +24,10 @@ MonoBehaviour:
   refreshButtonLabel: Refresh
   nextButtonLabel: Next >
   jobListingTitle: Entry-Level Designer at Workbay Careers
-  jobListingDescription: Workbay Careers is seeking an entry-level designer to design
+  jobListingDescription: 'Workbay Careers is seeking an entry-level designer to design
     compliant things under fast-moving deadlines.
+
+    Salary range is $30,000 to $30,000.'
   jobListingMinimumQualificationsHeading: Minimum Qualifications
   jobListingMinimumQualificationsBody: '- 3+ years of industry design experience.
 
@@ -42,6 +44,13 @@ MonoBehaviour:
   jobListingRefreshQualificationReplacementText: 5+
   jobListingRefreshBenefitSearchText: weekly
   jobListingRefreshBenefitReplacementText: monthly
+  questionsIntroText: answer these questions
+  questionsCompleteStatus: all questions accepted
+  questionAnsweredStatusFormat: Answer accepted. {0} remaining.
+  wrongQuestionAnswerError: That answer doesn't look right. Refresh to retry.
+  madlibIntroText: We want to know a little more about yourself in your own words.
+    However, because of AI abuse, we're writing most of it for you.
+  madlibCompleteStatus: Personal statement accepted.
   usernamePlaceholder: ...
   passwordPlaceholder: ...
   twoFactorPlaceholder: ...

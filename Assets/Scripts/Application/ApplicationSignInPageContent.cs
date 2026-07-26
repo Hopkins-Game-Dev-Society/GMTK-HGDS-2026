@@ -36,6 +36,14 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string jobListingRefreshBenefitSearchText = "weekly";
         [SerializeField] private string jobListingRefreshBenefitReplacementText = "monthly";
 
+        [Header("Application Questions")]
+        [SerializeField] private string questionsIntroText = "answer these questions";
+        [SerializeField] private string questionsCompleteStatus = "all questions accepted";
+        [SerializeField] private string questionAnsweredStatusFormat = "Answer accepted. {0} remaining.";
+        [TextArea] [SerializeField] private string wrongQuestionAnswerError = "That answer doesn't look right. Refresh to retry.";
+        [TextArea] [SerializeField] private string madlibIntroText = "We want to know a little more about yourself in your own words. However, because of AI abuse, we're writing most of it for you.";
+        [SerializeField] private string madlibCompleteStatus = "Personal statement accepted.";
+
         [Header("Placeholders")]
         [SerializeField] private string usernamePlaceholder = "try applicant22";
         [SerializeField] private string passwordPlaceholder = "try birthday123";
@@ -107,6 +115,12 @@ namespace BirthdayJobJam.Application
         public string JobListingRefreshQualificationReplacementText => jobListingRefreshQualificationReplacementText;
         public string JobListingRefreshBenefitSearchText => jobListingRefreshBenefitSearchText;
         public string JobListingRefreshBenefitReplacementText => jobListingRefreshBenefitReplacementText;
+        public string QuestionsIntroText => questionsIntroText;
+        public string QuestionsCompleteStatus => questionsCompleteStatus;
+        public string QuestionAnsweredStatusFormat => questionAnsweredStatusFormat;
+        public string WrongQuestionAnswerError => wrongQuestionAnswerError;
+        public string MadlibIntroText => madlibIntroText;
+        public string MadlibCompleteStatus => madlibCompleteStatus;
         public string UsernamePlaceholder => usernamePlaceholder;
         public string PasswordPlaceholder => passwordPlaceholder;
         public string TwoFactorPlaceholder => twoFactorPlaceholder;

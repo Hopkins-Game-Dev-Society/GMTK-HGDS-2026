@@ -14,6 +14,8 @@ namespace BirthdayJobJam.Application
         private const string DefaultCorrectUsername = "applicant22";
         private const string DefaultCorrectPassword = "birthday123";
         private const string DefaultCorrectTwoFactorCode = "0422";
+        private const string TimeLeftSecondsQuestionId = "time_left_seconds";
+        private const string CorrectTimeLeftAnswerId = "birthday_timer_seconds";
         private static readonly string[] DefaultResumeFileNames =
         {
             "resume-new.doc",
@@ -34,6 +36,8 @@ namespace BirthdayJobJam.Application
         [SerializeField] private ApplicationMyInformationPageContent myInformationContent;
         [SerializeField] private ApplicationExperiencePageContent experienceContent;
         private ApplicationSessionManager applicationSession;
+        private ApplicationScoreManager applicationScore;
+        private GameplayTimer gameplayTimer;
 
         [Header("Portal Chrome")]
         [SerializeField] private TMP_Text portalTitleText;
@@ -120,6 +124,29 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Color resumeFileNormalColor = new Color(0.92f, 0.92f, 0.9f, 0f);
         [SerializeField] private Color resumeFileSelectedColor = new Color(0.2f, 0.48f, 0.9f, 0.35f);
 
+        [Header("Application Questions Controls")]
+        [SerializeField] private GameObject applicationQuestionsPanel;
+        [SerializeField] private TMP_Text applicationQuestionsIntroText;
+        [SerializeField] private TMP_Text applicationQuestionCounterText;
+        [SerializeField] private TMP_Text applicationQuestionPromptText;
+        [SerializeField] private Button[] applicationQuestionAnswerButtons;
+        [SerializeField] private TMP_Text[] applicationQuestionAnswerButtonTexts;
+        [SerializeField] private Color questionAnswerButtonColor = new Color(0.86f, 0.88f, 0.92f, 1f);
+        [SerializeField] private Color questionAnswerButtonDisabledColor = new Color(0.62f, 0.65f, 0.72f, 1f);
+
+        [Header("Application Madlibs Controls")]
+        [SerializeField] private GameObject applicationMadlibsPanel;
+        [SerializeField] private TMP_Text applicationMadlibsIntroText;
+        [SerializeField] private TMP_Text applicationMadlibCounterText;
+        [SerializeField] private TMP_Text applicationMadlibPromptText;
+        [SerializeField] private TMP_Text applicationMadlibSentenceText;
+        [SerializeField] private Button[] applicationMadlibBlankButtons;
+        [SerializeField] private TMP_Text[] applicationMadlibBlankButtonTexts;
+        [SerializeField] private Button[] applicationMadlibWordButtons;
+        [SerializeField] private TMP_Text[] applicationMadlibWordButtonTexts;
+        [SerializeField] private Color madlibBlankSelectedColor = new Color(0.13f, 0.42f, 0.86f, 1f);
+        [SerializeField] private Color madlibBlankNormalColor = new Color(0.86f, 0.88f, 0.92f, 1f);
+
         [Header("Web Session Timer")]
         [SerializeField] private TMP_Text sessionTimerText;
         [SerializeField, Min(1f)] private float sessionDurationSeconds = 120f;
@@ -144,6 +171,9 @@ namespace BirthdayJobJam.Application
 
         private bool hasStartedApplication;
         private int selectedResumeIndex = -1;
+        private string currentMadlibSlotId;
+        private int selectedMadlibBlankIndex;
+        private readonly List<string> selectedMadlibWordIds = new();
         private float lastValidatedSessionDurationSeconds;
         private float lastValidatedSessionSecondsRemaining;
 
@@ -151,6 +181,8 @@ namespace BirthdayJobJam.Application
         {
             ResolveApplicationState();
             ResolveApplicationSession();
+            ResolveApplicationScore();
+            ResolveGameplayTimer();
             ResetSessionTimer();
             CacheValidatedSessionTime();
         }
@@ -186,8 +218,12 @@ namespace BirthdayJobJam.Application
         {
             ResolveApplicationState();
             ResolveApplicationSession();
+            ResolveApplicationScore();
+            ResolveGameplayTimer();
             Subscribe();
             AddButtonListeners();
+            EnsureApplicationQuestionsPanel();
+            EnsureApplicationMadlibsPanel();
             RenderStaticCopy();
             Render();
         }
@@ -202,6 +238,7 @@ namespace BirthdayJobJam.Application
         {
             RenderRefreshButton();
             UpdateSessionTimer();
+            UpdateVisibleQuestionAnswerLabels();
         }
 
         public float SessionDurationSeconds
@@ -452,6 +489,10 @@ namespace BirthdayJobJam.Application
                 SetStatus(MyInformationInitialStatus);
             else if (section != null && section.SectionId == ApplicationSectionId.MyExperience)
                 SetStatus(MyExperienceInitialStatus);
+            else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsOne)
+                SetStatus(QuestionsIntroText);
+            else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo)
+                SetStatus(MadlibIntroText);
 
             RestartSessionTimerForCurrentSection();
             Render();
@@ -532,6 +573,87 @@ namespace BirthdayJobJam.Application
             Render();
         }
 
+        public void SubmitQuestionAnswer(string slotId, string answerId)
+        {
+            if (!IsOnApplicationQuestionsOnePageAndInteractive())
+                return;
+
+            ApplicationQuestionRuntimeData question = FindQuestion(slotId);
+            if (question == null)
+                return;
+
+            if (!string.Equals(answerId, question.PreferredAnswerId, System.StringComparison.OrdinalIgnoreCase))
+            {
+                Fail(slotId, WrongQuestionAnswerError);
+                return;
+            }
+
+            ResolveApplicationScore();
+            applicationScore?.RecordQuestionAnswer(slotId, answerId);
+            applicationState.MarkChallengeComplete(slotId);
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            int remaining = section != null
+                ? Mathf.Max(0, section.RequiredChallengeCount - section.CompletedRequiredChallengeCount)
+                : 0;
+
+            SetStatus(remaining > 0
+                ? Format(QuestionAnsweredStatusFormat, remaining)
+                : QuestionsCompleteStatus);
+
+            Render();
+        }
+
+        public void SelectMadlibBlank(int blankIndex)
+        {
+            ApplicationMadlibRuntimeData madlib = FindCurrentMadlib(applicationState != null ? applicationState.CurrentSection : null);
+            if (madlib == null || blankIndex < 0 || blankIndex >= madlib.Blanks.Count)
+                return;
+
+            EnsureMadlibSelection(madlib);
+            selectedMadlibBlankIndex = blankIndex;
+            RenderApplicationMadlibsSection(isApplicationQuestionsTwo: true, blocked: false);
+        }
+
+        public void SelectMadlibWord(string slotId, string wordId)
+        {
+            if (!IsOnApplicationQuestionsTwoPageAndInteractive())
+                return;
+
+            ApplicationMadlibRuntimeData madlib = FindMadlib(slotId);
+            if (madlib == null)
+                return;
+
+            EnsureMadlibSelection(madlib);
+
+            if (selectedMadlibBlankIndex < 0 || selectedMadlibBlankIndex >= selectedMadlibWordIds.Count)
+                selectedMadlibBlankIndex = FindFirstEmptyMadlibBlank();
+
+            if (selectedMadlibBlankIndex < 0 || selectedMadlibBlankIndex >= selectedMadlibWordIds.Count)
+                return;
+
+            selectedMadlibWordIds[selectedMadlibBlankIndex] = wordId;
+
+            int nextEmpty = FindFirstEmptyMadlibBlank();
+            if (nextEmpty >= 0)
+            {
+                selectedMadlibBlankIndex = nextEmpty;
+                Render();
+                return;
+            }
+
+            if (!madlib.IsCorrect(selectedMadlibWordIds))
+            {
+                Fail(slotId, WrongQuestionAnswerError);
+                return;
+            }
+
+            applicationState.MarkChallengeComplete(slotId);
+            ResetMadlibSelection();
+            SetStatus(MadlibCompleteStatus);
+            Render();
+        }
+
         public void SubmitSessionReauthentication()
         {
             if (applicationState == null || !applicationState.CurrentSectionRequiresReauthentication)
@@ -567,6 +689,8 @@ namespace BirthdayJobJam.Application
             bool isSignIn = section != null && section.SectionId == ApplicationSectionId.CreateAccountSignIn;
             bool isMyInformation = section != null && section.SectionId == ApplicationSectionId.MyInformation;
             bool isMyExperience = section != null && section.SectionId == ApplicationSectionId.MyExperience;
+            bool isApplicationQuestionsOne = section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsOne;
+            bool isApplicationQuestionsTwo = section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo;
             bool blocked = section != null && section.IsBlocked;
             bool credentialsComplete = IsChallengeComplete(section, UsernameChallengeId) && IsChallengeComplete(section, PasswordChallengeId);
             bool signInComplete = section != null && section.IsComplete;
@@ -587,6 +711,8 @@ namespace BirthdayJobJam.Application
             RenderSignInSection(isSignIn, blocked, credentialsComplete, signInComplete);
             RenderMyInformationSection(isMyInformation, blocked, namesComplete, myInformationComplete);
             RenderMyExperienceSection(isMyExperience, blocked, myExperienceComplete);
+            RenderApplicationQuestionsOneSection(isApplicationQuestionsOne, blocked);
+            RenderApplicationMadlibsSection(isApplicationQuestionsTwo, blocked);
             RenderSessionTimer();
             RenderSessionReauthentication();
 
@@ -799,6 +925,165 @@ namespace BirthdayJobJam.Application
             RenderResumePickerButtons(canUpload);
         }
 
+        private void RenderApplicationQuestionsOneSection(bool isApplicationQuestionsOne, bool blocked)
+        {
+            EnsureApplicationQuestionsPanel();
+
+            SetActive(applicationQuestionsPanel, isApplicationQuestionsOne);
+            if (!isApplicationQuestionsOne)
+                return;
+
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            ApplicationQuestionRuntimeData question = FindCurrentQuestion(section);
+            bool complete = section != null && section.IsComplete;
+            bool canAnswer = !blocked && !complete && question != null;
+
+            SetText(applicationQuestionsIntroText, QuestionsIntroText);
+            SetText(applicationQuestionCounterText, BuildQuestionCounterText(section));
+            SetText(applicationQuestionPromptText, complete
+                ? QuestionsCompleteStatus
+                : question != null
+                    ? question.Prompt
+                    : "No question found for this slot.");
+
+            RenderQuestionAnswerButtons(question, canAnswer);
+        }
+
+        private void RenderApplicationMadlibsSection(bool isApplicationQuestionsTwo, bool blocked)
+        {
+            EnsureApplicationMadlibsPanel();
+
+            SetActive(applicationMadlibsPanel, isApplicationQuestionsTwo);
+            if (!isApplicationQuestionsTwo)
+                return;
+
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            ApplicationMadlibRuntimeData madlib = FindCurrentMadlib(section);
+            bool complete = section != null && section.IsComplete;
+            bool canAnswer = !blocked && !complete && madlib != null;
+
+            if (madlib != null)
+                EnsureMadlibSelection(madlib);
+
+            SetText(applicationMadlibsIntroText, MadlibIntroText);
+            SetText(applicationMadlibCounterText, BuildMadlibCounterText(section));
+            SetText(applicationMadlibPromptText, complete
+                ? MadlibCompleteStatus
+                : madlib != null
+                    ? madlib.Prompt
+                    : "No personal statement prompt found.");
+            SetText(applicationMadlibSentenceText, complete
+                ? string.Empty
+                : BuildMadlibSentence(madlib));
+
+            RenderMadlibBlankButtons(madlib, canAnswer);
+            RenderMadlibWordButtons(madlib, canAnswer);
+        }
+
+        private void RenderQuestionAnswerButtons(ApplicationQuestionRuntimeData question, bool canAnswer)
+        {
+            EnsureApplicationQuestionsPanel();
+
+            IReadOnlyList<ApplicationQuestionAnswerOption> answers = question?.PossibleAnswers;
+            int answerCount = answers != null ? answers.Count : 0;
+
+            if (applicationQuestionAnswerButtons == null)
+                return;
+
+            for (int i = 0; i < applicationQuestionAnswerButtons.Length; i++)
+            {
+                Button button = applicationQuestionAnswerButtons[i];
+                bool active = i < answerCount;
+                SetActive(button, active);
+
+                if (button == null)
+                    continue;
+
+                button.onClick.RemoveAllListeners();
+                button.interactable = canAnswer && active;
+                SetButtonGraphicColor(button, button.interactable ? questionAnswerButtonColor : questionAnswerButtonDisabledColor);
+
+                if (!active)
+                    continue;
+
+                ApplicationQuestionAnswerOption answer = answers[i];
+                SetText(GetQuestionAnswerText(i), GetQuestionAnswerDisplayText(question, answer, i));
+
+                string slotId = question.SlotId;
+                string answerId = answer.AnswerId;
+                button.onClick.AddListener(() => SubmitQuestionAnswer(slotId, answerId));
+            }
+        }
+
+        private void RenderMadlibBlankButtons(ApplicationMadlibRuntimeData madlib, bool canAnswer)
+        {
+            EnsureApplicationMadlibsPanel();
+
+            int blankCount = madlib != null ? madlib.Blanks.Count : 0;
+            if (applicationMadlibBlankButtons == null)
+                return;
+
+            for (int i = 0; i < applicationMadlibBlankButtons.Length; i++)
+            {
+                Button button = applicationMadlibBlankButtons[i];
+                bool active = i < blankCount;
+                SetActive(button, active);
+
+                if (button == null)
+                    continue;
+
+                button.onClick.RemoveAllListeners();
+                button.interactable = canAnswer && active;
+                SetButtonGraphicColor(button, i == selectedMadlibBlankIndex ? madlibBlankSelectedColor : madlibBlankNormalColor);
+
+                if (!active)
+                    continue;
+
+                string chosenText = FindMadlibWordText(madlib, selectedMadlibWordIds[i]);
+                SetText(GetMadlibBlankText(i), string.IsNullOrWhiteSpace(chosenText)
+                    ? $"{madlib.Blanks[i].Label}: ____"
+                    : $"{madlib.Blanks[i].Label}: {chosenText}");
+
+                int blankIndex = i;
+                button.onClick.AddListener(() => SelectMadlibBlank(blankIndex));
+            }
+        }
+
+        private void RenderMadlibWordButtons(ApplicationMadlibRuntimeData madlib, bool canAnswer)
+        {
+            EnsureApplicationMadlibsPanel();
+
+            IReadOnlyList<ApplicationMadlibWordOption> words = madlib?.WordBank;
+            int wordCount = words != null ? words.Count : 0;
+
+            if (applicationMadlibWordButtons == null)
+                return;
+
+            for (int i = 0; i < applicationMadlibWordButtons.Length; i++)
+            {
+                Button button = applicationMadlibWordButtons[i];
+                bool active = i < wordCount;
+                SetActive(button, active);
+
+                if (button == null)
+                    continue;
+
+                button.onClick.RemoveAllListeners();
+                button.interactable = canAnswer && active;
+                SetButtonGraphicColor(button, questionAnswerButtonColor);
+
+                if (!active)
+                    continue;
+
+                ApplicationMadlibWordOption word = words[i];
+                SetText(GetMadlibWordText(i), word.Text);
+
+                string slotId = madlib.SlotId;
+                string wordId = word.WordId;
+                button.onClick.AddListener(() => SelectMadlibWord(slotId, wordId));
+            }
+        }
+
         private void RenderResumePickerButtons(bool canUsePicker)
         {
             bool hasSelection = selectedResumeIndex >= 0;
@@ -860,6 +1145,28 @@ namespace BirthdayJobJam.Application
             ApplicationSectionRuntimeState section = applicationState.CurrentSection;
             return section != null
                 && section.SectionId == ApplicationSectionId.MyExperience
+                && !section.IsBlocked;
+        }
+
+        private bool IsOnApplicationQuestionsOnePageAndInteractive()
+        {
+            if (applicationState == null)
+                return false;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            return section != null
+                && section.SectionId == ApplicationSectionId.ApplicationQuestionsOne
+                && !section.IsBlocked;
+        }
+
+        private bool IsOnApplicationQuestionsTwoPageAndInteractive()
+        {
+            if (applicationState == null)
+                return false;
+
+            ApplicationSectionRuntimeState section = applicationState.CurrentSection;
+            return section != null
+                && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo
                 && !section.IsBlocked;
         }
 
@@ -975,6 +1282,8 @@ namespace BirthdayJobJam.Application
             SetActive(twoFactorGroup, false);
             SetActive(myInformationPanel, false);
             SetActive(myExperiencePanel, false);
+            SetActive(applicationQuestionsPanel, false);
+            SetActive(applicationMadlibsPanel, false);
             SetActive(resumePickerPanel, false);
             SetActive(sessionTimerText, false);
             SetActive(sessionExpiredReauthPanel, false);
@@ -1020,6 +1329,7 @@ namespace BirthdayJobJam.Application
                 dateOfBirthInput.text = string.Empty;
 
             selectedResumeIndex = -1;
+            ResetMadlibSelection();
             SetText(resumePickerStatusText, string.Empty);
             SetActive(resumePickerPanel, false);
             SetText(sessionReauthErrorText, string.Empty);
@@ -1052,6 +1362,251 @@ namespace BirthdayJobJam.Application
 
             if (applicationSession == null)
                 applicationSession = FindAnyObjectByType<ApplicationSessionManager>();
+        }
+
+        private void ResolveApplicationScore()
+        {
+            if (applicationScore != null)
+                return;
+
+            if (Game.Ctx != null)
+                applicationScore = Game.Ctx.Score;
+
+            if (applicationScore == null)
+                applicationScore = FindAnyObjectByType<ApplicationScoreManager>();
+        }
+
+        private void ResolveGameplayTimer()
+        {
+            if (gameplayTimer != null)
+                return;
+
+            if (Game.Ctx != null)
+                gameplayTimer = Game.Ctx.Timer;
+
+            if (gameplayTimer == null)
+                gameplayTimer = FindAnyObjectByType<GameplayTimer>();
+        }
+
+        private ApplicationQuestionRuntimeData FindCurrentQuestion(ApplicationSectionRuntimeState section)
+        {
+            if (section == null)
+                return null;
+
+            for (int i = 0; i < section.Challenges.Count; i++)
+            {
+                ApplicationChallengeRuntimeState challenge = section.Challenges[i];
+                if (challenge == null
+                    || challenge.IsComplete
+                    || !IsQuestionChallengeId(challenge.ChallengeId))
+                {
+                    continue;
+                }
+
+                return FindQuestion(challenge.ChallengeId);
+            }
+
+            return null;
+        }
+
+        private ApplicationQuestionRuntimeData FindQuestion(string slotId)
+        {
+            ResolveApplicationSession();
+            return applicationSession != null
+                ? applicationSession.FindQuestionBySlot(slotId)
+                : null;
+        }
+
+        private ApplicationMadlibRuntimeData FindCurrentMadlib(ApplicationSectionRuntimeState section)
+        {
+            if (section == null)
+                return null;
+
+            for (int i = 0; i < section.Challenges.Count; i++)
+            {
+                ApplicationChallengeRuntimeState challenge = section.Challenges[i];
+                if (challenge == null
+                    || challenge.IsComplete
+                    || !IsMadlibChallengeId(challenge.ChallengeId))
+                {
+                    continue;
+                }
+
+                return FindMadlib(challenge.ChallengeId);
+            }
+
+            return null;
+        }
+
+        private ApplicationMadlibRuntimeData FindMadlib(string slotId)
+        {
+            ResolveApplicationSession();
+            return applicationSession != null
+                ? applicationSession.FindMadlibBySlot(slotId)
+                : null;
+        }
+
+        private string BuildQuestionCounterText(ApplicationSectionRuntimeState section)
+        {
+            if (section == null)
+                return string.Empty;
+
+            int completed = section.CompletedRequiredChallengeCount;
+            int total = section.RequiredChallengeCount;
+            int current = Mathf.Min(completed + 1, total);
+
+            return section.IsComplete
+                ? $"{total}/{total} questions complete"
+                : $"Question {current} of {total}";
+        }
+
+        private static bool IsQuestionChallengeId(string challengeId)
+        {
+            return !string.IsNullOrWhiteSpace(challengeId)
+                && challengeId.StartsWith("question_", System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsMadlibChallengeId(string challengeId)
+        {
+            return !string.IsNullOrWhiteSpace(challengeId)
+                && challengeId.StartsWith("madlib_", System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string BuildMadlibCounterText(ApplicationSectionRuntimeState section)
+        {
+            if (section == null)
+                return string.Empty;
+
+            int completed = section.CompletedRequiredChallengeCount;
+            int total = section.RequiredChallengeCount;
+            int current = Mathf.Min(completed + 1, total);
+
+            return section.IsComplete
+                ? $"{total}/{total} statements complete"
+                : $"Statement {current} of {total}";
+        }
+
+        private string BuildMadlibSentence(ApplicationMadlibRuntimeData madlib)
+        {
+            if (madlib == null)
+                return string.Empty;
+
+            EnsureMadlibSelection(madlib);
+
+            object[] values = new object[madlib.Blanks.Count];
+            for (int i = 0; i < values.Length; i++)
+            {
+                string selectedWordId = i < selectedMadlibWordIds.Count
+                    ? selectedMadlibWordIds[i]
+                    : string.Empty;
+                string word = FindMadlibWordText(madlib, selectedWordId);
+                values[i] = string.IsNullOrWhiteSpace(word) ? "____" : word;
+            }
+
+            return Format(madlib.SentenceFormat, values);
+        }
+
+        private void EnsureMadlibSelection(ApplicationMadlibRuntimeData madlib)
+        {
+            if (madlib == null)
+                return;
+
+            if (currentMadlibSlotId == madlib.SlotId
+                && selectedMadlibWordIds.Count == madlib.Blanks.Count)
+            {
+                return;
+            }
+
+            currentMadlibSlotId = madlib.SlotId;
+            selectedMadlibWordIds.Clear();
+            for (int i = 0; i < madlib.Blanks.Count; i++)
+                selectedMadlibWordIds.Add(string.Empty);
+
+            selectedMadlibBlankIndex = selectedMadlibWordIds.Count > 0 ? 0 : -1;
+        }
+
+        private void ResetMadlibSelection()
+        {
+            currentMadlibSlotId = string.Empty;
+            selectedMadlibBlankIndex = 0;
+            selectedMadlibWordIds.Clear();
+        }
+
+        private int FindFirstEmptyMadlibBlank()
+        {
+            for (int i = 0; i < selectedMadlibWordIds.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(selectedMadlibWordIds[i]))
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private static string FindMadlibWordText(ApplicationMadlibRuntimeData madlib, string wordId)
+        {
+            if (madlib == null || string.IsNullOrWhiteSpace(wordId))
+                return string.Empty;
+
+            IReadOnlyList<ApplicationMadlibWordOption> words = madlib.WordBank;
+            for (int i = 0; i < words.Count; i++)
+            {
+                if (string.Equals(words[i].WordId, wordId, System.StringComparison.OrdinalIgnoreCase))
+                    return words[i].Text;
+            }
+
+            return string.Empty;
+        }
+
+        private void UpdateVisibleQuestionAnswerLabels()
+        {
+            if (applicationQuestionsPanel == null || !applicationQuestionsPanel.activeInHierarchy)
+                return;
+
+            ApplicationSectionRuntimeState section = applicationState != null ? applicationState.CurrentSection : null;
+            ApplicationQuestionRuntimeData question = FindCurrentQuestion(section);
+            if (question == null || question.QuestionId != TimeLeftSecondsQuestionId)
+                return;
+
+            IReadOnlyList<ApplicationQuestionAnswerOption> answers = question.PossibleAnswers;
+            int count = Mathf.Min(
+                answers != null ? answers.Count : 0,
+                applicationQuestionAnswerButtons != null ? applicationQuestionAnswerButtons.Length : 0);
+
+            for (int i = 0; i < count; i++)
+                SetText(GetQuestionAnswerText(i), GetQuestionAnswerDisplayText(question, answers[i], i));
+        }
+
+        private string GetQuestionAnswerDisplayText(
+            ApplicationQuestionRuntimeData question,
+            ApplicationQuestionAnswerOption answer,
+            int answerIndex)
+        {
+            if (question == null
+                || answer == null
+                || question.QuestionId != TimeLeftSecondsQuestionId)
+            {
+                return answer != null ? answer.AnswerText : string.Empty;
+            }
+
+            return GetDisplayedCountdownSeconds(answer.AnswerId, answerIndex).ToString();
+        }
+
+        private int GetDisplayedCountdownSeconds(string answerId, int answerIndex)
+        {
+            ResolveGameplayTimer();
+
+            float actualRemaining = gameplayTimer != null
+                ? gameplayTimer.SecondsRemaining
+                : 0f;
+
+            int actualSeconds = Mathf.Max(0, Mathf.FloorToInt(actualRemaining));
+            if (string.Equals(answerId, CorrectTimeLeftAnswerId, System.StringComparison.OrdinalIgnoreCase))
+                return actualSeconds;
+
+            int[] offsets = { 17, -23, 41, -9 };
+            int offset = offsets[Mathf.Abs(answerIndex) % offsets.Length];
+            return Mathf.Max(0, actualSeconds + offset);
         }
 
         private ApplicationApplicantRuntimeData CurrentApplicant
@@ -1178,6 +1733,33 @@ namespace BirthdayJobJam.Application
             if (sessionReauthSubmitButton != null)
                 sessionReauthSubmitButton.onClick.RemoveListener(SubmitSessionReauthentication);
 
+            if (applicationQuestionAnswerButtons != null)
+            {
+                foreach (Button button in applicationQuestionAnswerButtons)
+                {
+                    if (button != null)
+                        button.onClick.RemoveAllListeners();
+                }
+            }
+
+            if (applicationMadlibBlankButtons != null)
+            {
+                foreach (Button button in applicationMadlibBlankButtons)
+                {
+                    if (button != null)
+                        button.onClick.RemoveAllListeners();
+                }
+            }
+
+            if (applicationMadlibWordButtons != null)
+            {
+                foreach (Button button in applicationMadlibWordButtons)
+                {
+                    if (button != null)
+                        button.onClick.RemoveAllListeners();
+                }
+            }
+
             if (resumeFileButtons != null)
             {
                 foreach (Button button in resumeFileButtons)
@@ -1198,6 +1780,10 @@ namespace BirthdayJobJam.Application
                 SetStatus(MyInformationInitialStatus);
             else if (section != null && section.SectionId == ApplicationSectionId.MyExperience)
                 SetStatus(MyExperienceInitialStatus);
+            else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsOne)
+                SetStatus(QuestionsIntroText);
+            else if (section != null && section.SectionId == ApplicationSectionId.ApplicationQuestionsTwo)
+                SetStatus(MadlibIntroText);
 
             Render();
         }
@@ -1273,6 +1859,344 @@ namespace BirthdayJobJam.Application
                 placeholder.text = value;
         }
 
+        private void EnsureApplicationQuestionsPanel()
+        {
+            if (applicationQuestionsPanel != null
+                && applicationQuestionPromptText != null
+                && applicationQuestionAnswerButtons != null
+                && applicationQuestionAnswerButtons.Length > 0)
+            {
+                return;
+            }
+
+            RectTransform parent = signInFormPanel != null
+                ? signInFormPanel.transform.parent as RectTransform
+                : transform as RectTransform;
+
+            if (parent == null)
+                return;
+
+            GameObject panel = new GameObject("Application Questions Panel", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(parent, false);
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            MatchQuestionsPanelToExperiencePanel(panelRect);
+
+            Image panelImage = panel.GetComponent<Image>();
+            panelImage.color = new Color(1f, 0.98f, 0.9f, 0.92f);
+
+            VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(14, 14, 10, 10);
+            layout.spacing = 4f;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+
+            applicationQuestionsPanel = panel;
+            applicationQuestionsIntroText = CreateQuestionText(panel.transform, "Intro", 13f, FontStyles.Normal, 18f);
+            applicationQuestionCounterText = CreateQuestionText(panel.transform, "Counter", 13f, FontStyles.Bold, 18f);
+            applicationQuestionPromptText = CreateQuestionText(panel.transform, "Prompt", 15f, FontStyles.Bold, 46f);
+
+            Transform answerParent = CreateQuestionAnswerGrid(panel.transform);
+
+            applicationQuestionAnswerButtons = new Button[4];
+            applicationQuestionAnswerButtonTexts = new TMP_Text[4];
+            for (int i = 0; i < applicationQuestionAnswerButtons.Length; i++)
+            {
+                Button button = CreateQuestionButton(answerParent, $"Answer {i + 1}", out TMP_Text buttonText);
+                applicationQuestionAnswerButtons[i] = button;
+                applicationQuestionAnswerButtonTexts[i] = buttonText;
+            }
+
+            SetActive(applicationQuestionsPanel, false);
+        }
+
+        private void MatchQuestionsPanelToExperiencePanel(RectTransform panelRect)
+        {
+            RectTransform sourceRect = myExperiencePanel != null
+                ? myExperiencePanel.GetComponent<RectTransform>()
+                : null;
+
+            if (sourceRect == null)
+            {
+                panelRect.anchorMin = new Vector2(0f, 1f);
+                panelRect.anchorMax = new Vector2(0f, 1f);
+                panelRect.pivot = new Vector2(0f, 1f);
+                panelRect.anchoredPosition = new Vector2(92f, -230f);
+                panelRect.sizeDelta = new Vector2(620f, 230f);
+                return;
+            }
+
+            panelRect.anchorMin = sourceRect.anchorMin;
+            panelRect.anchorMax = sourceRect.anchorMax;
+            panelRect.pivot = sourceRect.pivot;
+            panelRect.anchoredPosition = sourceRect.anchoredPosition + new Vector2(0f, 36f);
+            panelRect.sizeDelta = sourceRect.sizeDelta + new Vector2(60f, 50f);
+        }
+
+        private TMP_Text CreateQuestionText(
+            Transform parent,
+            string name,
+            float fontSize,
+            FontStyles fontStyle,
+            float preferredHeight)
+        {
+            GameObject textObject = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(parent, false);
+            TMP_Text text = textObject.GetComponent<TMP_Text>();
+            text.font = pageTitleText != null ? pageTitleText.font : text.font;
+            text.fontSize = fontSize;
+            text.fontStyle = fontStyle;
+            text.color = new Color(0.12f, 0.12f, 0.12f, 1f);
+            text.enableWordWrapping = true;
+            text.overflowMode = TextOverflowModes.Ellipsis;
+            text.alignment = TextAlignmentOptions.Left;
+
+            LayoutElement layoutElement = textObject.AddComponent<LayoutElement>();
+            layoutElement.minHeight = Mathf.Min(preferredHeight, fontSize + 8f);
+            layoutElement.preferredHeight = preferredHeight;
+
+            return text;
+        }
+
+        private Transform CreateQuestionAnswerGrid(Transform parent)
+        {
+            GameObject gridObject = new GameObject("Answer Grid", typeof(RectTransform), typeof(GridLayoutGroup), typeof(LayoutElement));
+            gridObject.transform.SetParent(parent, false);
+
+            GridLayoutGroup grid = gridObject.GetComponent<GridLayoutGroup>();
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = 2;
+            grid.spacing = new Vector2(6f, 5f);
+            grid.cellSize = new Vector2(288f, 31f);
+            grid.childAlignment = TextAnchor.UpperLeft;
+
+            LayoutElement layoutElement = gridObject.GetComponent<LayoutElement>();
+            layoutElement.minHeight = 67f;
+            layoutElement.preferredHeight = 67f;
+
+            return gridObject.transform;
+        }
+
+        private void EnsureApplicationMadlibsPanel()
+        {
+            if (applicationMadlibsPanel != null
+                && applicationMadlibSentenceText != null
+                && applicationMadlibWordButtons != null
+                && applicationMadlibWordButtons.Length > 0)
+            {
+                return;
+            }
+
+            RectTransform parent = signInFormPanel != null
+                ? signInFormPanel.transform.parent as RectTransform
+                : transform as RectTransform;
+
+            if (parent == null)
+                return;
+
+            GameObject panel = new GameObject("Application Madlibs Panel", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(parent, false);
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            MatchQuestionsPanelToExperiencePanel(panelRect);
+
+            Image panelImage = panel.GetComponent<Image>();
+            panelImage.color = new Color(1f, 0.98f, 0.9f, 0.92f);
+
+            VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(12, 12, 8, 8);
+            layout.spacing = 3f;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+
+            applicationMadlibsPanel = panel;
+            applicationMadlibsIntroText = CreateQuestionText(panel.transform, "Intro", 11f, FontStyles.Normal, 36f);
+            applicationMadlibCounterText = CreateQuestionText(panel.transform, "Counter", 12f, FontStyles.Bold, 18f);
+            applicationMadlibPromptText = CreateQuestionText(panel.transform, "Prompt", 13f, FontStyles.Bold, 26f);
+            applicationMadlibSentenceText = CreateQuestionText(panel.transform, "Sentence", 14f, FontStyles.Bold, 32f);
+
+            Transform blankParent = CreateMadlibGrid(panel.transform, "Blank Grid", 2, new Vector2(293f, 24f), 25f);
+            applicationMadlibBlankButtons = new Button[4];
+            applicationMadlibBlankButtonTexts = new TMP_Text[4];
+            for (int i = 0; i < applicationMadlibBlankButtons.Length; i++)
+            {
+                Button button = CreateMadlibButton(blankParent, $"Blank {i + 1}", 10f, out TMP_Text buttonText);
+                applicationMadlibBlankButtons[i] = button;
+                applicationMadlibBlankButtonTexts[i] = buttonText;
+            }
+
+            Transform wordParent = CreateMadlibGrid(panel.transform, "Word Bank", 5, new Vector2(113f, 22f), 47f);
+            applicationMadlibWordButtons = new Button[10];
+            applicationMadlibWordButtonTexts = new TMP_Text[10];
+            for (int i = 0; i < applicationMadlibWordButtons.Length; i++)
+            {
+                Button button = CreateMadlibButton(wordParent, $"Word {i + 1}", 10f, out TMP_Text buttonText);
+                applicationMadlibWordButtons[i] = button;
+                applicationMadlibWordButtonTexts[i] = buttonText;
+            }
+
+            SetActive(applicationMadlibsPanel, false);
+        }
+
+        private Transform CreateMadlibGrid(
+            Transform parent,
+            string name,
+            int columns,
+            Vector2 cellSize,
+            float preferredHeight)
+        {
+            GameObject gridObject = new GameObject(name, typeof(RectTransform), typeof(GridLayoutGroup), typeof(LayoutElement));
+            gridObject.transform.SetParent(parent, false);
+
+            GridLayoutGroup grid = gridObject.GetComponent<GridLayoutGroup>();
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = columns;
+            grid.spacing = new Vector2(4f, 3f);
+            grid.cellSize = cellSize;
+            grid.childAlignment = TextAnchor.UpperLeft;
+
+            LayoutElement layoutElement = gridObject.GetComponent<LayoutElement>();
+            layoutElement.minHeight = preferredHeight;
+            layoutElement.preferredHeight = preferredHeight;
+
+            return gridObject.transform;
+        }
+
+        private Button CreateMadlibButton(
+            Transform parent,
+            string name,
+            float fontSize,
+            out TMP_Text buttonText)
+        {
+            GameObject buttonObject = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            buttonObject.transform.SetParent(parent, false);
+
+            Image image = buttonObject.GetComponent<Image>();
+            image.color = questionAnswerButtonColor;
+
+            Button button = buttonObject.GetComponent<Button>();
+            button.targetGraphic = image;
+
+            GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(buttonObject.transform, false);
+            RectTransform textRect = textObject.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(5f, 2f);
+            textRect.offsetMax = new Vector2(-5f, -2f);
+
+            buttonText = textObject.GetComponent<TMP_Text>();
+            buttonText.font = pageTitleText != null ? pageTitleText.font : buttonText.font;
+            buttonText.fontSize = fontSize;
+            buttonText.fontStyle = FontStyles.Bold;
+            buttonText.color = new Color(0.12f, 0.12f, 0.12f, 1f);
+            buttonText.enableWordWrapping = false;
+            buttonText.overflowMode = TextOverflowModes.Ellipsis;
+            buttonText.alignment = TextAlignmentOptions.MidlineLeft;
+
+            return button;
+        }
+
+        private Button CreateQuestionButton(
+            Transform parent,
+            string name,
+            out TMP_Text buttonText)
+        {
+            GameObject buttonObject = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            buttonObject.transform.SetParent(parent, false);
+
+            Image image = buttonObject.GetComponent<Image>();
+            image.color = questionAnswerButtonColor;
+
+            Button button = buttonObject.GetComponent<Button>();
+            button.targetGraphic = image;
+
+            LayoutElement layoutElement = buttonObject.AddComponent<LayoutElement>();
+            layoutElement.minHeight = 27f;
+            layoutElement.preferredHeight = 27f;
+
+            GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(buttonObject.transform, false);
+            RectTransform textRect = textObject.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(9f, 3f);
+            textRect.offsetMax = new Vector2(-9f, -3f);
+
+            buttonText = textObject.GetComponent<TMP_Text>();
+            buttonText.font = pageTitleText != null ? pageTitleText.font : buttonText.font;
+            buttonText.fontSize = 13f;
+            buttonText.fontStyle = FontStyles.Bold;
+            buttonText.color = new Color(0.12f, 0.12f, 0.12f, 1f);
+            buttonText.enableWordWrapping = true;
+            buttonText.overflowMode = TextOverflowModes.Ellipsis;
+            buttonText.alignment = TextAlignmentOptions.MidlineLeft;
+
+            return button;
+        }
+
+        private TMP_Text GetQuestionAnswerText(int index)
+        {
+            if (applicationQuestionAnswerButtonTexts != null
+                && index >= 0
+                && index < applicationQuestionAnswerButtonTexts.Length)
+            {
+                return applicationQuestionAnswerButtonTexts[index];
+            }
+
+            if (applicationQuestionAnswerButtons != null
+                && index >= 0
+                && index < applicationQuestionAnswerButtons.Length
+                && applicationQuestionAnswerButtons[index] != null)
+            {
+                return applicationQuestionAnswerButtons[index].GetComponentInChildren<TMP_Text>(true);
+            }
+
+            return null;
+        }
+
+        private TMP_Text GetMadlibBlankText(int index)
+        {
+            if (applicationMadlibBlankButtonTexts != null
+                && index >= 0
+                && index < applicationMadlibBlankButtonTexts.Length)
+            {
+                return applicationMadlibBlankButtonTexts[index];
+            }
+
+            if (applicationMadlibBlankButtons != null
+                && index >= 0
+                && index < applicationMadlibBlankButtons.Length
+                && applicationMadlibBlankButtons[index] != null)
+            {
+                return applicationMadlibBlankButtons[index].GetComponentInChildren<TMP_Text>(true);
+            }
+
+            return null;
+        }
+
+        private TMP_Text GetMadlibWordText(int index)
+        {
+            if (applicationMadlibWordButtonTexts != null
+                && index >= 0
+                && index < applicationMadlibWordButtonTexts.Length)
+            {
+                return applicationMadlibWordButtonTexts[index];
+            }
+
+            if (applicationMadlibWordButtons != null
+                && index >= 0
+                && index < applicationMadlibWordButtons.Length
+                && applicationMadlibWordButtons[index] != null)
+            {
+                return applicationMadlibWordButtons[index].GetComponentInChildren<TMP_Text>(true);
+            }
+
+            return null;
+        }
+
         private void CacheValidatedSessionTime()
         {
             lastValidatedSessionDurationSeconds = sessionDurationSeconds;
@@ -1319,6 +2243,12 @@ namespace BirthdayJobJam.Application
         private string JobListingRefreshQualificationReplacementText => GetContentText(content?.JobListingRefreshQualificationReplacementText, "8+");
         private string JobListingRefreshBenefitSearchText => GetContentText(content?.JobListingRefreshBenefitSearchText, "weekly");
         private string JobListingRefreshBenefitReplacementText => GetContentText(content?.JobListingRefreshBenefitReplacementText, "monthly");
+        private string QuestionsIntroText => GetContentText(content?.QuestionsIntroText, "answer these questions");
+        private string QuestionsCompleteStatus => GetContentText(content?.QuestionsCompleteStatus, "all questions accepted");
+        private string QuestionAnsweredStatusFormat => GetContentText(content?.QuestionAnsweredStatusFormat, "Answer accepted. {0} remaining.");
+        private string WrongQuestionAnswerError => GetContentText(content?.WrongQuestionAnswerError, "That answer doesn't look right. Refresh to retry.");
+        private string MadlibIntroText => GetContentText(content?.MadlibIntroText, "We want to know a little more about yourself in your own words. However, because of AI abuse, we're writing most of it for you.");
+        private string MadlibCompleteStatus => GetContentText(content?.MadlibCompleteStatus, "Personal statement accepted.");
         private string UsernamePlaceholder => GetContentText(content?.UsernamePlaceholder, "try applicant22");
         private string PasswordPlaceholder => GetContentText(content?.PasswordPlaceholder, "try birthday123");
         private string TwoFactorPlaceholder => GetContentText(content?.TwoFactorPlaceholder, "try 0422");

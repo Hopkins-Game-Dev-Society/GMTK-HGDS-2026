@@ -8,6 +8,7 @@ namespace BirthdayJobJam.Application
     public sealed class ApplicationSessionData
     {
         private readonly List<ApplicationQuestionRuntimeData> questions;
+        private readonly List<ApplicationMadlibRuntimeData> madlibs;
         private readonly List<ApplicationClueRuntimeData> clues;
 
         internal ApplicationSessionData(
@@ -15,12 +16,14 @@ namespace BirthdayJobJam.Application
             int seed,
             ApplicationApplicantRuntimeData applicant,
             List<ApplicationQuestionRuntimeData> questions,
+            List<ApplicationMadlibRuntimeData> madlibs,
             List<ApplicationClueRuntimeData> clues)
         {
             SessionId = sessionId;
             Seed = seed;
             Applicant = applicant;
             this.questions = questions ?? new List<ApplicationQuestionRuntimeData>();
+            this.madlibs = madlibs ?? new List<ApplicationMadlibRuntimeData>();
             this.clues = clues ?? new List<ApplicationClueRuntimeData>();
         }
 
@@ -28,6 +31,7 @@ namespace BirthdayJobJam.Application
         public int Seed { get; }
         public ApplicationApplicantRuntimeData Applicant { get; }
         public IReadOnlyList<ApplicationQuestionRuntimeData> Questions => questions;
+        public IReadOnlyList<ApplicationMadlibRuntimeData> Madlibs => madlibs;
         public IReadOnlyList<ApplicationClueRuntimeData> Clues => clues;
 
         public ApplicationQuestionRuntimeData FindQuestionBySlot(string slotId)
@@ -39,6 +43,20 @@ namespace BirthdayJobJam.Application
             {
                 if (string.Equals(questions[i].SlotId, slotId, StringComparison.OrdinalIgnoreCase))
                     return questions[i];
+            }
+
+            return null;
+        }
+
+        public ApplicationMadlibRuntimeData FindMadlibBySlot(string slotId)
+        {
+            if (string.IsNullOrWhiteSpace(slotId))
+                return null;
+
+            for (int i = 0; i < madlibs.Count; i++)
+            {
+                if (string.Equals(madlibs[i].SlotId, slotId, StringComparison.OrdinalIgnoreCase))
+                    return madlibs[i];
             }
 
             return null;
@@ -85,7 +103,9 @@ namespace BirthdayJobJam.Application
             string slotId,
             ApplicationSectionId sectionId,
             int weight,
-            ApplicationQuestionDefinition definition)
+            ApplicationQuestionDefinition definition,
+            string preferredAnswerId,
+            System.Random random)
         {
             SlotId = slotId;
             SectionId = sectionId;
@@ -93,7 +113,7 @@ namespace BirthdayJobJam.Application
             QuestionId = definition.QuestionId;
             Prompt = definition.Prompt;
             AuthoredReference = definition.AuthoredReference;
-            PreferredAnswerId = definition.PreferredAnswerId;
+            PreferredAnswerId = preferredAnswerId;
             Definition = definition;
 
             IReadOnlyList<ApplicationQuestionAnswerDefinition> answers = definition.PossibleAnswers;
@@ -107,6 +127,8 @@ namespace BirthdayJobJam.Application
                     answer.AnswerId,
                     answer.AnswerText));
             }
+
+            ApplicationRuntimeShuffle.Shuffle(possibleAnswers, random);
         }
 
         public string SlotId { get; }
@@ -132,6 +154,21 @@ namespace BirthdayJobJam.Application
         public string AnswerText { get; }
     }
 
+    internal static class ApplicationRuntimeShuffle
+    {
+        public static void Shuffle<T>(IList<T> values, System.Random random)
+        {
+            if (values == null || random == null)
+                return;
+
+            for (int i = values.Count - 1; i > 0; i--)
+            {
+                int swapIndex = random.Next(i + 1);
+                (values[i], values[swapIndex]) = (values[swapIndex], values[i]);
+            }
+        }
+    }
+
     public sealed class ApplicationQuestionAnswerRecord
     {
         internal ApplicationQuestionAnswerRecord(
@@ -153,6 +190,105 @@ namespace BirthdayJobJam.Application
         public string AnswerId { get; }
         public int Rating { get; }
         public int Weight { get; }
+    }
+
+    public sealed class ApplicationMadlibRuntimeData
+    {
+        private readonly List<ApplicationMadlibBlankRuntimeData> blanks = new();
+        private readonly List<ApplicationMadlibWordOption> wordBank = new();
+
+        internal ApplicationMadlibRuntimeData(
+            string slotId,
+            ApplicationSectionId sectionId,
+            int weight,
+            ApplicationMadlibDefinition definition,
+            System.Random random)
+        {
+            SlotId = slotId;
+            SectionId = sectionId;
+            Weight = Mathf.Max(0, weight);
+            MadlibId = definition.MadlibId;
+            Prompt = definition.Prompt;
+            SentenceFormat = definition.SentenceFormat;
+
+            IReadOnlyList<ApplicationMadlibBlankDefinition> authoredBlanks = definition.Blanks;
+            for (int i = 0; i < authoredBlanks.Count; i++)
+            {
+                ApplicationMadlibBlankDefinition blank = authoredBlanks[i];
+                if (blank == null || string.IsNullOrWhiteSpace(blank.CorrectWordId))
+                    continue;
+
+                blanks.Add(new ApplicationMadlibBlankRuntimeData(
+                    string.IsNullOrWhiteSpace(blank.Label) ? $"Blank {i + 1}" : blank.Label,
+                    blank.CorrectWordId));
+            }
+
+            IReadOnlyList<ApplicationMadlibWordDefinition> authoredWords = definition.WordBank;
+            for (int i = 0; i < authoredWords.Count; i++)
+            {
+                ApplicationMadlibWordDefinition word = authoredWords[i];
+                if (word == null || string.IsNullOrWhiteSpace(word.WordId))
+                    continue;
+
+                wordBank.Add(new ApplicationMadlibWordOption(
+                    word.WordId,
+                    string.IsNullOrWhiteSpace(word.Text) ? word.WordId : word.Text));
+            }
+
+            ApplicationRuntimeShuffle.Shuffle(wordBank, random);
+        }
+
+        public string SlotId { get; }
+        public ApplicationSectionId SectionId { get; }
+        public int Weight { get; }
+        public string MadlibId { get; }
+        public string Prompt { get; }
+        public string SentenceFormat { get; }
+        public IReadOnlyList<ApplicationMadlibBlankRuntimeData> Blanks => blanks;
+        public IReadOnlyList<ApplicationMadlibWordOption> WordBank => wordBank;
+
+        public bool IsCorrect(IReadOnlyList<string> selectedWordIds)
+        {
+            if (selectedWordIds == null || selectedWordIds.Count != blanks.Count)
+                return false;
+
+            for (int i = 0; i < blanks.Count; i++)
+            {
+                if (!string.Equals(
+                        selectedWordIds[i],
+                        blanks[i].CorrectWordId,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    public sealed class ApplicationMadlibBlankRuntimeData
+    {
+        internal ApplicationMadlibBlankRuntimeData(string label, string correctWordId)
+        {
+            Label = label;
+            CorrectWordId = correctWordId;
+        }
+
+        public string Label { get; }
+        public string CorrectWordId { get; }
+    }
+
+    public sealed class ApplicationMadlibWordOption
+    {
+        internal ApplicationMadlibWordOption(string wordId, string text)
+        {
+            WordId = wordId;
+            Text = text;
+        }
+
+        public string WordId { get; }
+        public string Text { get; }
     }
 
     public sealed class ApplicationClueRuntimeData

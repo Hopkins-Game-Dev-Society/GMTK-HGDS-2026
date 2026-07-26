@@ -173,6 +173,7 @@ namespace BirthdayJobJam.Application
             builder.AppendLine();
 
             AppendQuestionAnswers(builder, session.Questions);
+            AppendMadlibs(builder, session.Madlibs);
             AppendClues(builder, session.Clues);
 
             return builder.ToString();
@@ -221,6 +222,55 @@ namespace BirthdayJobJam.Application
                 if (!string.IsNullOrWhiteSpace(clue.ResolvedPayload))
                     builder.AppendLine($"  {clue.ResolvedPayload}");
             }
+        }
+
+        private static void AppendMadlibs(
+            StringBuilder builder,
+            IReadOnlyList<ApplicationMadlibRuntimeData> madlibs)
+        {
+            builder.AppendLine("Application Madlibs");
+
+            if (madlibs == null || madlibs.Count == 0)
+            {
+                builder.AppendLine("No madlibs selected for this run.");
+                builder.AppendLine();
+                return;
+            }
+
+            for (int i = 0; i < madlibs.Count; i++)
+            {
+                ApplicationMadlibRuntimeData madlib = madlibs[i];
+                builder.AppendLine($"{madlib.SlotId}: {madlib.Prompt}");
+                builder.AppendLine($"Template: {madlib.SentenceFormat}");
+
+                for (int blankIndex = 0; blankIndex < madlib.Blanks.Count; blankIndex++)
+                {
+                    ApplicationMadlibBlankRuntimeData blank = madlib.Blanks[blankIndex];
+                    builder.AppendLine($"{blank.Label}: {FindMadlibWordText(madlib, blank.CorrectWordId)} [{blank.CorrectWordId}]");
+                }
+
+                builder.AppendLine();
+            }
+        }
+
+        private static string FindMadlibWordText(
+            ApplicationMadlibRuntimeData madlib,
+            string wordId)
+        {
+            if (madlib == null || string.IsNullOrWhiteSpace(wordId))
+                return wordId;
+
+            for (int i = 0; i < madlib.WordBank.Count; i++)
+            {
+                ApplicationMadlibWordOption word = madlib.WordBank[i];
+                if (word != null
+                    && string.Equals(word.WordId, wordId, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return word.Text;
+                }
+            }
+
+            return wordId;
         }
 
         private static string FindAnswerText(

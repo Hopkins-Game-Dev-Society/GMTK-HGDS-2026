@@ -1338,6 +1338,7 @@ MonoBehaviour:
   currentPasswordId: 
   currentTwoFactorCodeId: 
   currentQuestionIds: []
+  currentMadlibIds: []
   currentClueIds: []
 --- !u!114 &219990002
 MonoBehaviour:
@@ -3274,7 +3275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cfc6f5bbe6c4d868995f0b2c81c1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  onButtonClicked: {fileID: 11400000, guid: e50caf7fa89e54d578874e65bacae57e, type: 2}
 --- !u!4 &336687233
 Transform:
   m_ObjectHideFlags: 0
@@ -7803,6 +7803,25 @@ MonoBehaviour:
   resumePickerCancelButtonText: {fileID: 979020201}
   resumeFileNormalColor: {r: 0.92, g: 0.92, b: 0.9, a: 0}
   resumeFileSelectedColor: {r: 0.2, g: 0.48, b: 0.9, a: 0.35}
+  applicationQuestionsPanel: {fileID: 0}
+  applicationQuestionsIntroText: {fileID: 0}
+  applicationQuestionCounterText: {fileID: 0}
+  applicationQuestionPromptText: {fileID: 0}
+  applicationQuestionAnswerButtons: []
+  applicationQuestionAnswerButtonTexts: []
+  questionAnswerButtonColor: {r: 0.86, g: 0.88, b: 0.92, a: 1}
+  questionAnswerButtonDisabledColor: {r: 0.62, g: 0.65, b: 0.72, a: 1}
+  applicationMadlibsPanel: {fileID: 0}
+  applicationMadlibsIntroText: {fileID: 0}
+  applicationMadlibCounterText: {fileID: 0}
+  applicationMadlibPromptText: {fileID: 0}
+  applicationMadlibSentenceText: {fileID: 0}
+  applicationMadlibBlankButtons: []
+  applicationMadlibBlankButtonTexts: []
+  applicationMadlibWordButtons: []
+  applicationMadlibWordButtonTexts: []
+  madlibBlankSelectedColor: {r: 0.13, g: 0.42, b: 0.86, a: 1}
+  madlibBlankNormalColor: {r: 0.86, g: 0.88, b: 0.92, a: 1}
   sessionTimerText: {fileID: 39098584}
   sessionDurationSeconds: 120
   sessionSecondsRemaining: 120
@@ -19016,22 +19035,22 @@ MonoBehaviour:
       displayName: Question 3
       required: 1
       maxPoints: 1
+    - challengeId: question_4
+      displayName: Question 4
+      required: 1
+      maxPoints: 1
   - sectionId: 50
     displayName: Application Questions 2 of 2
     progressLabel: 
     refreshCooldownSeconds: 5
     resetChallengesOnRefresh: 1
     challenges:
-    - challengeId: madlibs_personal_statement
-      displayName: Mad-Libs Personal Statement
+    - challengeId: madlib_1
+      displayName: Personal Statement 1
       required: 1
       maxPoints: 1
-    - challengeId: question_4
-      displayName: Question 4
-      required: 1
-      maxPoints: 1
-    - challengeId: question_5
-      displayName: Question 5
+    - challengeId: madlib_2
+      displayName: Personal Statement 2
       required: 1
       maxPoints: 1
   - sectionId: 60

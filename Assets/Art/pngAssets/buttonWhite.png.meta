@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9aa6a1b91638baf41a58e630abfcccae
+guid: 4e7a6aee65eaf49469dd8008d971afb0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8222766874469583792
-    second: redBox_0
+      213: -6881668245457273509
+    second: buttonWhite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: redBox_0
+      name: buttonWhite_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 26
-        width: 239
-        height: 92
+        x: 7
+        y: 1
+        width: 204
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0543460081dd2ed80800000000000000
-      internalID: -8222766874469583792
+      spriteID: b5dfe6ff0376f70a0800000000000000
+      internalID: -6881668245457273509
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      redBox_0: -8222766874469583792
+      buttonWhite_0: -6881668245457273509
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

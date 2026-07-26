@@ -24,12 +24,12 @@ namespace BirthdayJobJam.Application
                 Section(ApplicationSectionId.ApplicationQuestionsOne, "Application Questions 1 of 2", "Questions\n1 of 2",
                     Challenge("question_1", "Question 1"),
                     Challenge("question_2", "Question 2"),
-                    Challenge("question_3", "Question 3")),
+                    Challenge("question_3", "Question 3"),
+                    Challenge("question_4", "Question 4")),
 
                 Section(ApplicationSectionId.ApplicationQuestionsTwo, "Application Questions 2 of 2", "Questions\n2 of 2",
-                    Challenge("madlibs_personal_statement", "Mad-Libs Personal Statement"),
-                    Challenge("question_4", "Question 4"),
-                    Challenge("question_5", "Question 5")),
+                    Challenge("madlib_1", "Personal Statement 1"),
+                    Challenge("madlib_2", "Personal Statement 2")),
 
                 Section(ApplicationSectionId.VoluntaryDisclosures, "Review", "Review",
                     Challenge("visa_sponsorship", "Visa Sponsorship Disclosure"),

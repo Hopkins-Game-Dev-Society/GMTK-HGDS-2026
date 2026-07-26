@@ -54,125 +54,241 @@ MonoBehaviour:
   - valueId: birthday_0422
     value: '0422'
   questions:
-  - questionId: favorite_game
-    prompt: What is your favorite game?
+  - questionId: eye_color_outside
+    prompt: What color is the eye of the man outside?
     authoredReference: {fileID: 0}
-    preferredAnswerId: ultrakill
+    preferredAnswerId: eye_yellow
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds:
+    - clock_count
     possibleAnswers:
-    - answerId: ultrakill
-      answerText: ULTRAKILL
+    - answerId: eye_yellow
+      answerText: yellow
       rating: 10
-    - answerId: tetris
-      answerText: Tetris
-      rating: 8
-    - answerId: sports_games
-      answerText: Sports games
-      rating: 4
-    - answerId: no_games
-      answerText: I do not play games
+    - answerId: eye_blue
+      answerText: blue
       rating: 0
-  - questionId: height
-    prompt: How tall are you?
-    authoredReference: {fileID: 0}
-    preferredAnswerId: confidence_units
-    possibleAnswers:
-    - answerId: short
-      answerText: Short
-      rating: 6
-    - answerId: average
-      answerText: About average
-      rating: 6
-    - answerId: tall
-      answerText: Tall
-      rating: 6
-    - answerId: confidence_units
-      answerText: Measured in confidence
-      rating: 10
-    - answerId: unknown_height
-      answerText: I have never checked
-      rating: 2
-  - questionId: favorite_food
-    prompt: What is your favorite food?
-    authoredReference: {fileID: 0}
-    preferredAnswerId: banana
-    possibleAnswers:
-    - answerId: banana
-      answerText: Banana
-      rating: 10
-    - answerId: pizza
-      answerText: Pizza
-      rating: 8
-    - answerId: salad
-      answerText: Salad
-      rating: 6
-    - answerId: printer_ink
-      answerText: Printer ink
+    - answerId: eye_red
+      answerText: red
       rating: 0
-  - questionId: visa_sponsorship
-    prompt: Will you need visa sponsorship?
+    - answerId: eye_green
+      answerText: green
+      rating: 0
+  - questionId: time_left_seconds
+    prompt: How much time do you have left? (seconds)
     authoredReference: {fileID: 0}
-    preferredAnswerId: visa_yes
+    preferredAnswerId: birthday_timer_seconds
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
     possibleAnswers:
-    - answerId: visa_yes
-      answerText: Yes
+    - answerId: birthday_timer_seconds
+      answerText: '0'
       rating: 10
-    - answerId: visa_no
-      answerText: No
-      rating: 10
-    - answerId: visa_unsure
-      answerText: I am not sure
-      rating: 4
-    - answerId: visa_refuse
-      answerText: Prefer not to answer
-      rating: 2
+    - answerId: browser_timer_seconds
+      answerText: '0'
+      rating: 0
+    - answerId: microwave_timer_seconds
+      answerText: '0'
+      rating: 0
+    - answerId: random_counter_seconds
+      answerText: '0'
+      rating: 0
   - questionId: wants_job
     prompt: Do you want a job?
     authoredReference: {fileID: 0}
     preferredAnswerId: wants_yes
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
     possibleAnswers:
     - answerId: wants_yes
-      answerText: Yes
+      answerText: yes
       rating: 10
-    - answerId: wants_maybe
-      answerText: Maybe
-      rating: 4
     - answerId: wants_no
-      answerText: No
+      answerText: no
       rating: 0
-  - questionId: really_wants_job
-    prompt: Do you really want a job?
+    - answerId: wants_please_yes
+      answerText: please yes
+      rating: 0
+    - answerId: wants_ehh
+      answerText: ehh...
+      rating: 0
+  - questionId: clock_count
+    prompt: How many clocks are on your wall?
     authoredReference: {fileID: 0}
-    preferredAnswerId: really_yes
+    preferredAnswerId: ''
+    randomizePreferredAnswer: 1
+    incompatibleQuestionIds:
+    - eye_color_outside
     possibleAnswers:
-    - answerId: really_yes
-      answerText: Yes, really
+    - answerId: clock_5
+      answerText: 5
       rating: 10
-    - answerId: really_still_yes
-      answerText: I already said yes
-      rating: 8
-    - answerId: really_unsure
-      answerText: Less than before this question
-      rating: 4
-    - answerId: really_no
-      answerText: No
-      rating: 0
-  - questionId: job_desperation
-    prompt: How bad do you want this job?
+    - answerId: clock_6
+      answerText: 6
+      rating: 10
+    - answerId: clock_7
+      answerText: 7
+      rating: 10
+    - answerId: clock_8
+      answerText: 8
+      rating: 10
+  - questionId: ideal_salary
+    prompt: What's your ideal salary? We hope you paid attention to this job listing.
     authoredReference: {fileID: 0}
-    preferredAnswerId: desperation_maximum
+    preferredAnswerId: salary_30000
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
     possibleAnswers:
-    - answerId: desperation_maximum
-      answerText: Extremely badly
-      rating: 10
-    - answerId: desperation_reasonable
-      answerText: A reasonable amount
-      rating: 8
-    - answerId: desperation_mild
-      answerText: A little
-      rating: 4
-    - answerId: desperation_none
-      answerText: Not at all
+    - answerId: salary_20000
+      answerText: $20,000
       rating: 0
+    - answerId: salary_30000
+      answerText: $30,000
+      rating: 10
+    - answerId: salary_40000
+      answerText: $40,000
+      rating: 0
+    - answerId: salary_50000
+      answerText: $50,000
+      rating: 0
+  - questionId: mothers_maiden_name
+    prompt: What's your mother's maiden name?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: mother_oatway
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
+    possibleAnswers:
+    - answerId: mother_oatway
+      answerText: oatway
+      rating: 10
+    - answerId: mother_monroe
+      answerText: monroe
+      rating: 0
+    - answerId: mother_hartwater
+      answerText: hartwater
+      rating: 0
+    - answerId: mother_curie
+      answerText: curie
+      rating: 0
+  - questionId: visa_sponsorship_needed
+    prompt: Do you need a visa sponsorship?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: visa_no
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
+    possibleAnswers:
+    - answerId: visa_no
+      answerText: no
+      rating: 10
+    - answerId: visa_yes
+      answerText: yes
+      rating: 0
+  - questionId: fight_horse
+    prompt: If necessary could you fight a horse (hypothetical)?
+    authoredReference: {fileID: 0}
+    preferredAnswerId: horse_yes
+    randomizePreferredAnswer: 0
+    incompatibleQuestionIds: []
+    possibleAnswers:
+    - answerId: horse_yes
+      answerText: yes
+      rating: 10
+    - answerId: horse_no
+      answerText: no
+      rating: 0
+  madlibs:
+  - madlibId: biggest_strength
+    prompt: What is your biggest strength?
+    sentenceFormat: I can {0} 137 {1} in 5 minutes
+    blanks:
+    - label: Blank 1
+      correctWordId: organize
+    - label: Blank 2
+      correctWordId: slides
+    wordBank:
+    - wordId: organize
+      text: organize
+    - wordId: slides
+      text: slides
+    - wordId: fight
+      text: fight
+    - wordId: babies
+      text: babies
+    - wordId: chop
+      text: chop
+    - wordId: trees
+      text: trees
+    - wordId: eat
+      text: eat
+    - wordId: hotdogs
+      text: hotdogs
+  - madlibId: overcome_stress
+    prompt: How do you overcome stress?
+    sentenceFormat: I imagine {0} with {1} for 7 hours
+    blanks:
+    - label: Blank 1
+      correctWordId: my_boss
+    - label: Blank 2
+      correctWordId: a_smile
+    wordBank:
+    - wordId: alchol
+      text: alchol
+    - wordId: painkillers
+      text: painkillers
+    - wordId: my_boss
+      text: my boss
+    - wordId: a_smile
+      text: a smile
+    - wordId: scared
+      text: scared
+    - wordId: club_soda
+      text: club soda
+    - wordId: whisky
+      text: whisky
+  - madlibId: workplace_argument
+    prompt: How would you deal with an argument in the workplace?
+    sentenceFormat: I would propose {0}
+    blanks:
+    - label: Blank 1
+      correctWordId: a_toast
+    wordBank:
+    - wordId: a_toast
+      text: a toast
+    - wordId: a_duel
+      text: a duel
+    - wordId: russian_roulette
+      text: russian roulette
+    - wordId: to_my_boss
+      text: to my boss
+    - wordId: mad
+      text: m.a.d
+  - madlibId: five_years
+    prompt: Where do you see yourself in five years?
+    sentenceFormat: I see myself {0} on {1}
+    blanks:
+    - label: Blank 1
+      correctWordId: working
+    - label: Blank 2
+      correctWordId: work_tasks
+    wordBank:
+    - wordId: working
+      text: working
+    - wordId: work_tasks
+      text: work tasks
+    - wordId: relaxing
+      text: relaxing
+    - wordId: the_beach
+      text: the beach
+    - wordId: resting
+      text: resting
+    - wordId: dead
+      text: dead
+    - wordId: the_ground
+      text: the ground
+    - wordId: unemployed
+      text: unemployed
+    - wordId: my_coffin
+      text: my coffin
   clues:
   - clueId: samuel_first_name
     category: 0
@@ -334,38 +450,22 @@ MonoBehaviour:
     authoredReference: {fileID: 0}
     spawnGroupId: credentials
     resolvedPayload: birthday123
-  - clueId: favorite_game_preferred
+  - clueId: eye_color_outside_preferred
     category: 20
-    targetId: favorite_game
-    associatedAnswer: ultrakill
+    targetId: eye_color_outside
+    associatedAnswer: eye_yellow
     variantId: preferred_answer
     authoredReference: {fileID: 0}
     spawnGroupId: question
-    resolvedPayload: ultrakill
-  - clueId: height_preferred
+    resolvedPayload: yellow
+  - clueId: time_left_seconds_preferred
     category: 20
-    targetId: height
-    associatedAnswer: confidence_units
+    targetId: time_left_seconds
+    associatedAnswer: birthday_timer_seconds
     variantId: preferred_answer
     authoredReference: {fileID: 0}
     spawnGroupId: question
-    resolvedPayload: confidence_units
-  - clueId: favorite_food_preferred
-    category: 20
-    targetId: favorite_food
-    associatedAnswer: banana
-    variantId: preferred_answer
-    authoredReference: {fileID: 0}
-    spawnGroupId: question
-    resolvedPayload: banana
-  - clueId: visa_sponsorship_preferred
-    category: 20
-    targetId: visa_sponsorship
-    associatedAnswer: visa_yes
-    variantId: preferred_answer
-    authoredReference: {fileID: 0}
-    spawnGroupId: question
-    resolvedPayload: visa_yes
+    resolvedPayload: Actual birthday timer seconds remaining
   - clueId: wants_job_preferred
     category: 20
     targetId: wants_job
@@ -373,20 +473,68 @@ MonoBehaviour:
     variantId: preferred_answer
     authoredReference: {fileID: 0}
     spawnGroupId: question
-    resolvedPayload: wants_yes
-  - clueId: really_wants_job_preferred
+    resolvedPayload: yes
+  - clueId: clock_count_5
     category: 20
-    targetId: really_wants_job
-    associatedAnswer: really_yes
+    targetId: clock_count
+    associatedAnswer: clock_5
     variantId: preferred_answer
     authoredReference: {fileID: 0}
     spawnGroupId: question
-    resolvedPayload: really_yes
-  - clueId: job_desperation_preferred
+    resolvedPayload: 5
+  - clueId: clock_count_6
     category: 20
-    targetId: job_desperation
-    associatedAnswer: desperation_maximum
+    targetId: clock_count
+    associatedAnswer: clock_6
     variantId: preferred_answer
     authoredReference: {fileID: 0}
     spawnGroupId: question
-    resolvedPayload: desperation_maximum
+    resolvedPayload: 6
+  - clueId: clock_count_7
+    category: 20
+    targetId: clock_count
+    associatedAnswer: clock_7
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: 7
+  - clueId: clock_count_8
+    category: 20
+    targetId: clock_count
+    associatedAnswer: clock_8
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: 8
+  - clueId: ideal_salary_preferred
+    category: 20
+    targetId: ideal_salary
+    associatedAnswer: salary_30000
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: $30,000
+  - clueId: mothers_maiden_name_preferred
+    category: 20
+    targetId: mothers_maiden_name
+    associatedAnswer: mother_oatway
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: oatway
+  - clueId: visa_sponsorship_needed_preferred
+    category: 20
+    targetId: visa_sponsorship_needed
+    associatedAnswer: visa_no
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: no
+  - clueId: fight_horse_preferred
+    category: 20
+    targetId: fight_horse
+    associatedAnswer: horse_yes
+    variantId: preferred_answer
+    authoredReference: {fileID: 0}
+    spawnGroupId: question
+    resolvedPayload: yes
