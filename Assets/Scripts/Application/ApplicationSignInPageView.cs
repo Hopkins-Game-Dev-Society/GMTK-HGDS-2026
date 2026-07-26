@@ -189,6 +189,7 @@ namespace BirthdayJobJam.Application
         [SerializeField] private Button nextButton;
         [SerializeField] private TMP_Text nextButtonText;
 
+        private bool hasSeenExpositionLetter;
         private bool hasStartedApplication;
         private int selectedResumeIndex = -1;
         private string currentMadlibSlotId;
@@ -364,6 +365,7 @@ namespace BirthdayJobJam.Application
             if (applicationState == null)
                 return false;
 
+            hasSeenExpositionLetter = true;
             hasStartedApplication = false;
             applicationState.TryGoToSection(ApplicationSectionId.CreateAccountSignIn);
             applicationState.DebugForceClearCurrentSectionBlock();
@@ -491,6 +493,14 @@ namespace BirthdayJobJam.Application
 
         public void NextPage()
         {
+            if (!hasSeenExpositionLetter)
+            {
+                hasSeenExpositionLetter = true;
+                SetStatus(string.Empty);
+                Render();
+                return;
+            }
+
             if (!hasStartedApplication)
             {
                 ApplicationSectionRuntimeState listingSection = applicationState != null ? applicationState.CurrentSection : null;
@@ -749,7 +759,11 @@ namespace BirthdayJobJam.Application
 
             if (!hasStartedApplication)
             {
-                RenderJobListing();
+                if (!hasSeenExpositionLetter)
+                    RenderExpositionLetter();
+                else
+                    RenderJobListing();
+
                 return;
             }
 
@@ -806,6 +820,39 @@ namespace BirthdayJobJam.Application
             SetActive(jobListingPanel, false);
             SetActive(jobListingOtherRolesButton, false);
             SetButtonGraphicColor(nextButton, applicationNextButtonColor);
+        }
+
+        private void RenderExpositionLetter()
+        {
+            SetText(pageTitleText, ExpositionLetterTitle);
+            SetText(jobListingTitleText, ExpositionLetterTitle);
+            SetText(jobListingDescriptionText, ExpositionLetterBody);
+            SetActive(progressText, false);
+            SetActive(progressStepper, false);
+            SetActive(signInFormPanel, false);
+            SetActive(twoFactorGroup, false);
+            SetActive(myInformationPanel, false);
+            SetActive(myExperiencePanel, false);
+            SetActive(applicationQuestionsPanel, false);
+            SetActive(applicationMadlibsPanel, false);
+            SetActive(reviewPasswordPanel, false);
+            SetActive(submittedPanel, false);
+            SetActive(resumePickerPanel, false);
+            SetActive(sessionTimerText, false);
+            SetActive(sessionExpiredReauthPanel, false);
+            SetActive(jobListingPanel, true);
+            SetActive(jobListingMinimumQualificationsHeadingText, false);
+            SetActive(jobListingMinimumQualificationsBodyText, false);
+            SetActive(jobListingBenefitsHeadingText, false);
+            SetActive(jobListingBenefitsBodyText, false);
+            SetActive(statusText, false);
+            SetActive(errorPanel, false);
+            SetActive(refreshButton, false);
+            SetActive(jobListingOtherRolesButton, false);
+            SetActive(nextButton, true);
+            SetInteractable(nextButton, true);
+            SetText(nextButtonText, ExpositionLetterButtonLabel);
+            SetButtonGraphicColor(nextButton, jobListingApplyButtonColor);
         }
 
         private void RenderSessionTimer()
@@ -1374,7 +1421,11 @@ namespace BirthdayJobJam.Application
             bool refreshed = section != null && section.RefreshCount > 0;
 
             SetText(pageTitleText, JobListingTitle);
+            SetText(jobListingTitleText, JobListingTitle);
+            SetText(jobListingDescriptionText, JobListingDescription);
+            SetText(jobListingMinimumQualificationsHeadingText, JobListingMinimumQualificationsHeading);
             SetText(jobListingMinimumQualificationsBodyText, GetJobListingMinimumQualificationsBody(refreshed));
+            SetText(jobListingBenefitsHeadingText, JobListingBenefitsHeading);
             SetText(jobListingBenefitsBodyText, GetJobListingBenefitsBody(refreshed));
             SetActive(progressText, false);
             SetActive(progressStepper, false);
@@ -1390,6 +1441,10 @@ namespace BirthdayJobJam.Application
             SetActive(sessionTimerText, false);
             SetActive(sessionExpiredReauthPanel, false);
             SetActive(jobListingPanel, true);
+            SetActive(jobListingMinimumQualificationsHeadingText, true);
+            SetActive(jobListingMinimumQualificationsBodyText, true);
+            SetActive(jobListingBenefitsHeadingText, true);
+            SetActive(jobListingBenefitsBodyText, true);
             SetActive(statusText, false);
             SetActive(refreshButton, true);
             SetActive(jobListingOtherRolesButton, true);
@@ -2557,6 +2612,9 @@ namespace BirthdayJobJam.Application
         private string TwoFactorButtonLabel => GetContentText(content?.TwoFactorButtonLabel, "Verify");
         private string RefreshButtonLabel => GetContentText(content?.RefreshButtonLabel, "Refresh");
         private string NextButtonLabel => GetContentText(content?.NextButtonLabel, "Next >");
+        private string ExpositionLetterTitle => GetContentText(content?.ExpositionLetterTitle, "Notice of Birthday Employment Assistance");
+        private string ExpositionLetterBody => GetContentText(content?.ExpositionLetterBody, "Hello,\n\nHappy early birthday. As your 22nd birthday is coming up in 10 minutes, we're sure you're aware that all unemployed members of society will be executed by gunfire on their 22nd birthday.\n\nTo assist you on your search, we've found an entry-level role that even you might be able to take on.");
+        private string ExpositionLetterButtonLabel => GetContentText(content?.ExpositionLetterButtonLabel, "See Job");
         private string JobListingTitle => GetContentText(content?.JobListingTitle, "Entry-Level Designer at Workbay Careers");
         private string JobListingDescription => GetContentText(content?.JobListingDescription, "Workbay Careers is seeking an entry-level designer to design clear, delightful, compliant things under fast-moving, birthday-adjacent deadlines.");
         private string JobListingMinimumQualificationsHeading => GetContentText(content?.JobListingMinimumQualificationsHeading, "Minimum Qualifications");
