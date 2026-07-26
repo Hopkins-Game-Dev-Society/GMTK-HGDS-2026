@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6250316930659725395}
   - component: {fileID: 650683417234199156}
   - component: {fileID: 748088179420403411}
-  m_Layer: 0
+  - component: {fileID: 1469673818284141354}
+  m_Layer: 5
   m_Name: Arrow_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,9 +68,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7790685850842668767, guid: c96a2ecf0cd56e6429929fe057bc0796, type: 3}
+  m_Sprite: {fileID: -765150924802650856, guid: 5b65878bdf43741eb9caf7be886f66c7, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Views.NavigationButton
   direction: 0
   stateMachine: {fileID: 0}
+--- !u!114 &1469673818284141354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982817698262706738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
