@@ -8,5 +8,9 @@ public class ChangeToGame : MonoBehaviour
         SceneManager.LoadScene("Main Gameplay");
     }
 
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("title");
+    }
     
 }
