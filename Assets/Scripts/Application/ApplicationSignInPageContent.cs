@@ -20,6 +20,11 @@ namespace BirthdayJobJam.Application
         [SerializeField] private string refreshButtonLabel = "Refresh";
         [SerializeField] private string nextButtonLabel = "Next >";
 
+        [Header("Exposition Letter")]
+        [SerializeField] private string expositionLetterTitle = "Notice of Birthday Employment Assistance";
+        [TextArea] [SerializeField] private string expositionLetterBody = "Hello,\n\nHappy early birthday. As your 22nd birthday is coming up in 10 minutes, we're sure you're aware that all unemployed members of society will be executed by gunfire on their 22nd birthday.\n\nTo assist you on your search, we've found an entry-level role that even you might be able to take on.";
+        [SerializeField] private string expositionLetterButtonLabel = "See Job";
+
         [Header("Job Listing")]
         [SerializeField] private string jobListingTitle = "Entry-Level Designer at Workbay Careers";
         [TextArea] [SerializeField] private string jobListingDescription = "Workbay Careers is seeking an entry-level designer to design clear, delightful, compliant things under fast-moving, birthday-adjacent deadlines.";
@@ -111,6 +116,9 @@ namespace BirthdayJobJam.Application
         public string TwoFactorButtonLabel => twoFactorButtonLabel;
         public string RefreshButtonLabel => refreshButtonLabel;
         public string NextButtonLabel => nextButtonLabel;
+        public string ExpositionLetterTitle => expositionLetterTitle;
+        public string ExpositionLetterBody => expositionLetterBody;
+        public string ExpositionLetterButtonLabel => expositionLetterButtonLabel;
         public string JobListingTitle => jobListingTitle;
         public string JobListingDescription => jobListingDescription;
         public string JobListingMinimumQualificationsHeading => jobListingMinimumQualificationsHeading;

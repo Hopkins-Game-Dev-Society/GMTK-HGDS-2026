@@ -23,6 +23,18 @@ MonoBehaviour:
   twoFactorButtonLabel: Verify
   refreshButtonLabel: Refresh
   nextButtonLabel: Next >
+  expositionLetterTitle: Notice of Birthday Employment Assistance
+  expositionLetterBody: 'Hello,
+
+
+    Happy early birthday. As your 22nd birthday is coming up in 10 minutes, we''re
+    sure you''re aware that all unemployed members of society will be executed by
+    gunfire on their 22nd birthday.
+
+
+    To assist you on your search, we''ve found an entry-level role that even you
+    might be able to take on.'
+  expositionLetterButtonLabel: See Job
   jobListingTitle: Entry-Level Designer at Workbay Careers
   jobListingDescription: 'Workbay Careers is seeking an entry-level designer to design
     compliant things under fast-moving deadlines.
