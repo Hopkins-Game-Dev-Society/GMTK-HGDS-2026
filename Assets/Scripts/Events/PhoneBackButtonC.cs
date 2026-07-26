@@ -8,6 +8,10 @@ namespace BirthdayJobJam.Player
         [SerializeField]
         private GameObject appSelectionScreen;
 
+        [SerializeField]
+        private PhoneEventManager phoneEvent;
+
+
 
         [SerializeField]
         private List<GameObject> appScreens = new();
@@ -17,6 +21,8 @@ namespace BirthdayJobJam.Player
         {
             PhoneRingtoneController.Instance?
                 .StopRinging();
+
+            phoneEvent?.EndPhoneMessage();
 
 
             if (appSelectionScreen != null)

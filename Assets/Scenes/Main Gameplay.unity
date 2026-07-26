@@ -5823,6 +5823,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387406248}
   m_CullTransparentMesh: 1
+--- !u!114 &389380505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6301139913528209077, guid: 9de5a01a63af6734381182fa6264be76, type: 3}
+  m_PrefabInstance: {fileID: 1582457187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c113e2ae26a774121a480919926b7176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Core.GameplayTimer
 --- !u!1 &392016838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8308,6 +8319,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9176703688648030287, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1269152852}
+    - targetCorrespondingSourceObject: {fileID: 9176703688648030287, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1269152854}
     - targetCorrespondingSourceObject: {fileID: 2011483198776482060, guid: da7b4d48651adef43822d8c1eda6d511, type: 3}
       insertIndex: -1
       addedObject: {fileID: 509284630}
@@ -15046,7 +15060,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006727199}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f589233475b3a204eac528f967b09b71, type: 3}
   m_Name: 
@@ -15097,6 +15111,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1006727206}
+        m_TargetAssemblyTypeName: BirthdayJobJam.Player.PhoneCallButton, Assembly-CSharp
+        m_MethodName: ReceiveCall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1006727202}
         m_TargetAssemblyTypeName: BirthdayJobJam.Player.PhoneAppButton, Assembly-CSharp
         m_MethodName: AppOpen
@@ -18634,6 +18660,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1269152854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269152850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4783bad40295ea42bdaeaeadecf6602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Player.PhoneEventManager
+  timer: {fileID: 389380505}
+  phoneRoot: {fileID: 1269152850}
+  audioSource: {fileID: 1269152853}
+  ringtone: {fileID: 8300000, guid: cb2fd546364cb4d8a8e020b02f7ffdbf, type: 3}
+  message: {fileID: 8300000, guid: ea276d03f600c4319b56b33a2880e947, type: 3}
+  triggerTime: 165
+  ringDuration: 5
 --- !u!1 &1282655271
 GameObject:
   m_ObjectHideFlags: 0
@@ -23739,6 +23784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.Player.PhoneBackButtonC
   appSelectionScreen: {fileID: 832650674}
+  phoneEvent: {fileID: 0}
   appScreens:
   - {fileID: 1284010901}
   - {fileID: 718542519}
