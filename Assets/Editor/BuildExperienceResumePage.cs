@@ -11,6 +11,7 @@ internal static class BuildExperienceResumePage
     private const string ExperienceContentPath = "Assets/Game/Data/Application/ExperiencePageContent.asset";
     private const string DocEmblemPath = "Assets/Art/Temp/doc-emblem-temp.png";
     private const string ArialFontPath = "Assets/Fonts/arial/Arial SDF.asset";
+    private const string WhiteBoxPath = "Assets/Art/pngAssets/whiteBox_0.png"; //adding for the white box, also need too add some scripts and etc as well (find correct path)
 
     [MenuItem("Birthday Job Jam/Build Experience Resume Page")]
     public static void Build()

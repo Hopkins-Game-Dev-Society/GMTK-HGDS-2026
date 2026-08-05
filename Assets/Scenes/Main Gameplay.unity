@@ -4178,7 +4178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7965355984883262689, guid: 48b283dd65de14745befaa1b13baa24a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13073,6 +13073,7 @@ GameObject:
   - component: {fileID: 739545827}
   - component: {fileID: 739545826}
   - component: {fileID: 739545825}
+  - component: {fileID: 739545828}
   m_Layer: 5
   m_Name: Cancel Button
   m_TagString: Untagged
@@ -13182,6 +13183,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739545823}
   m_CullTransparentMesh: 1
+--- !u!114 &739545828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739545823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1001 &742464139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20609,6 +20622,7 @@ GameObject:
   - component: {fileID: 1214900633}
   - component: {fileID: 1214900632}
   - component: {fileID: 1214900631}
+  - component: {fileID: 1214900634}
   m_Layer: 5
   m_Name: Select Button
   m_TagString: Untagged
@@ -20718,6 +20732,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214900629}
   m_CullTransparentMesh: 1
+--- !u!114 &1214900634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214900629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!1 &1221156704
 GameObject:
   m_ObjectHideFlags: 0
@@ -31652,6 +31678,7 @@ GameObject:
   - component: {fileID: 1933634737}
   - component: {fileID: 1933634736}
   - component: {fileID: 1933634735}
+  - component: {fileID: 1933634738}
   m_Layer: 5
   m_Name: Open Button
   m_TagString: Untagged
@@ -31761,6 +31788,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933634733}
   m_CullTransparentMesh: 1
+--- !u!114 &1933634738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933634733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7859fc52485fb4591e26c54906c05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BirthdayJobJam.UI.CursorHoverUI
 --- !u!4 &1935350776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2186860857994049812, guid: f73afa76450671349b2666b81e368cca, type: 3}
