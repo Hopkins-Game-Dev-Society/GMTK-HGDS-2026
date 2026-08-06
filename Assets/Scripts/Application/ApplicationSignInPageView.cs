@@ -2769,6 +2769,7 @@ namespace BirthdayJobJam.Application
             }
         }
 
+        //Simplifying the Date format for now, incredibly easy to change back if necessary
         private string BuildExpectedDateOfBirth(string format)
         {
             string month = CorrectBirthMonth.ToString("00");
@@ -2778,16 +2779,6 @@ namespace BirthdayJobJam.Application
 
             switch (format)
             {
-                case "MM/YYYY/DD":
-                    return $"{month}/{year}/{day}";
-                case "YYYY/DD/MM":
-                    return $"{year}/{day}/{month}";
-                case "DD/YYYY/MM":
-                    return $"{day}/{year}/{month}";
-                case "MM/YY/DD":
-                    return $"{month}/{shortYear}/{day}";
-                case "YY/DD/MM":
-                    return $"{shortYear}/{day}/{month}";
                 case "DD/YY/MM":
                     return $"{day}/{shortYear}/{month}";
                 default:

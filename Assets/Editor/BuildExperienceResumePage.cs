@@ -11,7 +11,10 @@ internal static class BuildExperienceResumePage
     private const string ExperienceContentPath = "Assets/Game/Data/Application/ExperiencePageContent.asset";
     private const string DocEmblemPath = "Assets/Art/Temp/doc-emblem-temp.png";
     private const string ArialFontPath = "Assets/Fonts/arial/Arial SDF.asset";
-    private const string WhiteBoxPath = "Assets/Art/pngAssets/whiteBox_0.png"; //adding for the white box, also need too add some scripts and etc as well (find correct path)
+    private const string WhiteBoxPath = "Assets/Art/pngAssets/whiteBox.png"; //adding for the white box, also need too add some scripts and etc as well (find correct path)
+    private const string WhiteButtonPath = "Assets/Art/pngAssets/buttonWhite.png";
+
+    private const string CustomFontPath = "Assets/Fonts/gmtk2026ttfFiles/gmtk2026font SDF.asset";
 
     [MenuItem("Birthday Job Jam/Build Experience Resume Page")]
     public static void Build()
@@ -29,13 +32,26 @@ internal static class BuildExperienceResumePage
 
         ApplicationExperiencePageContent content = EnsureExperienceContent();
         TMP_FontAsset arial = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(ArialFontPath);
+
         Sprite docSprite = AssetDatabase.LoadAssetAtPath<Sprite>(DocEmblemPath);
+
+        Sprite whiteBoxSprite = AssetDatabase.LoadAssetAtPath<Sprite>(WhiteBoxPath);
+        if (whiteBoxSprite == null)
+            throw new System.InvalidOperationException($"Could not load whiteBox sprite at {WhiteBoxPath}");
+
+        Sprite whiteButtonSprite = AssetDatabase.LoadAssetAtPath<Sprite>(WhiteButtonPath);
+        if (whiteButtonSprite == null)
+            throw new System.InvalidOperationException($"Could not load whiteButton sprite at {WhiteButtonPath}");
+
+        TMP_FontAsset customFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(CustomFontPath);
+        if (customFont == null)
+            throw new System.InvalidOperationException($"Could not load customFont at A {CustomFontPath}");
 
         DestroyChild(shell, "My Experience Panel");
         DestroyChild(shell, "Resume Picker Panel");
 
-        GameObject experiencePanel = BuildExperiencePanel(shell, arial);
-        FinderRefs finder = BuildFinderPanel(shell, arial, docSprite, content);
+        GameObject experiencePanel = BuildExperiencePanel(shell, customFont, whiteBoxSprite, whiteButtonSprite);
+        FinderRefs finder = BuildFinderPanel(shell, customFont, docSprite, content, whiteButtonSprite);
 
         SerializedObject serializedView = new SerializedObject(view);
         SetObject(serializedView, "experienceContent", content);
@@ -79,19 +95,21 @@ internal static class BuildExperienceResumePage
         return content;
     }
 
-    private static GameObject BuildExperiencePanel(RectTransform parent, TMP_FontAsset font)
+    //Going to need to update this as well. 
+    private static GameObject BuildExperiencePanel(RectTransform parent, TMP_FontAsset font, Sprite backgroundSprite, Sprite buttonBackgroundSprite)
     {
         GameObject panel = CreateRect("My Experience Panel", parent, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(92f, -330f), new Vector2(560f, 180f));
         Image panelImage = panel.AddComponent<Image>();
+        panelImage.sprite = backgroundSprite;
         panelImage.color = new Color(1f, 0.985f, 0.92f, 0.92f);
 
         CreateText("Intro Text", panel.transform, font, "Please upload your resume. Any resume. Ideally the correct one.", 23, FontStyles.Normal, TextAlignmentOptions.TopLeft, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0f, 1f), new Vector2(32f, -28f), new Vector2(-64f, 70f), new Color(0.18f, 0.18f, 0.18f, 1f));
-        CreateButton("Upload Resume Button", panel.transform, font, "Upload Resume", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-36f, 30f), new Vector2(210f, 58f), new Color(0.13f, 0.42f, 0.86f, 1f), Color.white, 23);
+        CreateButton("Upload Resume Button", panel.transform, font, "Upload Resume", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-36f, 30f), new Vector2(210f, 58f), new Color(0.13f, 0.42f, 0.86f, 1f), Color.white, 23, buttonBackgroundSprite);
 
         return panel;
     }
 
-    private static FinderRefs BuildFinderPanel(RectTransform parent, TMP_FontAsset font, Sprite docSprite, ApplicationExperiencePageContent content)
+    private static FinderRefs BuildFinderPanel(RectTransform parent, TMP_FontAsset font, Sprite docSprite, ApplicationExperiencePageContent content, Sprite buttonBackgroundSprite)
     {
         FinderRefs refs = new FinderRefs();
         refs.Root = CreateRect("Resume Picker Panel", parent, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -8f), new Vector2(800f, 470f));
@@ -128,16 +146,17 @@ internal static class BuildExperienceResumePage
             BuildFileButton(fileArea.transform, font, docSprite, ResumeName(content, i), refs, i);
 
         refs.StatusText = CreateText("Status Text", refs.Root.transform, font, "", 17, FontStyles.Normal, TextAlignmentOptions.Left, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, 0f), new Vector2(24f, 58f), new Vector2(-420f, 28f), new Color(0.55f, 0.12f, 0.12f, 1f));
-        refs.OpenButton = CreateButton("Open Button", refs.Root.transform, font, "Open", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-288f, 32f), new Vector2(118f, 42f), new Color(0.7f, 0.72f, 0.78f, 1f), Color.white, 19);
+        refs.OpenButton = CreateButton("Open Button", refs.Root.transform, font, "Open", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-288f, 32f), new Vector2(118f, 42f), new Color(0.7f, 0.72f, 0.78f, 1f), Color.white, 19, buttonBackgroundSprite);
         refs.OpenButtonText = refs.OpenButton.transform.Find("Label").GetComponent<TMP_Text>();
-        refs.SelectButton = CreateButton("Select Button", refs.Root.transform, font, "Select", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-154f, 32f), new Vector2(118f, 42f), new Color(0.13f, 0.42f, 0.86f, 1f), Color.white, 19);
+        refs.SelectButton = CreateButton("Select Button", refs.Root.transform, font, "Select", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-154f, 32f), new Vector2(118f, 42f), new Color(0.13f, 0.42f, 0.86f, 1f), Color.white, 19, buttonBackgroundSprite);
         refs.SelectButtonText = refs.SelectButton.transform.Find("Label").GetComponent<TMP_Text>();
-        refs.CancelButton = CreateButton("Cancel Button", refs.Root.transform, font, "Cancel", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-24f, 32f), new Vector2(106f, 42f), new Color(0.62f, 0.62f, 0.6f, 1f), Color.white, 19);
+        refs.CancelButton = CreateButton("Cancel Button", refs.Root.transform, font, "Cancel", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-24f, 32f), new Vector2(106f, 42f), new Color(0.62f, 0.62f, 0.6f, 1f), Color.white, 19, buttonBackgroundSprite);
         refs.CancelButtonText = refs.CancelButton.transform.Find("Label").GetComponent<TMP_Text>();
 
         return refs;
     }
 
+    //Need to have the script attached here
     private static void BuildFileButton(Transform parent, TMP_FontAsset font, Sprite docSprite, string fileName, FinderRefs refs, int index)
     {
         Button button = CreateButton($"Resume File {index + 1:00}", parent, font, "", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(136f, 120f), new Color(0.92f, 0.92f, 0.9f, 0f), Color.white, 20);
@@ -155,6 +174,20 @@ internal static class BuildExperienceResumePage
         refs.FileNameTexts[index] = CreateText("File Name", button.transform, font, fileName, 14, FontStyles.Bold, TextAlignmentOptions.Top, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 5f), new Vector2(-8f, 44f), new Color(0.17f, 0.17f, 0.17f, 1f));
     }
 
+    private static Button CreateButton(string name, Transform parent, TMP_FontAsset font, string label, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot, Vector2 position, Vector2 size, Color buttonColor, Color textColor, float fontSize, Sprite backgroundImage)
+    {
+        GameObject root = CreateRect(name, parent, anchorMin, anchorMax, pivot, position, size);
+        Image image = root.AddComponent<Image>();
+        image.sprite = backgroundImage;
+        image.color = buttonColor;
+        Button button = root.AddComponent<Button>();
+        button.targetGraphic = image;
+
+        CreateText("Label", root.transform, font, label, fontSize, FontStyles.Bold, TextAlignmentOptions.Center, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero, textColor);
+        return button;
+    }
+    
+    //Testing on overloading this function
     private static Button CreateButton(string name, Transform parent, TMP_FontAsset font, string label, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot, Vector2 position, Vector2 size, Color buttonColor, Color textColor, float fontSize)
     {
         GameObject root = CreateRect(name, parent, anchorMin, anchorMax, pivot, position, size);
@@ -166,6 +199,7 @@ internal static class BuildExperienceResumePage
         CreateText("Label", root.transform, font, label, fontSize, FontStyles.Bold, TextAlignmentOptions.Center, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero, textColor);
         return button;
     }
+
 
     private static TMP_Text CreateText(string name, Transform parent, TMP_FontAsset font, string text, float fontSize, FontStyles style, TextAlignmentOptions alignment, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot, Vector2 position, Vector2 size, Color color)
     {

@@ -31,11 +31,6 @@ MonoBehaviour:
   correctBirthDay: 22
   correctBirthYear: 2004
   dateOfBirthFormats:
-  - MM/YYYY/DD
-  - YYYY/DD/MM
-  - DD/YYYY/MM
-  - MM/YY/DD
-  - YY/DD/MM
   - DD/YY/MM
   initialStatus: Enter your personal information. We already know, but just making
     sure you know.
